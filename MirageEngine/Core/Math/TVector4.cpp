@@ -57,11 +57,6 @@ TVector4 TVector4::operator / (TVector4& InV) const
 	return TVector4(x / InV.x, y / InV.y, z / InV.z, w / InV.w);
 }
 
-TVector4 TVector4::operator / (float In) const
-{
-	return TVector4(x / In, y / In, z / In, w / In);
-}
-
 bool TVector4::operator == (TVector4& InValue) const
 {
 	return (x == InValue.x) && (y == InValue.y) && (z == InValue.z) && (w == InValue.w);

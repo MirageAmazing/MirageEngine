@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MirageEngine", "MirageEngine\MirageEngine.vcxproj", "{15CA0B3E-5723-4558-B65C-5F3AC11ED68F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EngineTest", "EngineTest\EngineTest.vcxproj", "{DBB39D7D-FD10-4255-BB89-9B9AA9413721}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{15CA0B3E-5723-4558-B65C-5F3AC11ED68F}.Release|x64.Build.0 = Release|x64
 		{15CA0B3E-5723-4558-B65C-5F3AC11ED68F}.Release|x86.ActiveCfg = Release|Win32
 		{15CA0B3E-5723-4558-B65C-5F3AC11ED68F}.Release|x86.Build.0 = Release|Win32
+		{DBB39D7D-FD10-4255-BB89-9B9AA9413721}.Debug|x64.ActiveCfg = Debug|x64
+		{DBB39D7D-FD10-4255-BB89-9B9AA9413721}.Debug|x64.Build.0 = Debug|x64
+		{DBB39D7D-FD10-4255-BB89-9B9AA9413721}.Debug|x86.ActiveCfg = Debug|Win32
+		{DBB39D7D-FD10-4255-BB89-9B9AA9413721}.Debug|x86.Build.0 = Debug|Win32
+		{DBB39D7D-FD10-4255-BB89-9B9AA9413721}.Release|x64.ActiveCfg = Release|x64
+		{DBB39D7D-FD10-4255-BB89-9B9AA9413721}.Release|x64.Build.0 = Release|x64
+		{DBB39D7D-FD10-4255-BB89-9B9AA9413721}.Release|x86.ActiveCfg = Release|Win32
+		{DBB39D7D-FD10-4255-BB89-9B9AA9413721}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

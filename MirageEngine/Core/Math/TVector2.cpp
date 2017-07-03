@@ -34,7 +34,7 @@ TVector2 TVector2::operator * (const TVector2& InV)
 	return TVector2(x * InV.x, y * InV.y);
 }
 
-TVector2 TVector2::operator * (float In)
+TVector2 TVector2::operator * (const float In) const
 {
 	return TVector2(x * In, y * In);
 }
@@ -44,12 +44,7 @@ TVector2 TVector2::operator / (const TVector2& InV)
 	return TVector2(x / InV.x, y / InV.y);
 }
 
-TVector2 TVector2::operator / (float In)
-{
-	return TVector2(x / In, y / In);
-}
-
-float TVector2::operator | (const TVector2& In)
+float TVector2::operator | (const TVector2& In) const
 {
 	return x*In.x + y*In.y;
 }

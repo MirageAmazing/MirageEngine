@@ -1,0 +1,5 @@
+﻿  TVector3.cpp
+d:\mirage\mirageengine\mirageengine\mirageengine\core\math\tvector3.cpp(113): warning C4244: “*=”: 从“double”转换到“float”，可能丢失数据
+d:\mirage\mirageengine\mirageengine\mirageengine\core\math\tvector3.cpp(114): warning C4244: “*=”: 从“double”转换到“float”，可能丢失数据
+d:\mirage\mirageengine\mirageengine\mirageengine\core\math\tvector3.cpp(115): warning C4244: “*=”: 从“double”转换到“float”，可能丢失数据
+  MirageEngine.vcxproj -> D:\Mirage\MirageEngine\MirageEngine\Debug\MirageEngine.lib

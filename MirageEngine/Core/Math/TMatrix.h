@@ -12,7 +12,7 @@ public:
 	TMatrix operator - (const TMatrix&) const;
 	TMatrix operator * (const TMatrix&) const;
 	TMatrix operator * (double) const;
-	TMatrix operator = (const TMatrix&);
+	void operator = (const TMatrix&);
 	double* const operator[](const int);
 	TMatrix Inverse();
 

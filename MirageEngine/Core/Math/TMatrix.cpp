@@ -83,7 +83,7 @@ TMatrix TMatrix::operator*(double In) const
 	return matrix;
 }
 
-TMatrix TMatrix::operator = (const TMatrix& In) 
+void TMatrix::operator = (const TMatrix& In) 
 {
 	for (int i = 0; i<4; i++)
 	{

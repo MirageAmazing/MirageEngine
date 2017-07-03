@@ -51,5 +51,5 @@ void TColor ::operator  = (const TColor& InValue)
 
 bool TColor ::operator  == (const TColor& InValue) const
 {
-	return (r == InValue.r) && (g = InValue.g) && (b == InValue.b) && (a == InValue.a);
+	return (r == InValue.r) && (g == InValue.g) && (b == InValue.b) && (a == InValue.a);
 }

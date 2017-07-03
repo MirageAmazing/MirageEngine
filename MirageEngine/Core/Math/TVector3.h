@@ -15,7 +15,6 @@ public:
 	TVector3 operator * (const TVector3&) const;
 	TVector3 operator * (float) const;
 	TVector3 operator / (const TVector3&) const;
-	TVector3 operator / (float) const;
 	float operator | (const TVector3&) const;
 	TVector3 operator ^ (const TVector3&) const;
 	bool operator == (const TVector3&) const;
@@ -29,13 +28,27 @@ public:
 	static float Dot(const TVector3&, const TVector3&);
 	static TVector3 Cross(const TVector3&, const TVector3&);
 
-	static TVector3 Zero;
-	static TVector3 Up;
-	static TVector3 Down;
-	static TVector3 Right;
-	static TVector3 Left;
-	static TVector3 Front;
-	static TVector3 Back;
+	static const TVector3 Zero;
+	static const TVector3 Up;
+	static const TVector3 Down;
+	static const TVector3 Right;
+	static const TVector3 Left;
+	static const TVector3 Front;
+	static const TVector3 Back;
 
 	float x, y, z;
 };
+
+TVector3 operator * (const float InValue, const TVector3& InVec)
+{
+	return InVec*InValue;
+}
+
+TVector3 operator / (const float InValue, const TVector3& InVec)
+{
+	return TVector3(
+		InVec.x == 0 ? 0 : (InValue / InVec.x),
+		InVec.y == 0 ? 0 : (InValue / InVec.y),
+		InVec.z == 0 ? 0 : (InValue / InVec.z)
+	);
+}
