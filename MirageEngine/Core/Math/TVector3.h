@@ -39,12 +39,12 @@ public:
 	float x, y, z;
 };
 
-TVector3 operator * (const float InValue, const TVector3& InVec)
+inline TVector3 operator * (const float InValue, const TVector3& InVec)
 {
 	return InVec*InValue;
 }
 
-TVector3 operator / (const float InValue, const TVector3& InVec)
+inline TVector3 operator / (const float InValue, const TVector3& InVec)
 {
 	return TVector3(
 		InVec.x == 0 ? 0 : (InValue / InVec.x),
