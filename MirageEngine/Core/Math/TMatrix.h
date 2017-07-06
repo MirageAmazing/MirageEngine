@@ -6,6 +6,7 @@ struct alignas(16) TMatrix
 public:
 	TMatrix();
 	TMatrix(TVector3&, TVector3&, TVector3&, TVector3&);
+	TMatrix(TVector3&&, TVector3&&, TVector3&&, TVector3&&);
 	TMatrix(const TMatrix&);
 
 	TMatrix operator + (const TMatrix&) const;

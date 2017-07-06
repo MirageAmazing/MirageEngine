@@ -1,3 +1,4 @@
-﻿  main.cpp
+﻿clang-cl.exe : warning : argument unused during compilation: '/ZI'
+clang-cl.exe : warning : argument unused during compilation: '/Gm'
   EngineTest.vcxproj -> D:\Mirage\MirageEngine\MirageEngine\Debug\EngineTest.exe
   EngineTest.vcxproj -> D:\Mirage\MirageEngine\MirageEngine\Debug\EngineTest.pdb (Partial PDB)

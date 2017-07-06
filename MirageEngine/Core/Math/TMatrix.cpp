@@ -17,6 +17,14 @@ TMatrix::TMatrix(TVector3& InX, TVector3& InY, TVector3& InZ, TVector3& InW)
 	data[3][0] = InW.x; data[3][1] = InW.y; data[3][2] = InW.z; data[3][3] = 1;
 }
 
+TMatrix::TMatrix(TVector3&& InX, TVector3&& InY, TVector3&& InZ, TVector3&& InW)
+{
+	data[0][0] = InX.x; data[0][1] = InX.y; data[0][2] = InX.z; data[0][3] = 0;
+	data[1][0] = InY.x; data[1][1] = InY.y; data[1][2] = InY.z; data[1][3] = 0;
+	data[2][0] = InZ.x; data[2][1] = InZ.y; data[2][2] = InZ.z; data[2][3] = 0;
+	data[3][0] = InW.x; data[3][1] = InW.y; data[3][2] = InW.z; data[3][3] = 1;
+}
+
 TMatrix::TMatrix(const TMatrix& In)
 {
 	for (int i=0; i<4; i++)

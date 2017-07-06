@@ -76,21 +76,47 @@ public:
 	int y = 0;
 };
 
-void main()
+class Color
 {
-	TQuaternion a(1, 2, 3, 1);
-	TQuaternion b(1, 2, 3, 1);
+public:
+	Color(float InR, float InG, float InB)
+	{
+		r = InR;
+		g = InG;
+		b = InB;
+	}
 
-	auto c = a*b;
+	float r, g, b;
+};
+Color operator "" _C(const char* col, size_t n) 
+{
+	const char* p = col;
+	const char* end = col + n;
+	const char* r, *g, *b;
+	r = g = b = nullptr;
+	for (; p != end;++p)
+	{
+		if (*p == 'r') r = p;
+		else if (*p == 'g') g = p;
+		else if (*p == 'b') b= p;
+	}
+	if ((r == nullptr) || (g == nullptr) || (b == nullptr))
+		throw;
+	else
+		return Color(atoi(r+1), atoi(g+1), atoi(b+1));
+}
+std::ostream & operator<<(ostream& out, const Color& col)
+{
+	return out << "r: " << (int)col.r
+		<< ",g: " << (int)col.g
+		<< ",b: " << (int)col.b << endl;
+}
 
-	TVector3 va(1, 2, 3);
-	TVector3 vb(1, 2, 3);
-
-	auto vc = TVector3::Cross(va, vb);
-
+int main(int argsCount, char** args)
+{
 	MyAlloctor<MyClass> aint;
 
-	MyClass* p1 = aint.allocte(2);
+	MyClass* p1 = aint.allocte(2); 
 	aint.construct(&p1[0], 23, 45);
 	aint.construct(&p1[1], 65, 45);
 	
@@ -101,5 +127,8 @@ void main()
 	aint.construct(&p2[1], 98, 45);
 	cout << p2[0].x << "  " << p2[1].x << endl;
 	
+	cout << "r255g234b123"_C << endl;
+
 	system("pause");
+	return 0;
 }
