@@ -77,61 +77,70 @@ public:
 	int y = 0;
 };
 
-class Color
+
+class FreeList
 {
+private:
+	struct FreeListNode
+	{
+		FreeListNode(size_t size)
+		{
+			memory = malloc(size);
+		}
+		~FreeListNode()
+		{
+			free(memory);
+		}
+		size_t sizeofMemory;
+		void* memory;
+		FreeListNode* previous = nullptr;
+		FreeListNode* next = nullptr;
+	};
 public:
-	Color(float InR, float InG, float InB)
+	FreeList() {}
+	~FreeList() {}
+
+	FreeListNode* Allocate(size_t size)
 	{
-		r = InR;
-		g = InG;
-		b = InB;
+		FreeListNode* node = new FreeListNode(size);
+		if (freeListNode == nullptr)
+		{
+			freeListNode = node;
+		}
+		else
+		{
+			node->previous = freeListNode;
+			freeListNode->next = node;
+			freeListNode = node;
+		}
+		return node;
+	}
+	bool ReAllocate(FreeListNode* node)
+	{
+		auto pointer = freeListNode;
+		if (pointer == nullptr)
+			return false;
+
+		do
+		{
+			if (pointer == node)
+			{
+				auto preNode = pointer->previous;
+				auto nextNode = pointer->next;
+				if(preNode != nullptr)preNode->next = nextNode;
+				if(nextNode != nullptr)nextNode->previous = preNode;
+				delete node;
+				return true;
+			}
+			pointer = pointer->previous;
+		} while (pointer != nullptr);
+
+		return false;
 	}
 
-	float r, g, b;
+private:
+	FreeListNode* freeListNode = nullptr;
 };
-Color operator "" _C(const char* col, size_t n) 
-{
-	const char* p = col;
-	const char* end = col + n;
-	const char* r, *g, *b;
-	r = g = b = nullptr;
-	for (; p != end;++p)
-	{
-		if (*p == 'r') r = p;
-		else if (*p == 'g') g = p;
-		else if (*p == 'b') b= p;
-	}
-	if ((r == nullptr) || (g == nullptr) || (b == nullptr))
-		throw;
-	else
-		return Color(atoi(r+1), atoi(g+1), atoi(b+1));
-}
-std::ostream & operator<<(ostream& out, const Color& col)
-{
-	return out << "r: " << (int)col.r
-		<< ",g: " << (int)col.g
-		<< ",b: " << (int)col.b << endl;
-}
-
-enum class RenderType:char {
-	DirectX11,
-	DirectX12,
-	OpenGL,
-	GLES,
-	WebGL
-};
-
-enum BitSet {
-	V0 = 1 << 0,
-	V1 = 1 << 1,
-	V2 = 1 << 2,
-	VMAX = 1<<3
-};
-
-const BitSet operator | (BitSet x, BitSet y)
-{
-	return static_cast<BitSet>(((int)x|(int)y)&((int)BitSet::VMAX-1));
-}
 
 int main(int argsCount, char** args)
 {
@@ -147,9 +156,6 @@ int main(int argsCount, char** args)
 	aint.construct(&p2[0], 77, 45);
 	aint.construct(&p2[1], 98, 45);
 	cout << p2[0].x << "  " << p2[1].x << endl;
-	
-	cout << "r255g234b123"_C << endl;
-	cout << typeid(Vector).raw_name() << endl;
 
 	system("pause");
 	return 0;
