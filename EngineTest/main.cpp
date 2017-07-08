@@ -2,6 +2,7 @@
 #include <new>
 #include <Core\Math\TQuaternion.h>
 #include <Core\Math\TVector3.h>
+#include <Core\Alloctor\MemoryPool.h>
 using namespace std;
 using Vector = TVector3;
 
@@ -156,6 +157,19 @@ int main(int argsCount, char** args)
 	aint.construct(&p2[0], 77, 45);
 	aint.construct(&p2[1], 98, 45);
 	cout << p2[0].x << "  " << p2[1].x << endl;
+
+	MemoryPool memoryPool;
+
+	auto memoryA = memoryPool.Allocate(sizeof(MyClass));
+	auto memoryB = memoryPool.Allocate(sizeof(MyClass));
+	auto memoryC = memoryPool.Allocate(sizeof(MyClass));
+	cout << memoryPool.GetSize() << endl;
+	memoryPool.ReAllocate(memoryA);
+	cout << memoryPool.GetSize() << endl;
+	memoryPool.ReAllocate(memoryB);
+	cout << memoryPool.GetSize() << endl;
+	memoryPool.ReAllocate(memoryC);
+	cout << memoryPool.GetSize() << endl;
 
 	system("pause");
 	return 0;

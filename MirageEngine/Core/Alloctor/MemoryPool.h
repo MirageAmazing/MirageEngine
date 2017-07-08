@@ -3,12 +3,13 @@
 
 class MemoryPool
 {
-private:
+public:
 	struct Memory
 	{
 		size_t sizeofMemory;
 		void* memory;
 	};
+private:
 	struct MemoryNode
 	{
 		MemoryNode(size_t size)
@@ -24,8 +25,26 @@ private:
 		MemoryNode* previous = nullptr;
 		MemoryNode* next = nullptr;
 	};
+
 public:
-	MemoryPool() {}
+	static MemoryPool& Get()
+	{
+		if (Instance == nullptr)
+			Instance = new MemoryPool();
+		return *Instance;
+	}
+	static bool Free()
+	{
+		if (Instance != nullptr)
+		{
+			delete Instance;
+			Instance = nullptr;
+		}
+	}
+	static MemoryPool* Instance;
+
+private:
+	MemoryPool() {}	
 	~MemoryPool()
 	{
 		if (wholeSize != 0)
@@ -33,6 +52,10 @@ public:
 			// expection!
 		}
 	}
+
+public:
+	MemoryPool(const MemoryPool&) = delete;
+	MemoryPool& operator=(const MemoryPool&) = delete;
 
 	Memory* Allocate(size_t size)
 	{
@@ -52,7 +75,7 @@ public:
 		wholeSize += size;
 		return &node->memory;
 	}
-	bool ReAllocate(Memory node)
+	bool ReAllocate(Memory* node)
 	{
 		auto pointer = freeListNode;
 		if (pointer == nullptr)
@@ -60,7 +83,7 @@ public:
 
 		do
 		{
-			if (pointer->memory.memory == node.memory)
+			if (pointer->memory.memory == node->memory)
 			{
 				auto preNode = pointer->previous;
 				auto nextNode = pointer->next;
@@ -76,7 +99,13 @@ public:
 		return false;
 	}
 
+	size_t GetSize()
+	{
+		return wholeSize;
+	}
 private:
 	MemoryNode* freeListNode = nullptr;
 	size_t wholeSize = 0;
 };
+
+MemoryPool* MemoryPool::Instance = nullptr;
