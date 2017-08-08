@@ -27,11 +27,11 @@ private:
 	};
 
 public:
-	static MemoryPool& Get()
+	static MemoryPool* Get()
 	{
 		if (Instance == nullptr)
 			Instance = new MemoryPool();
-		return *Instance;
+		return Instance;
 	}
 	static bool Free()
 	{
@@ -52,7 +52,7 @@ private:
 			// expection!
 		}
 	}
-
+	
 public:
 	MemoryPool(const MemoryPool&) = delete;
 	MemoryPool& operator=(const MemoryPool&) = delete;

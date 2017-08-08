@@ -7,7 +7,7 @@ class StackAlloctor
 public:
 	StackAlloctor(int size)
 	{
-		memory = MemoryPool::Get().Allocate(size);
+		memory = MemoryPool::Get()->Allocate(size);
 		startPointer = static_cast<char*>(memory->memory);
 		endPointer = startPointer+size-1;
 		pointer = startPointer;
@@ -30,7 +30,7 @@ public:
 		{
 			//TODO:Exception
 		}
-		MemoryPool::Get().ReAllocate(memory);
+		MemoryPool::Get()->ReAllocate(memory);
 	}
 
 	StackAlloctor() = delete;
@@ -56,11 +56,6 @@ public:
 		
 		pointer -= size;
 		return true;
-	}
-	/** Dangerous Action. */
-	void FreeAll()
-	{
-		pointer = startPointer;
 	}
 
 private:

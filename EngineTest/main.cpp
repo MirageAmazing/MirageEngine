@@ -158,18 +158,18 @@ int main(int argsCount, char** args)
 	aint.construct(&p2[1], 98, 45);
 	cout << p2[0].x << "  " << p2[1].x << endl;
 
-	MemoryPool memoryPool;
+	auto memoryPool = MemoryPool::Get();
 
-	auto memoryA = memoryPool.Allocate(sizeof(MyClass));
-	auto memoryB = memoryPool.Allocate(sizeof(MyClass));
-	auto memoryC = memoryPool.Allocate(sizeof(MyClass));
-	cout << memoryPool.GetSize() << endl;
-	memoryPool.ReAllocate(memoryA);
-	cout << memoryPool.GetSize() << endl;
-	memoryPool.ReAllocate(memoryB);
-	cout << memoryPool.GetSize() << endl;
-	memoryPool.ReAllocate(memoryC);
-	cout << memoryPool.GetSize() << endl;
+	auto memoryA = memoryPool->Allocate(sizeof(MyClass));
+	auto memoryB = memoryPool->Allocate(sizeof(MyClass));
+	auto memoryC = memoryPool->Allocate(sizeof(MyClass));
+	cout << memoryPool->GetSize() << endl;
+	memoryPool->ReAllocate(memoryA);
+	cout << memoryPool->GetSize() << endl;
+	memoryPool->ReAllocate(memoryB);
+	cout << memoryPool->GetSize() << endl;
+	memoryPool->ReAllocate(memoryC);
+	cout << memoryPool->GetSize() << endl;
 
 	system("pause");
 	return 0;

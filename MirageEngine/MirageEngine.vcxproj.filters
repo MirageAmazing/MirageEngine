@@ -71,5 +71,14 @@
     <ClInclude Include="Core\Math\TQuaternion.h">
       <Filter>Core\Math</Filter>
     </ClInclude>
+    <ClInclude Include="Core\Alloctor\MemoryPool.h">
+      <Filter>Core\Alloctor</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Alloctor\StackAlloctor.h">
+      <Filter>Core\Alloctor</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Alloctor\LinearAlloctor.h">
+      <Filter>Core\Alloctor</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

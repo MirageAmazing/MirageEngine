@@ -142,6 +142,9 @@
     <ClCompile Include="Core\Math\TVector4.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\Alloctor\LinearAlloctor.h" />
+    <ClInclude Include="Core\Alloctor\MemoryPool.h" />
+    <ClInclude Include="Core\Alloctor\StackAlloctor.h" />
     <ClInclude Include="Core\Math\TColor.h" />
     <ClInclude Include="Core\Math\TMath.h" />
     <ClInclude Include="Core\Math\TMatrix.h" />
