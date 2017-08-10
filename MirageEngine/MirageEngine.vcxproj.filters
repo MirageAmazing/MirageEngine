@@ -10,7 +10,7 @@
     <Filter Include="Core\Math">
       <UniqueIdentifier>{bab3051a-783f-4302-9f81-8a51990d24cd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Alloctor">
+    <Filter Include="Core\Allocator">
       <UniqueIdentifier>{565e3fa6-e47a-46ca-819d-eae4d88fee9b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -71,14 +71,26 @@
     <ClInclude Include="Core\Math\TQuaternion.h">
       <Filter>Core\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Alloctor\MemoryPool.h">
-      <Filter>Core\Alloctor</Filter>
+    <ClInclude Include="Core\Allocator\Allocator.h">
+      <Filter>Core\Allocator</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Alloctor\StackAlloctor.h">
-      <Filter>Core\Alloctor</Filter>
+    <ClInclude Include="Core\Allocator\AllocatorBase.h">
+      <Filter>Core\Allocator</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Alloctor\LinearAlloctor.h">
-      <Filter>Core\Alloctor</Filter>
+    <ClInclude Include="Core\Allocator\DoubleEndedStackAllocator.h">
+      <Filter>Core\Allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Allocator\LinearAllocator.h">
+      <Filter>Core\Allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Allocator\MemoryPool.h">
+      <Filter>Core\Allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Allocator\PoolAllocator.h">
+      <Filter>Core\Allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Allocator\StackAllocator.h">
+      <Filter>Core\Allocator</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

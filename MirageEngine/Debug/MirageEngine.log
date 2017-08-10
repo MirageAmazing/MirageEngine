@@ -1,6 +1,1 @@
-﻿clang-cl.exe : warning : argument unused during compilation: '/ZI'
-clang-cl.exe : warning : argument unused during compilation: '/Gm'
-TMath.obj : warning LNK4221: 此对象文件未定义任何之前未定义的公共符号，因此任何耗用此库的链接操作都不会使用此文件
-TColor.obj : warning LNK4006: "struct TVector4 __cdecl operator*(float,struct TVector4 const &)" (??D@YA?AUTVector4@@MABU0@@Z) 已在 TVector4.obj 中定义；已忽略第二个定义
-TColor.obj : warning LNK4006: "struct TVector4 __cdecl operator/(float,struct TVector4 const &)" (??K@YA?AUTVector4@@MABU0@@Z) 已在 TVector4.obj 中定义；已忽略第二个定义
-  MirageEngine.vcxproj -> D:\Mirage\MirageEngine\MirageEngine\Debug\MirageEngine.lib
+﻿  MirageEngine.vcxproj -> D:\Mirage\MirageEngine\MirageEngine\Debug\MirageEngine.lib

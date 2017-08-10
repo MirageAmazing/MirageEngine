@@ -29,7 +29,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>LLVM-vs2014</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -142,9 +142,13 @@
     <ClCompile Include="Core\Math\TVector4.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Core\Alloctor\LinearAlloctor.h" />
-    <ClInclude Include="Core\Alloctor\MemoryPool.h" />
-    <ClInclude Include="Core\Alloctor\StackAlloctor.h" />
+    <ClInclude Include="Core\Allocator\Allocator.h" />
+    <ClInclude Include="Core\Allocator\AllocatorBase.h" />
+    <ClInclude Include="Core\Allocator\DoubleEndedStackAllocator.h" />
+    <ClInclude Include="Core\Allocator\LinearAllocator.h" />
+    <ClInclude Include="Core\Allocator\MemoryPool.h" />
+    <ClInclude Include="Core\Allocator\PoolAllocator.h" />
+    <ClInclude Include="Core\Allocator\StackAllocator.h" />
     <ClInclude Include="Core\Math\TColor.h" />
     <ClInclude Include="Core\Math\TMath.h" />
     <ClInclude Include="Core\Math\TMatrix.h" />

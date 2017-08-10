@@ -2,7 +2,8 @@
 #include <new>
 #include <Core\Math\TQuaternion.h>
 #include <Core\Math\TVector3.h>
-#include <Core\Alloctor\MemoryPool.h>
+#include <Core\Allocator\MemoryPool.h>
+#include <Core\Allocator\Allocator.h>
 using namespace std;
 using Vector = TVector3;
 
@@ -170,6 +171,16 @@ int main(int argsCount, char** args)
 	cout << memoryPool->GetSize() << endl;
 	memoryPool->ReAllocate(memoryC);
 	cout << memoryPool->GetSize() << endl;
+
+	auto stackAlloctor = StackAlloctor::Get(32);
+
+	stackAlloctor->Allocate(1);
+	stackAlloctor->Allocate(15);
+	stackAlloctor->Allocate(15);
+	auto p = stackAlloctor->Allocate(1);
+	cout << (int)p << endl;
+
+	StackAlloctor::Delete(stackAlloctor);
 
 	system("pause");
 	return 0;
