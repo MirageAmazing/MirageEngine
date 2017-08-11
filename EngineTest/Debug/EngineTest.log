@@ -1,3 +1,14 @@
 ﻿  main.cpp
+d:\mirage\mirageengine\mirageengine\mirageengine\core\allocator\poolallocator.h(53): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
+  d:\mirage\mirageengine\mirageengine\enginetest\main.cpp(193): note: 参见对正在编译的函数 模板 实例化“T *PoolAllocator<T>::Allocte<int,int,int>(int &&,int &&,int &&)”的引用
+          with
+          [
+              T=MyClass
+          ]
+  d:\mirage\mirageengine\mirageengine\enginetest\main.cpp(193): note: 参见对正在编译的函数 模板 实例化“T *PoolAllocator<T>::Allocte<int,int,int>(int &&,int &&,int &&)”的引用
+          with
+          [
+              T=MyClass
+          ]
   EngineTest.vcxproj -> D:\Mirage\MirageEngine\MirageEngine\Debug\EngineTest.exe
   EngineTest.vcxproj -> D:\Mirage\MirageEngine\MirageEngine\Debug\EngineTest.pdb (Partial PDB)

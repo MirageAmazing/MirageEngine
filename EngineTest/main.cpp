@@ -74,9 +74,16 @@ public:
 		x = ix;
 		y = iy;
 	}
+	MyClass(int ix, int iy, float iz)
+	{
+		x = ix;
+		y = iy;
+		z = iz;
+	}
 
 	int x = 0;
 	int y = 0;
+	float z = 0;
 };
 
 
@@ -172,7 +179,7 @@ int main(int argsCount, char** args)
 	memoryPool->ReAllocate(memoryC);
 	cout << memoryPool->GetSize() << endl;
 
-	auto stackAlloctor = StackAlloctor::Get(32);
+	auto stackAlloctor = StackAllocator::Get(32);
 
 	stackAlloctor->Allocate(1);
 	stackAlloctor->Allocate(15);
@@ -180,7 +187,15 @@ int main(int argsCount, char** args)
 	auto p = stackAlloctor->Allocate(1);
 	cout << (int)p << endl;
 
-	StackAlloctor::Delete(stackAlloctor);
+	StackAllocator::Delete(stackAlloctor);
+
+	auto poolAllocator = PoolAllocator<MyClass>::Get(4);
+	auto obj1 = poolAllocator->Allocte(12, 23, 56);
+	auto obj2 = poolAllocator->Allocte(12, 23, 78);
+	auto obj3 = poolAllocator->Allocte(12, 23, 78);
+	auto obj4 = poolAllocator->Allocte(12, 23, 78);
+	auto obj5 = poolAllocator->Allocte(12,23,78);
+	PoolAllocator<MyClass>::Delete(poolAllocator);
 
 	system("pause");
 	return 0;
