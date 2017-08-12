@@ -2,6 +2,7 @@
 #include "MemoryPool.h"
 #include "AllocatorBase.h"
 #include <memory>
+#include <cassert>
 
 template<class T>
 class PoolAllocator:public AllocatorBase<PoolAllocator<T>>
@@ -20,6 +21,8 @@ public:
 	PoolAllocator(size_t count) 
 	{
 		auto size = sizeof(T);
+		Assert(size >= sizeof(FreeListNode));
+
 		memory = MemoryPool::Get()->Allocate(count*sizeof(T));
 		auto memoryStart = memory->memory;
 		FreeList tempfl = nullptr;

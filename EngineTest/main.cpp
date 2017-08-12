@@ -1,9 +1,11 @@
 #include <iostream>
 #include <new>
+
 #include <Core\Math\TQuaternion.h>
 #include <Core\Math\TVector3.h>
 #include <Core\Allocator\MemoryPool.h>
 #include <Core\Allocator\Allocator.h>
+
 using namespace std;
 using Vector = TVector3;
 
@@ -153,49 +155,6 @@ private:
 
 int main(int argsCount, char** args)
 {
-	MyAlloctor<MyClass> aint;
-
-	MyClass* p1 = aint.allocte(2); 
-	aint.construct(&p1[0], 23, 45);
-	aint.construct(&p1[1], 65, 45);
-	
-	cout << p1[0].x << "  " << p1[1].x << endl;
-
-	MyClass* p2 = aint.allocte(2);
-	aint.construct(&p2[0], 77, 45);
-	aint.construct(&p2[1], 98, 45);
-	cout << p2[0].x << "  " << p2[1].x << endl;
-
-	auto memoryPool = MemoryPool::Get();
-
-	auto memoryA = memoryPool->Allocate(sizeof(MyClass));
-	auto memoryB = memoryPool->Allocate(sizeof(MyClass));
-	auto memoryC = memoryPool->Allocate(sizeof(MyClass));
-	cout << memoryPool->GetSize() << endl;
-	memoryPool->ReAllocate(memoryA);
-	cout << memoryPool->GetSize() << endl;
-	memoryPool->ReAllocate(memoryB);
-	cout << memoryPool->GetSize() << endl;
-	memoryPool->ReAllocate(memoryC);
-	cout << memoryPool->GetSize() << endl;
-
-	auto stackAlloctor = StackAllocator::Get(32);
-
-	stackAlloctor->Allocate(1);
-	stackAlloctor->Allocate(15);
-	stackAlloctor->Allocate(15);
-	auto p = stackAlloctor->Allocate(1);
-	cout << (int)p << endl;
-
-	StackAllocator::Delete(stackAlloctor);
-
-	auto poolAllocator = PoolAllocator<MyClass>::Get(4);
-	auto obj1 = poolAllocator->Allocte(12, 23, 56);
-	auto obj2 = poolAllocator->Allocte(12, 23, 78);
-	auto obj3 = poolAllocator->Allocte(12, 23, 78);
-	auto obj4 = poolAllocator->Allocte(12, 23, 78);
-	auto obj5 = poolAllocator->Allocte(12,23,78);
-	PoolAllocator<MyClass>::Delete(poolAllocator);
 
 	system("pause");
 	return 0;

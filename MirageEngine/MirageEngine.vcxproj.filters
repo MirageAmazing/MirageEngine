@@ -13,6 +13,9 @@
     <Filter Include="Core\Allocator">
       <UniqueIdentifier>{565e3fa6-e47a-46ca-819d-eae4d88fee9b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Container">
+      <UniqueIdentifier>{f145d690-b068-4821-9835-595b67603ed7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Math\TMath.cpp">
