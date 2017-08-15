@@ -1,0 +1,12 @@
+D:\Mirage\MirageEngine\MirageEngine\MirageAndroid\MirageAndroid.Packaging\ARM\Debug\MirageAndroid.apk.recipe
+D:\Mirage\MirageEngine\MirageEngine\MirageAndroid\MirageAndroid.Packaging\ARM\Debug\MirageAndroid.apk.recipe.merged
+D:\Mirage\MirageEngine\MirageEngine\MirageAndroid\MirageAndroid.Packaging\ARM\Debug\Package\libs\armeabi-v7a\libMirageAndroid.so
+D:\Mirage\MirageEngine\MirageEngine\MirageAndroid\MirageAndroid.Packaging\ARM\Debug\Package\libs\armeabi-v7a\gdbserver
+D:\Mirage\MirageEngine\MirageEngine\MirageAndroid\MirageAndroid.Packaging\ARM\Debug\Package\libs\armeabi-v7a\libgnustl_static.a
+D:\Mirage\MirageEngine\MirageEngine\MirageAndroid\MirageAndroid.Packaging\ARM\Debug\Package\res\values\strings.xml
+D:\Mirage\MirageEngine\MirageEngine\MirageAndroid\MirageAndroid.Packaging\ARM\Debug\Package\AndroidManifest.xml
+D:\Mirage\MirageEngine\MirageEngine\MirageAndroid\MirageAndroid.Packaging\ARM\Debug\Package\project.properties
+D:\Mirage\MirageEngine\MirageEngine\MirageAndroid\MirageAndroid.Packaging\ARM\Debug\Package\build.xml
+D:\Mirage\MirageEngine\MirageEngine\MirageAndroid\MirageAndroid.Packaging\ARM\Debug\FileStringReplace.incremental
+D:\Mirage\MirageEngine\MirageEngine\MirageAndroid\MirageAndroid.Packaging\ARM\Debug\MirageAndroid.apk
+D:\Mirage\MirageEngine\MirageEngine\MirageAndroid\MirageAndroid.Packaging\ARM\Debug\MirageAndroid.lastsuccessfuldeploy

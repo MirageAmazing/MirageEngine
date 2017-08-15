@@ -16,6 +16,9 @@
     <Filter Include="Core\Container">
       <UniqueIdentifier>{f145d690-b068-4821-9835-595b67603ed7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\HAL">
+      <UniqueIdentifier>{bcdea487-bb70-4025-8b33-6996c68d6a3c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Math\TMath.cpp">
@@ -94,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="Core\Allocator\StackAllocator.h">
       <Filter>Core\Allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\HAL\Platform.h">
+      <Filter>Core\HAL</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

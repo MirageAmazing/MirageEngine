@@ -3,6 +3,7 @@
 #include "AllocatorBase.h"
 #include <memory>
 #include <cassert>
+#include <utility>
 
 template<class T>
 class PoolAllocator:public AllocatorBase<PoolAllocator<T>>
@@ -21,7 +22,7 @@ public:
 	PoolAllocator(size_t count) 
 	{
 		auto size = sizeof(T);
-		Assert(size >= sizeof(FreeListNode));
+		assert(size >= sizeof(FreeListNode));
 
 		memory = MemoryPool::Get()->Allocate(count*sizeof(T));
 		auto memoryStart = memory->memory;
@@ -53,7 +54,7 @@ public:
 		freeList = freeList->next;
 
 		T* pObj = (T*)memoryNode;
-		return new(pObj) T(forward<_Types>(_Args)...);
+		return new(pObj) T(std::forward<_Types>(_Args)...);
 	}
 
 	bool Free(T* pObj)
@@ -75,7 +76,7 @@ private:
 	template<class... _Types>
 	void construct(T* pObj, _Types&&... _Args)
 	{
-		new(pObj) T(forward<_Types>(_Args)...);
+		new(pObj) T(std::forward<_Types>(_Args)...);
 	}
 
 private:

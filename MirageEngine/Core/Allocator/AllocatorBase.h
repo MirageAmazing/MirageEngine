@@ -1,5 +1,6 @@
 #pragma once
 #include <list>
+#include <algorithm>
 
 template<class T>
 class AllocatorBase
