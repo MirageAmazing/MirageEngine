@@ -50,3 +50,9 @@ Temporary Items
 *.obj
 *.pdb
 *.log
+.vs/MirageEngine/v15/Browse.VC.db
+*.db
+*.ipch
+*.pdb
+*.obj
+*.ipch

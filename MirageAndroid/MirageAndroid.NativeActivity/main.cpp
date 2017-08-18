@@ -16,6 +16,12 @@
 */
 
 #include "Core\Allocator\Allocator.h"
+#include "Core\HAL\Platform.h"
+#include "Core\HAL\IOBase.h"
+#include <android\native_activity.h>
+#include <android\asset_manager.h>
+#include <android\dlext.h>
+#include <android\bitmap.h>
 
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "AndroidProject1.NativeActivity", __VA_ARGS__))
 #define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, "AndroidProject1.NativeActivity", __VA_ARGS__))
@@ -257,7 +263,13 @@ void android_main(struct android_app* state) {
 	auto allocator = PoolAllocator<allocatorTest>::Get(3);
 	allocator->Allocte(12, 32, 9.2222);
 	allocator->Allocte(1112, 32, 19.2222);
-	
+
+	auto activity = state->activity;
+	activity->internalDataPath;
+	auto path = activity->internalDataPath;
+	char* filePath = "/sdcard/MirageLog.txt";
+	FileIOSystem::Get().SaveFile(filePath, (void*)path, strlen(path));
+
 	//循环等待事情以进行处理。
 
 	while (1) {

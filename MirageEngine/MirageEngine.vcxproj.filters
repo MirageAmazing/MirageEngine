@@ -19,6 +19,12 @@
     <Filter Include="Core\HAL">
       <UniqueIdentifier>{bcdea487-bb70-4025-8b33-6996c68d6a3c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Android">
+      <UniqueIdentifier>{8b8b2648-9e0f-4672-848f-4cc5d048585a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Windows">
+      <UniqueIdentifier>{660a32a8-6752-4aae-b054-54e33a6783f1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Math\TMath.cpp">
@@ -99,6 +105,9 @@
       <Filter>Core\Allocator</Filter>
     </ClInclude>
     <ClInclude Include="Core\HAL\Platform.h">
+      <Filter>Core\HAL</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\HAL\IOBase.h">
       <Filter>Core\HAL</Filter>
     </ClInclude>
   </ItemGroup>

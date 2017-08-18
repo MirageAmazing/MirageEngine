@@ -151,6 +151,7 @@
     <ClInclude Include="Core\Allocator\MemoryPool.h" />
     <ClInclude Include="Core\Allocator\PoolAllocator.h" />
     <ClInclude Include="Core\Allocator\StackAllocator.h" />
+    <ClInclude Include="Core\HAL\IOBase.h" />
     <ClInclude Include="Core\HAL\Platform.h" />
     <ClInclude Include="Core\Math\TColor.h" />
     <ClInclude Include="Core\Math\TMath.h" />

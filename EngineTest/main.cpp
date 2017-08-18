@@ -1,10 +1,13 @@
 #include <iostream>
 #include <new>
+#include <chrono>
+#include <future>
 
 #include "..\MirageEngine\Core\Math\TQuaternion.h"
 #include "..\MirageEngine\Core\Math\TVector3.h"
 #include "..\MirageEngine\Core\Allocator\MemoryPool.h"
 #include "..\MirageEngine\Core\Allocator\Allocator.h"
+#include "..\MirageEngine\Core\HAL\IOBase.h"
 
 using namespace std;
 using Vector = TVector3;
@@ -203,9 +206,27 @@ int supports_avx2()
 	}
 }
 
+
 int main(int argsCount, char** args)
 {
-	cout << (int)supports_avx2() << endl;
+	auto r = std::async(std::launch::async, []() {
+		cout << "Hello, std::async!" << endl;
+		return "Async";
+	});
+	cout<< r.get() <<endl;
+
+	char buff[50];
+	void* pBuff = (void*)buff;
+	size_t size = 0;
+	if (FileIOSystem::Get().LoadFile("file.bin", buff, 50, size))
+	{
+		cout << "Loaded Successfully!" << endl;
+	}
+	if (FileIOSystem::Get().SaveFile("save.bin", buff, size))
+	{
+		cout << "Save Successfully!" << endl;
+	}
+
 	system("pause");
 	return 0;
 }

@@ -1,3 +1,1 @@
-﻿TColor.obj : warning LNK4006: "struct TVector4 __cdecl operator*(float,struct TVector4 const &)" (??D@YA?AUTVector4@@MABU0@@Z) 已在 TVector4.obj 中定义；已忽略第二个定义
-TColor.obj : warning LNK4006: "struct TVector4 __cdecl operator/(float,struct TVector4 const &)" (??K@YA?AUTVector4@@MABU0@@Z) 已在 TVector4.obj 中定义；已忽略第二个定义
-  MirageEngine.vcxproj -> D:\Mirage\MirageEngine\MirageEngine\Debug\MirageEngine.lib
+﻿  MirageEngine.vcxproj -> D:\Mirage\MirageEngine\MirageEngine\Debug\MirageEngine.lib

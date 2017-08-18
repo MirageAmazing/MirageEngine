@@ -34,19 +34,19 @@
 			#error Unsupported Windows 32 CPU (the only supported is x86).
 		#endif
 	#endif
-#elif defined(__linux__) || defined(__linux)
-	#define MIRAGE_PLATFORM_DESKTOP 1
-	#define MIRAGE_PLATFORM_LINUX   1
-	#define MIRAGE_PLATFORM_POSIX   1
-	#if !MIRAGE_PLATFORM_X64 && !MIRAGE_PLATFORM_X86
-		#error Unsupported Linux CPU (the only supported are x86 and x86-64).
-	#endif
 #elif defined(__ANDROID__) || defined(ANDROID)
 	#define MIRAGE_PLATFORM_MOBILE  1
 	#define MIRAGE_PLATFORM_ANDROID 1
 	#define MIRAGE_PLATFORM_POSIX   1
 	#if !MIRAGE_PLATFORM_ARM || !MIRAGE_PLATFORM_32BIT
 		#error Unsupported Android CPU (the only supported is 32-bit ARM).
+	#endif
+#elif defined(__linux__) || defined(__linux)
+	#define MIRAGE_PLATFORM_DESKTOP 1
+	#define MIRAGE_PLATFORM_LINUX   1
+	#define MIRAGE_PLATFORM_POSIX   1
+	#if !MIRAGE_PLATFORM_X64 && !MIRAGE_PLATFORM_X86
+		#error Unsupported Linux CPU (the only supported are x86 and x86-64).
 	#endif
 #else
 	#error Unknown target platform.
