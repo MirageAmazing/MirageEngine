@@ -15,13 +15,18 @@
  *
 */
 
+#include <string>
+#include <sys\stat.h>
+
 #include "Core\Allocator\Allocator.h"
 #include "Core\HAL\Platform.h"
 #include "Core\HAL\IOBase.h"
 #include <android\native_activity.h>
 #include <android\asset_manager.h>
+#include <android\asset_manager_jni.h>
 #include <android\dlext.h>
 #include <android\bitmap.h>
+#include <android\storage_manager.h>
 
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "AndroidProject1.NativeActivity", __VA_ARGS__))
 #define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, "AndroidProject1.NativeActivity", __VA_ARGS__))
@@ -264,11 +269,35 @@ void android_main(struct android_app* state) {
 	allocator->Allocte(12, 32, 9.2222);
 	allocator->Allocte(1112, 32, 19.2222);
 
+	string path;
 	auto activity = state->activity;
-	activity->internalDataPath;
-	auto path = activity->internalDataPath;
+	auto rootDir = AAssetManager_openDir(activity->assetManager, "");
+	auto fileName = AAssetDir_getNextFileName(rootDir);
+	while (fileName != nullptr)
+	{
+		path += fileName;
+		path += "\n";
+		fileName = AAssetDir_getNextFileName(rootDir);
+	}
+	AAssetDir_close(rootDir);
+
+	char buff[50];
+	auto aasset = AAssetManager_open(activity->assetManager, "file.bin", AASSET_MODE_UNKNOWN);
+	if (aasset != nullptr)
+	{
+		auto size = AAsset_read(aasset, buff, 50);
+		size = size < 0 ? 0 : size;
+		buff[size] = '\0';
+		AAsset_close(aasset);
+		path += buff;
+	}
 	char* filePath = "/sdcard/MirageLog.txt";
-	FileIOSystem::Get().SaveFile(filePath, (void*)path, strlen(path));
+	FileIOSystem::Get().SaveFile(filePath, (void*)path.data(), path.size());
+
+	if (access("/sdcard/com.MirageAndroid.Mirage", EINVAL) != 0)
+	{
+		mkdir("/sdcard/com.MirageAndroid.Mirage", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+	}
 
 	//循环等待事情以进行处理。
 
