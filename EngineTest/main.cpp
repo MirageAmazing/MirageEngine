@@ -222,11 +222,18 @@ int main(int argsCount, char** args)
 	{
 		cout << "Loaded Successfully!" << endl;
 	}
-	if (FileIOSystem::Get().SaveFile("save.bin", buff, size))
-	{
+	FileIOSystem::Get().SaveFileAsync("saveAsync.bin", buff, size, [](bool r) {
 		cout << "Save Successfully!" << endl;
-	}
-
+	});
+	FileIOSystem::Get().SaveFileAsync("saveAsync1.bin", buff, size, [](bool r) {
+		cout << "Save Successfully 1!" << endl;
+	});
+	FileIOSystem::Get().SaveFileAsync("saveAsync2.bin", buff, size, [](bool r) {
+		cout << "Save Successfully! 2" << endl;
+	});
+	FileIOSystem::Get().SaveFileAsync("saveAsync3.bin", buff, size, [](bool r) {
+		cout << "Save Successfully! 3" << endl;
+	});
 	system("pause");
 	return 0;
 }

@@ -1,10 +1,13 @@
 #pragma once
 
 #include <future>
+#include <functional>
 #include <stdio.h>
 using namespace std;
 
 typedef unsigned int FileUid;
+typedef function<void(void*, size_t)> FileIOLoadCallBack;
+typedef function<void(bool)> FileIOSaveCallBack;
 
 struct FileInfo
 {
@@ -24,10 +27,31 @@ private:
 	static FileIOSystem Instance;
 
 public:
-	void LoadFileAsync(char* name) 
+	void LoadFileAsync(char* filePath, void* pBuff, size_t buffSize, size_t& dataSize, FileIOLoadCallBack callback = nullptr)
 	{
-		std::async(std::launch::async, [](){
-			
+		std::async(std::launch::async, [=, &dataSize](){
+			size_t size = 0;
+			void* buff = nullptr;
+
+			if (LoadFile(filePath, pBuff, buffSize, dataSize))
+			{
+				buff = pBuff;
+				size = dataSize;
+			}
+			if (callback != nullptr)
+				callback(nullptr, size);
+		});
+	}
+	void LoadFileAsync(char* filePath, void* pBuff, size_t buffSize, FileIOLoadCallBack callback)
+	{
+		std::async(std::launch::async, [=]() {
+			size_t dataSize = 0;
+			void* buff = nullptr;
+
+			if (LoadFile(filePath, pBuff, buffSize, dataSize))
+				buff = pBuff;
+			if (callback != nullptr)
+				callback(nullptr, dataSize);
 		});
 	}
 	bool LoadFile(char* filePath, void* pBuff, size_t buffSize, size_t& dataSize)
@@ -49,6 +73,15 @@ public:
 		}
 		
 		return pFile != nullptr;
+	}
+	void SaveFileAsync(char* filePath, void* pBuff, size_t buffSize, FileIOSaveCallBack callback = nullptr)
+	{
+		std::async(std::launch::async, [=]() {
+			bool r = SaveFile(filePath, pBuff, buffSize);
+
+			if (callback != nullptr)
+				callback(r);
+		});
 	}
 	bool SaveFile(char* filePath, void* pBuff, size_t buffSize)
 	{
