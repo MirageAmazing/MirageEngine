@@ -3,11 +3,11 @@
 #include <chrono>
 #include <future>
 
-#include "..\MirageEngine\Core\Math\TQuaternion.h"
-#include "..\MirageEngine\Core\Math\TVector3.h"
-#include "..\MirageEngine\Core\Allocator\MemoryPool.h"
-#include "..\MirageEngine\Core\Allocator\Allocator.h"
-#include "..\MirageEngine\Core\HAL\IOBase.h"
+#include "../MirageEngine/Core/Math/TQuaternion.h"
+#include "../MirageEngine/Core/Math/TVector3.h"
+#include "../MirageEngine/Core/Allocator/MemoryPool.h"
+#include "../MirageEngine/Core/Allocator/Allocator.h"
+#include "../MirageEngine/Core/HAL/IOBase.h"
 
 using namespace std;
 using Vector = TVector3;
