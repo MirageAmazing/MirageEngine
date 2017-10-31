@@ -1,11 +1,13 @@
 cmake_minimum_required (VERSION 2.8)
 
-project (MirageEngineLib)
+add_compile_options(-std=c++11)
 
-aux_source_directory(./Allocator DIR_SRCS)
+project (mirageengine)
 
-add_subdirectory(Core)
+aux_source_directory(. DIR_SRCS_B)
 
-add_library(MirageEngineLib ${DIR_SRCS})
+add_subdirectory(Core/Math)
 
-target_link_libraries(MirageEngineLib CoreLib)
+add_library(me ${DIR_SRCS_B})
+
+target_link_libraries(me MathLib)

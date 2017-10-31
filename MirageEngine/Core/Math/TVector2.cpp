@@ -78,7 +78,7 @@ bool TVector2::Normalize()
 
 float TVector2::Length()
 {
-	return std::sqrtf(x*x + y*y);
+	return std::sqrt(x*x + y*y);
 }
 
 float TVector2::Dot(const TVector2& InA, const TVector2& InB)

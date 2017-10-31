@@ -125,7 +125,7 @@ TVector3 TVector3::GetNormal() const
 
 float TVector3::Length() const
 {
-	return std::sqrtf(x*x + y*y + z*z);
+	return std::sqrt(x*x + y*y + z*z);
 }
 
 float TVector3::Dot(const TVector3& InA, const TVector3& InB)
