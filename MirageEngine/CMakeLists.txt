@@ -4,10 +4,10 @@ add_compile_options(-std=c++11)
 
 project (mirageengine)
 
-aux_source_directory(. DIR_SRCS_B)
+aux_source_directory(./Core/Allocator Srcs_Allocator)
+aux_source_directory(./Core/HAL Srcs_HAL)
+aux_source_directory(./Core/Math Srcs_Math)
 
-add_subdirectory(Core/Math)
-
-add_library(me ${DIR_SRCS_B})
+add_library(me ${Srcs_Allocator} ${Srcs_HAL} ${Srcs_Math})
 
 target_link_libraries(me MathLib)

@@ -5,10 +5,13 @@ add_compile_options(-lpthread)
 
 project (EngineTest)
 
+link_directories("../MirageEngine")
+set(ML libme.a)
+message(${ML})
+
 aux_source_directory(. DIR_SRCS)
 
 add_executable(enginetest ${DIR_SRCS})
 
-find_library(ML libme.a ../MirageEngine)
+target_link_libraries(enginetest pthread)
 target_link_libraries(enginetest ${ML}) 
-target_link_libraries(enginetest pthread) 

@@ -234,5 +234,10 @@ int main(int argsCount, char** args)
 	FileIOSystem::Get().SaveFileAsync("saveAsync3.bin", buff, size, [](bool r) {
 		cout << "Save Successfully! 3" << endl;
 	});
+
+	TVector3 v1(12,45,89);
+	TVector3 v2(22,45,89);
+	auto v3 = v1+v2;
+	cout<<v3.x<<" "<<v3.y<<" "<<v3.z<<endl;
 	return 0;
 }
