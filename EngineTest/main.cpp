@@ -239,5 +239,6 @@ int main(int argsCount, char** args)
 	TVector3 v2(22,45,89);
 	auto v3 = v1+v2;
 	cout<<v3.x<<" "<<v3.y<<" "<<v3.z<<endl;
+	
 	return 0;
 }
