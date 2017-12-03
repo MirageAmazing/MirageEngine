@@ -7,5 +7,3 @@ aux_source_directory(./Core/HAL Srcs_HAL)
 aux_source_directory(./Core/Math Srcs_Math)
 
 add_library(me ${Srcs_Allocator} ${Srcs_HAL} ${Srcs_Math})
-
-target_link_libraries(me MathLib)
