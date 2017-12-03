@@ -2,8 +2,6 @@ cmake_minimum_required (VERSION 2.8)
 
 add_compile_options(-std=c++11)
 
-project (mirageengine)
-
 aux_source_directory(./Core/Allocator Srcs_Allocator)
 aux_source_directory(./Core/HAL Srcs_HAL)
 aux_source_directory(./Core/Math Srcs_Math)
