@@ -12,6 +12,8 @@
 using namespace std;
 using Vector = TVector3;
 
+#define Print(x) cout<<x<<endl
+
 class Alloctor
 {
 public:
@@ -240,5 +242,8 @@ int main(int argsCount, char** args)
 	auto v3 = v1+v2;
 	cout<<v3.x<<" "<<v3.y<<" "<<v3.z<<endl;
 	
+	Print(sizeof(int));
+	Print(sizeof(void*));
+
 	return 0;
 }

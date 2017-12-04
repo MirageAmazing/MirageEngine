@@ -36,7 +36,7 @@ public:
 			else
 				tempfl->next = flPointer;
 			tempfl = flPointer;
-			memoryStart = (void*)((int)memoryStart+size);
+			memoryStart = (void*)( *((int*)(memoryStart)) +size);
 		}
 	}
 	~PoolAllocator() 

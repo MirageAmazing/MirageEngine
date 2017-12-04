@@ -27,7 +27,7 @@ private:
 	static FileIOSystem Instance;
 
 public:
-	void LoadFileAsync(char* filePath, void* pBuff, size_t buffSize, size_t& dataSize, FileIOLoadCallBack callback = nullptr)
+	void LoadFileAsync(const char* filePath, void* pBuff, size_t buffSize, size_t& dataSize, FileIOLoadCallBack callback = nullptr)
 	{
 		std::async(std::launch::async, [=, &dataSize](){
 			size_t size = 0;
@@ -54,7 +54,7 @@ public:
 				callback(nullptr, dataSize);
 		});
 	}
-	bool LoadFile(char* filePath, void* pBuff, size_t buffSize, size_t& dataSize)
+	bool LoadFile(const char* filePath, void* pBuff, size_t buffSize, size_t& dataSize)
 	{
 		FILE* pFile = nullptr;
 		pFile = fopen(filePath, "r");
@@ -74,7 +74,7 @@ public:
 		
 		return pFile != nullptr;
 	}
-	void SaveFileAsync(char* filePath, void* pBuff, size_t buffSize, FileIOSaveCallBack callback = nullptr)
+	void SaveFileAsync(const char* filePath, void* pBuff, size_t buffSize, FileIOSaveCallBack callback = nullptr)
 	{
 		std::async(std::launch::async, [=]() {
 			bool r = SaveFile(filePath, pBuff, buffSize);
@@ -83,7 +83,7 @@ public:
 				callback(r);
 		});
 	}
-	bool SaveFile(char* filePath, void* pBuff, size_t buffSize)
+	bool SaveFile(const char* filePath, void* pBuff, size_t buffSize)
 	{
 		FILE* pFile = nullptr;
 		pFile = fopen(filePath, "w");

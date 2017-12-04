@@ -48,6 +48,26 @@
 	#if !MIRAGE_PLATFORM_X64 && !MIRAGE_PLATFORM_X86
 		#error Unsupported Linux CPU (the only supported are x86 and x86-64).
 	#endif
+#elif defined(__APPLE__)
+	#define MIRAGE_PLATFORM_DESKTOP 1
+	#define MIRAGE_PLATFORM_APPLE   1
+	#define MIRAGE_PLATFORM_POSIX   1	
+	#if TARGET_OS_IPHONE
+		#define MIRAGE_PLATFORM_MOBILE 1
+		#define MIRAGE_PLATFORM_IOS 1
+		#if !MIRAGE_PLATFORM_UNKNOWNCPU
+			#error Unsupported IOS CPU.
+		#endif
+		#define MIRAGE_PLATFORM_64BIT 1
+	#elif TARGET_OS_MAC
+		#define MIRAGE_PLATFORM_DESKTOP 1
+		#define MIRAGE_PLATFORM_MAC 1
+		#if !MIRAGE_PLATFORM_X64
+			#error Unsupported Mac CPU(the only supported is x86-64).
+		#endif
+	#else
+		#error Unknown Apple platform.
+	#endif
 #else
 	#error Unknown target platform.
 #endif
