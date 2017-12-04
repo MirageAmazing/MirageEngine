@@ -14,6 +14,5 @@ include_sub_directories_recursively(${CMAKE_CURRENT_SOURCE_DIR})
 file(GLOB_RECURSE project_headers *.h)
 file(GLOB_RECURSE project_cpps *.cpp)
 set(all_files ${project_headers} ${project_cpps})
-source_group_by_dir(all_files)
-
-source_group("Include" FILES ./Core/HAL/IOBase.h)
+# source_group_by_dir(all_files)
+source_group_by_recursively(all_files)
