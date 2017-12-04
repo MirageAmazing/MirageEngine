@@ -245,5 +245,6 @@ int main(int argsCount, char** args)
 	Print(sizeof(int));
 	Print(sizeof(void*));
 
+	system("Pause");
 	return 0;
 }
