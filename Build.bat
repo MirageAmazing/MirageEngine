@@ -8,7 +8,7 @@ rd /s /Q Build
 md Build
 cd Build
 
-cmake -G "Visual Studio 15 Win64" ../Src
+cmake -G "Visual Studio 14 Win64" ../Src
 
 echo ****************************************  
 echo MirageEngine build over  

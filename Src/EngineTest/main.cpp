@@ -225,16 +225,20 @@ int main(int argsCount, char** args)
 		cout << "Loaded Successfully!" << endl;
 	}
 	FileIOSystem::Get().SaveFileAsync("../../Resource/saveAsync.bin", buff, size, [](bool r) {
-		cout << "Save Successfully!" << endl;
+		if(r)
+			cout << "Save Successfully!" << endl;
 	});
 	FileIOSystem::Get().SaveFileAsync("../../Resource/saveAsync1.bin", buff, size, [](bool r) {
-		cout << "Save Successfully 1!" << endl;
+		if (r)
+			cout << "Save Successfully 1!" << endl;
 	});
 	FileIOSystem::Get().SaveFileAsync("../../Resource/saveAsync2.bin", buff, size, [](bool r) {
-		cout << "Save Successfully! 2" << endl;
+		if (r)
+			cout << "Save Successfully! 2" << endl;
 	});
 	FileIOSystem::Get().SaveFileAsync("../../Resource/saveAsync3.bin", buff, size, [](bool r) {
-		cout << "Save Successfully! 3" << endl;
+		if (r)
+			cout << "Save Successfully! 3" << endl;
 	});
 
 	TVector3 v1(12,45,89);

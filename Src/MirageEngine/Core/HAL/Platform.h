@@ -4,15 +4,15 @@
 
 // About CPU ( x86, x64, arm )
 #if defined(__x86_64__) || defined(_M_X64)
-	#define MIRAGE_PLATFORM_X64		1
+	#define MIRAGE_PLATFORM_X64		    1
 	#define MIRAGE_PLATFORM_64BIT		1
 	#define MIRAGE_PLATFORM_SSE2		1
 #elif defined(__i386) || defined(_M_IX86)
 	#define MIRAGE_PLATFORM_X86    1
 	#define MIRAGE_PLATFORM_32BIT  1
 #elif defined(__arm__) || defined(_M_ARM)
-	#define MIRAGE_PLATFORM_ARM	1
-	#define MIRAGE_PLATFORM_32BIT	1
+	#define MIRAGE_PLATFORM_ARM	   1
+	#define MIRAGE_PLATFORM_32BIT  1
 	#if defined(__ARM_NEON__)
 		#define MIRAGE_PLATFORM_NEON 1
 	#endif
@@ -22,9 +22,9 @@
 
 // About Platform( Win32, Win64, Linux, Android )
 #if defined(_WIN32)
-	#define MIRAGE_PLATFORM_DESKTOP   1
+	#define MIRAGE_PLATFORM_DESKTOP 1
 	#define MIRAGE_PLATFORM_WINDOWS 1
-	#define MIRAGE_PLATFORM_WINAPI      1
+	#define MIRAGE_PLATFORM_WINAPI  1
 	#if defined(_WIN64)
 		#if !MIRAGE_PLATFORM_X64
 			#error Unsupported Windows 64 CPU (the only supported is x86-64).
@@ -54,7 +54,7 @@
 	#define MIRAGE_PLATFORM_POSIX   1	
 	#if TARGET_OS_IPHONE
 		#define MIRAGE_PLATFORM_MOBILE 1
-		#define MIRAGE_PLATFORM_IOS 1
+		#define MIRAGE_PLATFORM_IOS    1
 		#if !MIRAGE_PLATFORM_UNKNOWNCPU
 			#error Unsupported IOS CPU.
 		#endif
