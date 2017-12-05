@@ -1,9 +1,7 @@
 cmake_minimum_required (VERSION 2.8)
 
 add_compile_options(-std=c++11)
-
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-
 project (Mirage)
 
 # Create filter by directory in MSVC
@@ -28,7 +26,7 @@ macro(source_group_by_dir source_files)
     endif(MSVC)
 endmacro(source_group_by_dir)
 
-# 
+# Add director recursively
 function(include_sub_directories_recursively root_dir)
     if (IS_DIRECTORY ${root_dir})               # 当前路径是一个目录吗，是的话就加入到包含目录
         message("include dir: " ${root_dir})
@@ -42,30 +40,6 @@ function(include_sub_directories_recursively root_dir)
         endif()
     endforeach()
 endfunction()
-
-# Create filter by directory in MSVC
-macro(source_group_by_recursively SRCS)
-    foreach(FILE ${SRCS}) 
-        # Get the directory of the source file
-        get_filename_component(PARENT_DIR "${FILE}" DIRECTORY)
-
-        # Remove common directory prefix to make the group
-        string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}" "" GROUP "${PARENT_DIR}")
-
-        # Make sure we are using windows slashes
-        string(REPLACE "/" "\\" GROUP "${GROUP}")
-
-        # Group into "Source Files" and "Header Files"
-        if ("${FILE}" MATCHES ".*\\.cpp")
-        set(GROUP "Source Files${GROUP}")
-        elseif("${FILE}" MATCHES ".*\\.h")
-        set(GROUP "Header Files${GROUP}")
-        endif()
-
-        source_group("${GROUP}" FILES "${FILE}")
-    endforeach()
-endmacro(source_group_by_recursively)
-
 
 add_subdirectory(./MirageEngine)
 add_subdirectory(./EngineTest)

@@ -220,20 +220,20 @@ int main(int argsCount, char** args)
 	char buff[50];
 	void* pBuff = (void*)buff;
 	size_t size = 0;
-	if (FileIOSystem::Get().LoadFile("file.bin", buff, 50, size))
+	if (FileIOSystem::Get().LoadFile("../../Resource/file.bin", buff, 50, size))
 	{
 		cout << "Loaded Successfully!" << endl;
 	}
-	FileIOSystem::Get().SaveFileAsync("saveAsync.bin", buff, size, [](bool r) {
+	FileIOSystem::Get().SaveFileAsync("../../Resource/saveAsync.bin", buff, size, [](bool r) {
 		cout << "Save Successfully!" << endl;
 	});
-	FileIOSystem::Get().SaveFileAsync("saveAsync1.bin", buff, size, [](bool r) {
+	FileIOSystem::Get().SaveFileAsync("../../Resource/saveAsync1.bin", buff, size, [](bool r) {
 		cout << "Save Successfully 1!" << endl;
 	});
-	FileIOSystem::Get().SaveFileAsync("saveAsync2.bin", buff, size, [](bool r) {
+	FileIOSystem::Get().SaveFileAsync("../../Resource/saveAsync2.bin", buff, size, [](bool r) {
 		cout << "Save Successfully! 2" << endl;
 	});
-	FileIOSystem::Get().SaveFileAsync("saveAsync3.bin", buff, size, [](bool r) {
+	FileIOSystem::Get().SaveFileAsync("../../Resource/saveAsync3.bin", buff, size, [](bool r) {
 		cout << "Save Successfully! 3" << endl;
 	});
 
