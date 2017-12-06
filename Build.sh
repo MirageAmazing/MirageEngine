@@ -1,17 +1,19 @@
-#!/bin/sh
-echo ****************************************  
-echo MirageEngine build begin  
-echo ****************************************  
+#!/bin/bash
+echo "************************************"
+echo MirageEngine build begin on Linux
+echo "************************************"
 
-buildPath = "Build"
+str="Build"
 
-if [ ! -d "${buildPath}" ]; then
-mkdir "${buildPath}"
+if [ ! -e $str ]
+then
+mkdir $str
 fi
-cd "${buildPath}"
+cd $str
+
 cmake ../Src
 
-echo ****************************************  
-echo MirageEngine build over  
-echo ****************************************  
-pause  
+echo "************************************"
+echo MirageEngine build over on Linux
+echo "************************************"
+exit 0
