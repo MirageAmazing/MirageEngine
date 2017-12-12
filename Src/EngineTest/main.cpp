@@ -249,6 +249,16 @@ int main(int argsCount, char** args)
 	Print(sizeof(int));
 	Print(sizeof(void*));
 
+	#if defined(__clang__)
+		Print("CLANG");
+	#elif defined(__GNUC__)
+		Print("GCC");
+	#elif defined(_MSC_VER)
+		Print("MSVC");
+	#else
+	#error Unsupported compiler was used.
+	#endif
+
 	system("Pause");
 	return 0;
 }

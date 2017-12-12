@@ -20,7 +20,7 @@
 	#define MIRAGE_PLATFORM_UNKNOWNCPU 1
 #endif 
 
-// About Platform( Win32, Win64, Linux, Android )
+// About Platform( Win32, Win64, Linux, Android, Apple, Web )
 #if defined(_WIN32)
 	#define MIRAGE_PLATFORM_DESKTOP 1
 	#define MIRAGE_PLATFORM_WINDOWS 1
@@ -86,4 +86,17 @@
 #elif defined(_MSC_VER)
 #else
 	#error Unsupported compiler was used.
+#endif
+
+#define SAFE_DELETE(P) {if(p){delete (p);			(p)=nullptr;}}
+#define SAFE_DELETE_ARRAY(P) {if(p){delete[] (p);	(p)=nullptr;}}
+
+#if MIRAGE_PLATFORM_WINAPI
+	#define PRIX64 "I64X"
+	#define PRIx64 "I64x"
+	#define PRId64 "I64d"
+	#define PRIu64 "I64u"
+	#define PRIi64 "I64i"
+#else
+	
 #endif
