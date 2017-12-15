@@ -68,6 +68,8 @@
 	#else
 		#error Unknown Apple platform.
 	#endif
+#elif defined(__EMSCRIPTEN__)
+	#define MIRAGE_PLATFORM_HTML5
 #else
 	#error Unknown target platform.
 #endif
