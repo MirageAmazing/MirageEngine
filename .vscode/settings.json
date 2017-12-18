@@ -1,6 +1,18 @@
 {
     "files.associations": {
         "iostream": "cpp",
-        "__locale": "cpp"
+        "__locale": "cpp",
+        "xlocale": "cpp",
+        "ios": "cpp",
+        "iosfwd": "cpp",
+        "type_traits": "cpp",
+        "xutility": "cpp",
+        "list": "cpp",
+        "memory": "cpp",
+        "streambuf": "cpp",
+        "vector": "cpp",
+        "xmemory0": "cpp",
+        "xstring": "cpp",
+        "initializer_list": "cpp"
     }
 }

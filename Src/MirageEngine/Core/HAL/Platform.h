@@ -84,8 +84,11 @@
 
 // About Compiler (clang, g++, msvc)
 #if defined(__clang__)
+	#define MIRAGE_COMPILER_CLANG 1
 #elif defined(__GNUC__)
+	#define MIRAGE_COMPILER_GNUC 1
 #elif defined(_MSC_VER)
+	#define MIRAGE_COMPILER_MSVC 1
 #else
 	#error Unsupported compiler was used.
 #endif
@@ -93,7 +96,7 @@
 #define SAFE_DELETE(P) {if(p){delete (p);			(p)=nullptr;}}
 #define SAFE_DELETE_ARRAY(P) {if(p){delete[] (p);	(p)=nullptr;}}
 
-#if MIRAGE_PLATFORM_WINAPI
+#ifdef MIRAGE_PLATFORM_WINAPI
 	#define PRIX64 "I64X"
 	#define PRIx64 "I64x"
 	#define PRId64 "I64d"

@@ -5,9 +5,9 @@
 
 #include "../MirageEngine/Core/Math/TQuaternion.h"
 #include "../MirageEngine/Core/Math/TVector3.h"
-#include "../MirageEngine/Core/Allocator/MemoryPool.h"
 #include "../MirageEngine/Core/Allocator/Allocator.h"
 #include "../MirageEngine/Core/HAL/IOBase.h"
+#include "../MirageEngine/Core/HAL/Platform.h"
 
 using namespace std;
 using Vector = TVector3;
@@ -76,21 +76,25 @@ public:
 		x = 0;
 		y = 0;
 	}
-	MyClass(int ix, int iy)
+	MyClass(double ix, double iy)
 	{
 		x = ix;
 		y = iy;
 	}
-	MyClass(int ix, int iy, float iz)
+	MyClass(double ix, double iy, double iz)
 	{
 		x = ix;
 		y = iy;
 		z = iz;
 	}
+	MyClass operator + (const MyClass& InV) const
+	{
+		return MyClass(x + InV.x, y + InV.y, z + InV.z);
+	}
 
-	int x = 0;
-	int y = 0;
-	float z = 0;
+	double x = 0;
+	double y = 0;
+	double z = 0;
 };
 
 class FreeList
@@ -240,25 +244,32 @@ int main(int argsCount, char** args)
 		if (r)
 			cout << "Save Successfully! 3" << endl;
 	});
-
-	TVector3 v1(12,45,89);
-	TVector3 v2(22,45,89);
-	auto v3 = v1+v2;
-	cout<<v3.x<<" "<<v3.y<<" "<<v3.z<<endl;
 	
 	Print(sizeof(int));
 	Print(sizeof(void*));
 
-	#if defined(__clang__)
+	#if defined(MIRAGE_COMPILER_CLANG)
 		Print("CLANG");
-	#elif defined(__GNUC__)
+	#elif defined(MIRAGE_COMPILER_GNUC)
 		Print("GCC");
-	#elif defined(_MSC_VER)
+	#elif defined(MIRAGE_COMPILER_MSVC)
 		Print("MSVC");
 	#else
-	#error Unsupported compiler was used.
+		#error Unsupported compiler was used.
 	#endif
+	
+	auto vecPool = new PoolAllocator<MyClass>(20);
+	auto v1 = vecPool->Allocte(23, 89, 21);
+	auto v2 = vecPool->Allocte(7, 849, 212);
+	auto v3 = vecPool->Allocte(65, 89, 21);
+	auto vr = *v1 + *v2;
 
+	cout <<"Memery test:"<< vr.x << " " << vr.y << " " << vr.z << endl;
+
+	vecPool->Free(v1);
+	vecPool->Free(v2);
+	vecPool->Free(v3);
+	
 	system("Pause");
 	return 0;
 }

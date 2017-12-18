@@ -6,70 +6,16 @@
 class DoubleEndedStackAllocator:public AllocatorBase<DoubleEndedStackAllocator>
 {
 public:
-	explicit DoubleEndedStackAllocator(size_t size)
-	{
-		memory = MemoryPool::Get()->Allocate(size);
-		startPointer = static_cast<char*>(memory->memory);
-		endPointer = startPointer + size;
-		pointerFromStart = startPointer;
-		pointerFromEnd = endPointer;
-	}
+	explicit DoubleEndedStackAllocator(size_t size);
 
 	DoubleEndedStackAllocator() = delete;
 	DoubleEndedStackAllocator& operator = (const DoubleEndedStackAllocator&) = delete;
 
-	void* AllocFromStart(size_t size)
-	{
-		auto result = pointerFromStart;
-		auto move = pointerFromStart + size;
-		if (move > pointerFromEnd)
-		{
-			//TODO:Exception
-			return nullptr;
-		}
-		pointerFromStart = move;
-		return result;
-	}
-	void* AllocFromEnd(size_t size)
-	{
-		auto result = pointerFromEnd - size;
-		if (result < pointerFromStart)
-		{
-			//TODO:Exception
-			return nullptr;
-		}
-		pointerFromEnd = result;
-		return result;
-	}
-	bool FreeBaseStart(void* pointer, size_t size)
-	{
-		if (pointer == startPointer)
-			return false;
-		if (pointerFromStart != pointer)
-			return false;
-
-		pointerFromStart -= size;
-		return true;
-	}
-	bool FreeBaseEnd(void* pointer, size_t size)
-	{
-		if (pointer == endPointer)
-			return false;
-		if (pointerFromEnd != pointer)
-			return false;
-
-		pointerFromEnd += size;
-		return true;
-	}
-	void Clear()
-	{
-		if (pointerFromStart != startPointer || pointerFromEnd != endPointer)
-		{
-			// Exception
-		}
-		pointerFromStart = startPointer;
-		pointerFromEnd = endPointer;
-	}
+	void* AllocFromStart(size_t size);
+	void* AllocFromEnd(size_t size);
+	bool FreeBaseStart(void* pointer, size_t size);
+	bool FreeBaseEnd(void* pointer, size_t size);
+	void Clear();
 
 private:
 	char* startPointer = nullptr;

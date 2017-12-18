@@ -22,6 +22,7 @@ public:
 	PoolAllocator(size_t count) 
 	{
 		auto size = sizeof(T);
+		auto sizeNode = sizeof(FreeListNode);
 		assert(size >= sizeof(FreeListNode));
 
 		memory = MemoryPool::Get()->Allocate(count*sizeof(T));
