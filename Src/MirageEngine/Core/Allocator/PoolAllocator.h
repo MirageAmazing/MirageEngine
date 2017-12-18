@@ -1,4 +1,5 @@
 #pragma once
+#include "../HAL/Platform.h"
 #include "MemoryPool.h"
 #include "AllocatorBase.h"
 #include <memory>
@@ -37,7 +38,7 @@ public:
 			else
 				tempfl->next = flPointer;
 			tempfl = flPointer;
-			memoryStart = (void*)( *((int*)(memoryStart)) +size);
+			memoryStart = (void*)( *((PointerValueType*)(memoryStart)) +size);
 		}
 	}
 	~PoolAllocator() 
@@ -60,8 +61,8 @@ public:
 
 	bool Free(T* pObj)
 	{
-		unsigned int memoryAddress = (unsigned int)(memory->memory);
-		unsigned int objAddress = (unsigned int)pObj;
+		auto memoryAddress = (PointerValueType)(memory->memory);
+		auto objAddress = (PointerValueType)pObj;
 		if (objAddress >= memoryAddress && objAddress < (memoryAddress + memory->sizeofMemory))
 		{
 			FreeList fl = (FreeList)objAddress;

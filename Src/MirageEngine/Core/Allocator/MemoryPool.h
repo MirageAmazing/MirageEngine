@@ -1,5 +1,6 @@
 #pragma once
 #include <new>
+#include <stdlib.h>
 
 class MemoryPool
 {

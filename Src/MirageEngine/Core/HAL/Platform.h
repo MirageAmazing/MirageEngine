@@ -105,3 +105,12 @@
 #else
 	
 #endif
+
+// Types
+#ifdef MIRAGE_PLATFORM_32BIT
+	#define PointerValueType unsigned int
+#elif MIRAGE_PLATFORM_64BIT
+	#define PointerValueType unsigned long
+#else
+	#error "This platform is not 32Bit or 64Bit."
+#endif
