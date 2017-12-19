@@ -2,6 +2,7 @@
 #include <string>
 
 #define Print(x) cout<<x<<endl
+#define ResourcePath(x) "../../MirageEngine/Resource/"#x
 
 void EnvironmentInfo()
 {

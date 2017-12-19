@@ -12,9 +12,11 @@ else()
     set(ML libme.a)
 endif()
 
-aux_source_directory(. DIR_SRCS)
+file(GLOB_RECURSE project_headers *.h)
+file(GLOB_RECURSE project_cpps *.cpp)
+set(all_files ${project_headers} ${project_cpps})
 
-add_executable(enginetest ${DIR_SRCS})
+add_executable(enginetest ${all_files})
 
 if(MSVC)
 else()
@@ -22,3 +24,5 @@ else()
 endif()
 
 target_link_libraries(enginetest ${ML}) 
+
+source_group_by_dir(all_files)

@@ -26,32 +26,28 @@ int main(int argsCount, char** args)
 	char buff[50];
 	void* pBuff = (void*)buff;
 	size_t size = 0;
-	if (FileIOSystem::Get().LoadFile("../../Resource/file.bin", buff, 50, size))
+	auto path = ResourcePath(file.bin);
+	if (FileIOSystem::Get().LoadFile(ResourcePath(file.bin), buff, 50, size))
 	{
 		cout << "Loaded Successfully!" << endl;
 	}
-	FileIOSystem::Get().SaveFileAsync("../../Resource/saveAsync.bin", buff, size, [](bool r) {
+	FileIOSystem::Get().SaveFileAsync(ResourcePath(saveAsync.bin), buff, size, [](bool r) {
 		if(r)
 			cout << "Save Successfully!" << endl;
 	});
-	FileIOSystem::Get().SaveFileAsync("../../Resource/saveAsync1.bin", buff, size, [](bool r) {
+	FileIOSystem::Get().SaveFileAsync(ResourcePath(saveAsync1.bin), buff, size, [](bool r) {
 		if (r)
 			cout << "Save Successfully 1!" << endl;
 	});
-	FileIOSystem::Get().SaveFileAsync("../../Resource/saveAsync2.bin", buff, size, [](bool r) {
+	FileIOSystem::Get().SaveFileAsync(ResourcePath(saveAsync2.bin), buff, size, [](bool r) {
 		if (r)
 			cout << "Save Successfully! 2" << endl;
 	});
-	FileIOSystem::Get().SaveFileAsync("../../Resource/saveAsync3.bin", buff, size, [](bool r) {
+	FileIOSystem::Get().SaveFileAsync(ResourcePath(saveAsync3.bin), buff, size, [](bool r) {
 		if (r)
 			cout << "Save Successfully! 3" << endl;
 	});
-	
-	Print(sizeof(int));
-	Print(sizeof(void*));
 
-	
-	
 	auto vecPool = new PoolAllocator<MyClass>(20);
 	auto v1 = vecPool->Allocte(23, 89, 21);
 	auto v2 = vecPool->Allocte(7, 849, 212);
@@ -60,9 +56,11 @@ int main(int argsCount, char** args)
 
 	cout <<"Memery test:"<< vr.x << " " << vr.y << " " << vr.z << endl;
 
-	vecPool->Free(v1);
-	vecPool->Free(v2);
-	vecPool->Free(v3);
+	if (vecPool->Free(v3)) Print("V3 free succeed!"); 
+	if (vecPool->Free(v1)) Print("V1 free succeed!");
+	if (vecPool->Free(v2)) Print("V2 free succeed!");
+	if (vecPool->Free(v3)) Print("V3 free succeed!");
+	if (vecPool->Free(v2)) Print("V2 free succeed!");
 	
 	system("Pause");
 	return 0;

@@ -17,9 +17,6 @@ macro(source_group_by_dir source_files)
             if(sgbd_nogroup)
                 set(sgbd_group_name "\\")
             endif(sgbd_nogroup)
-
-            message(${sgbd_group_name})
-            message(${sgbd_file})
             
             source_group(${sgbd_group_name} FILES ${sgbd_file})
         endforeach(sgbd_file)
