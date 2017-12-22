@@ -13,6 +13,14 @@
         "vector": "cpp",
         "xmemory0": "cpp",
         "xstring": "cpp",
-        "initializer_list": "cpp"
+        "initializer_list": "cpp",
+        "array": "cpp",
+        "chrono": "cpp",
+        "functional": "cpp",
+        "istream": "cpp",
+        "ostream": "cpp",
+        "ratio": "cpp",
+        "tuple": "cpp",
+        "utility": "cpp"
     }
 }

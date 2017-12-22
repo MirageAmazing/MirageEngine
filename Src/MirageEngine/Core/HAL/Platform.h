@@ -82,7 +82,7 @@
 	#define MIRAGE_PLATFORM_ALIGNMENT 1
 #endif
 
-// About Compiler (clang, g++, msvc)
+// About Compiler (clang, g++, msvc).
 #if defined(__clang__)
 	#define MIRAGE_COMPILER_CLANG 1
 #elif defined(__GNUC__)
@@ -93,15 +93,24 @@
 	#error Unsupported compiler was used.
 #endif
 
+// About safe delete function
 #define SAFE_DELETE(P) {if(p){delete (p);			(p)=nullptr;}}
 #define SAFE_DELETE_ARRAY(P) {if(p){delete[] (p);	(p)=nullptr;}}
 
-#ifdef MIRAGE_PLATFORM_WINAPI
-	#define PRIX64 "I64X"
-	#define PRIx64 "I64x"
-	#define PRId64 "I64d"
-	#define PRIu64 "I64u"
-	#define PRIi64 "I64i"
-#else
-	
-#endif
+// About basic type defined.
+// Unsigned base types.
+typedef unsigned char uint8;       //8-bit unsigned.
+typedef unsigned short int uint16; //16-bit unsigned.
+typedef unsigned int uint32;       //32-bit unsigned.
+typedef unsigned long long uint64; //64-bit unsigned.
+
+//Signed base types.
+typedef signed char int8;       //8-bit signed.
+typedef signed short int int16; //16-bit signed.
+typedef signed int int32;       //32-bit signed.
+typedef signed long long int64; //64-bit signed.
+
+// Character types.
+typedef char CHAR8;
+typedef char16_t CHAR16;
+typedef char32_t CHAR32;
