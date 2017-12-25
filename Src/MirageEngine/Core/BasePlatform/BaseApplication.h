@@ -1,5 +1,7 @@
 #pragma once
 
+#include "BaseWindow.h"
+
 /**
  *Platform application interface
  */
@@ -10,4 +12,6 @@ class BaseApplication
     virtual ~BaseApplication() {}
 
     virtual void Tick(float deltaTime){}
+
+    BaseWindow* CreateWindow(WindowDescription WindowDes);
 };

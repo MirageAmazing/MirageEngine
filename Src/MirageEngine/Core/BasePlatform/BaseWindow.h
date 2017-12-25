@@ -2,6 +2,7 @@
 
 #include "../HAL/Platform.h"
 
+// Show mode of Window 
 enum class eWindowMode
 {
      // The window is in true fullscreen mode
@@ -16,6 +17,33 @@ enum class eWindowMode
      WindowModesCount
 };
 
+// Description of Window.
+struct WindowDescription
+{
+    float PositionX = 0;
+    float PositionY = 0;
+    int32 Width = 800;
+    int32 Height = 600;
+
+    bool HasOSWindowBorder = true;
+	bool AppearsInTaskbar = true;
+	bool IsTopmostWindow = true;
+	bool AcceptsInput = true;
+	bool ActivateWhenFirstShown = true;
+
+	bool HasCloseButton = true;
+	bool SupportsMinimize = true;
+	bool SupportsMaximize = true;
+
+	bool IsModalWindow = false;
+	bool SizeWillChangeOften = true;
+	int32 ExpectedMaxWidth = 1920;
+	int32 ExpectedMaxHeight = 1080;
+
+	CHAR8* Title = "NoTitle";
+};
+
+// Base define for behaviour of MirgaeEngine's window 
 class BaseWindow
 {
 public:

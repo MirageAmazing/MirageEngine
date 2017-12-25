@@ -8,5 +8,11 @@
 class LinuxApplication:public BaseApplication
 {
 public:
-    LinuxApplication(){}
+    static LinuxApplication* CreateApplication();
+
+public:
+    ~LinuxApplication();
+
+private:
+    LinuxApplication();
 };
