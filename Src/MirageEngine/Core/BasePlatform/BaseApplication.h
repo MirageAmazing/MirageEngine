@@ -2,6 +2,8 @@
 
 #include "BaseWindow.h"
 
+
+
 /**
  *Platform application interface
  */
@@ -13,5 +15,7 @@ class BaseApplication
 
     virtual void Tick(float deltaTime){}
 
-    BaseWindow* CreateWindow(WindowDescription WindowDes);
+    BaseWindow* CreateWindow(WindowDescription WindowDes) const;
+    bool DestoryWindow(BaseWindow& window) const;
+
 };
