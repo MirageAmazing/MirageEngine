@@ -1,5 +1,7 @@
 #include "../MirageEngine/Core/HAL/Platform.h"
 #include <string>
+#include <iostream>
+using namespace std;
 
 #define Print(x) cout<<x<<endl
 #define ResourcePath(x) "../../MirageEngine/Resource/"#x

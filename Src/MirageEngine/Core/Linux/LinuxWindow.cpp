@@ -1,6 +1,3 @@
 #include "LinuxWindow.h"
 
-LinuxWindow::LinuxWindow()
-{
-    
-}
+LinuxWindow* LinuxWindow::Get() { return nullptr; }

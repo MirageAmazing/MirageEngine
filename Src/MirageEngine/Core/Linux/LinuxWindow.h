@@ -13,10 +13,10 @@ public:
     static LinuxWindow* Get();
     
 public:
-    ~LinuxWindow();
+	~LinuxWindow() {};
 
 private:
-    LinuxWindow();
+	LinuxWindow() {};
 
 private:
     SDL_HWindow mHWND;

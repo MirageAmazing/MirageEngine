@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../BasePlatform/BaseApplication"
+#include "../BasePlatform/BaseApplication.h"
 
 /**
  *Linux application

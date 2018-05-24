@@ -98,6 +98,7 @@
 #define SAFE_DELETE_ARRAY(P) {if(p){delete[] (p);	(p)=nullptr;}}
 
 // About basic type defined.
+
 // Unsigned base types.
 typedef unsigned char uint8;       //8-bit unsigned.
 typedef unsigned short int uint16; //16-bit unsigned.
@@ -114,3 +115,16 @@ typedef signed long long int64; //64-bit signed.
 typedef char CHAR8;
 typedef char16_t CHAR16;
 typedef char32_t CHAR32;
+
+// floating point type
+typedef float f32;
+typedef double f64;
+
+// Custom type
+typedef unsigned long long MEUID;
+
+#if defined(MIRAGE_COMPILER_MSVC)
+	#define MEINLINE __forceinline
+#else
+	#define MEINLINE inline
+#endif
