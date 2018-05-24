@@ -1,6 +1,6 @@
 #pragma once
-#include "../Framework/ISystem.h"
-#include "../Math/VersionNumber.h"
+#include "../Core/Framework/ISystem.h"
+#include "../Core/Math/VersionNumber.h"
 
 namespace Mirage {
 	namespace Entity {

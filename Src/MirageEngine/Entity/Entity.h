@@ -2,11 +2,13 @@
 #include <vector>
 #include <list>
 #include <memory>
-#include "Core\Core.h"
-#include "Core\Math\MEMath.h"
+#include "..\Core\Core.h"
+#include "..\Core\Math\MEMath.h"
+#include "..\Core\Math\Transform.h"
 #include "EntityComponent.h"
 
 using namespace std;
+using namespace Mirage::Math;
 
 namespace Mirage {
 	namespace Entity {
@@ -19,9 +21,19 @@ namespace Mirage {
 			Entity() {
 				mUID = MirageMath::GenerateUID();
 			}
-			virtual ~Entity() {
-			}
+			virtual ~Entity() {}
 		
+			virtual void Start() {}
+			virtual void End() {}
+			virtual void Tick() {}
+			virtual void Activite(bool value) {}
+
+			EntityComponentPtr AddComponent(EntityComponentPtr) {}
+			void RemoveComponent(EntityComponentPtr) {}
+			
+		public:
+			Transform mTransform;
+
 		private:
 			list<EntityComponentPtr> mEntityList;
 
