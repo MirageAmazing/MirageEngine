@@ -2,6 +2,7 @@
 
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_main.h"
+#include "jemalloc/jemalloc.h"
 
 #include "../MirageEngine/MirageEngine.h"
 #include "../MirageEngine/Render/BaseRender/BaseRender.h"
@@ -11,10 +12,25 @@
 #include "../MirageEngine/Core/Math/Quaternion.h"
 #include "../MirageEngine/Core/Math/VersionNumber.h"
 #include "../MirageEngine/Resource/ResourceSystem.h"
+#include "../MirageEngine/Core/HAL/MMalloc.h"
 
 using namespace std;
 using namespace MirageMath;
 using namespace Mirage::Render;
+
+template<template<class...> class Target, class T>
+struct is_template_of
+{
+	static const bool value = false;
+};
+template<template<class...> class Target, class...Args>
+struct is_template_of<Target, Target<Args...>>
+{
+	static const bool value = true;
+};
+
+class Drived {};
+class Child :public Drived {};
 
 void TestMain();
 
@@ -123,6 +139,15 @@ void TestMain()
 	Quaternionf quat(3.14, 0.6, 0.9);
 	auto eular = quat.Eular();
 
+	int* pint = (int*)je_malloc(sizeof(int));
+	
+	je_free(pint);
+
+	Mirage::Core::MMalloc mm;
+	pint = (int*)mm.Malloc(sizeof(int));
+	auto pq = mm.New<Quaternionf>(12, 12, 12, 12);
+	mm.Free(pq);
 	int x = 0;
 	x++;
+
 }

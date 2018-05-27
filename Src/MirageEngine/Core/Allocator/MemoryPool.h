@@ -1,6 +1,7 @@
 #pragma once
 #include <new>
 #include <stdlib.h>
+#include "../HAL/MMalloc.h"
 
 class MemoryPool
 {
@@ -15,12 +16,14 @@ private:
 	{
 		MemoryNode(size_t size)
 		{
-			memory.memory = malloc(size);
+			Mirage::Core::MMalloc memoryalloctor;
+			memory.memory = memoryalloctor.Malloc(size);
 			memory.sizeofMemory = size;
 		}
 		~MemoryNode()
 		{
-			free(memory.memory);
+			Mirage::Core::MMalloc memoryalloctor;
+			memoryalloctor.Free(memory.memory);
 		}
 		Memory memory;
 		MemoryNode* previous = nullptr;

@@ -13,13 +13,15 @@ using namespace Mirage::Math;
 namespace Mirage {
 	namespace Entity {
 
+		class EntitySystem;
 		class Entity;
-		using EntityPtr = shared_ptr<Entity>;
+		using EntityPtr = Entity*;
 
 		class Entity{
-		public:
-			Entity() {
+		protected:
+			Entity(const char* name) {
 				mUID = MirageMath::GenerateUID();
+				mName = name;
 			}
 			virtual ~Entity() {}
 		
@@ -28,19 +30,31 @@ namespace Mirage {
 			virtual void Tick() {}
 			virtual void Activite(bool value) {}
 
-			EntityComponentPtr AddComponent(EntityComponentPtr) {}
-			void RemoveComponent(EntityComponentPtr) {}
+		public:
+			const char* Name() {
+				return mName;
+			}
+			EntityComponentPtr AddComponent(EntityComponentPtr) {
+
+			}
+			void RemoveComponent(EntityComponentPtr) {
+
+			}
 			
 		public:
 			Transform mTransform;
 
 		private:
+			const char* mName;
+
 			list<EntityComponentPtr> mEntityList;
 
 			EntityPtr mParent;
 			vector<EntityPtr> mChildren;
 
 			MEUID mUID;
+
+			friend EntitySystem;
 		};
 	}
 }
