@@ -12,13 +12,13 @@ namespace Mirage {
 			OpenGL40
 		};
 
-		class BaseRender
+		class Render
 		{
 		public:
-			BaseRender(int iScreenWidth, int iScreenHeight, void* pWindowHandle);
-			BaseRender(BaseRender&& render);
-			virtual ~BaseRender();
-			BaseRender(BaseRender&) = delete;
+			Render(int iScreenWidth, int iScreenHeight, void* pWindowHandle);
+			Render(Render&& render);
+			virtual ~Render();
+			Render(Render&) = delete;
 
 			void SetClearColor(float r, float g, float b);
 			void SetFullScreen(bool value);
@@ -40,10 +40,12 @@ namespace Mirage {
 			int mVideoCardMemory = 0;
 
 		public:
-			static unique_ptr<BaseRender> GetRender(RenderType type, int iScreenWidth, int iScreenHeight, void* pWindowHandle);
+			static unique_ptr<Render> GetRender(RenderType type, int iScreenWidth, int iScreenHeight, void* pWindowHandle);
 
 		private:
-			static unique_ptr<BaseRender> mBaseRender;
+			static unique_ptr<Render> mBaseRender;
 		};
+
+		using RenderPtr = shared_ptr<Render>;
 	}
 }

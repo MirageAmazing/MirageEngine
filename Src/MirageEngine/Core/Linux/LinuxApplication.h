@@ -13,6 +13,9 @@ public:
 public:
     ~LinuxApplication();
 
+	virtual void Tick(float deltaTime) override {
+	
+	}
 private:
     LinuxApplication();
 };

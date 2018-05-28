@@ -9,5 +9,7 @@ class WindowsApplication:public BaseApplication
 {
 public:
     WindowsApplication(){}
-
+	virtual void Tick(float deltaTime) override {
+		
+	}
 };

@@ -7,7 +7,7 @@
 namespace Mirage {
 	namespace Render {
 		RenderDX11::RenderDX11(int iScreenWidth, int iScreenHeight, void* pWindowHandle) :
-			BaseRender(iScreenWidth, iScreenHeight, pWindowHandle)
+			Render(iScreenWidth, iScreenHeight, pWindowHandle)
 		{
 			if (pWindowHandle == nullptr)
 			{

@@ -2,73 +2,82 @@
 
 #include "../HAL/Platform.h"
 
-// Show mode of Window 
-enum class eWindowMode
-{
-     // The window is in true fullscreen mode
-     FullScreen,
-     // The window has no border and takes up the entire area of the screen
-     WindowedFullScreen,
-     // The window have a border and may not take up the entire screen area
-     Windowed,
-     // Prepare for devices like HMDs( Helmet mounted display and sight)
-     WindowedMirror,
+namespace Mirage {
+	namespace Application {
 
-     WindowModesCount
-};
+		// Show mode of Window 
+		enum class eWindowMode
+		{
+			// The window is in true fullscreen mode
+			FullScreen,
+			// The window has no border and takes up the entire area of the screen
+			WindowedFullScreen,
+			// The window have a border and may not take up the entire screen area
+			Windowed,
+			// Prepare for devices like HMDs( Helmet mounted display and sight)
+			WindowedMirror,
 
-// Description of Window.
-struct WindowDescription
-{
-    float PositionX = 0;
-    float PositionY = 0;
-    int32 Width = 800;
-    int32 Height = 600;
+			WindowModesCount
+		};
 
-    bool HasOSWindowBorder = true;
-	bool AppearsInTaskbar = true;
-	bool IsTopmostWindow = true;
-	bool AcceptsInput = true;
-	bool ActivateWhenFirstShown = true;
+		// Description of Window.
+		struct WindowDescription
+		{
+			float PositionX = 0;
+			float PositionY = 0;
+			int32 Width = 800;
+			int32 Height = 600;
 
-	bool HasCloseButton = true;
-	bool SupportsMinimize = true;
-	bool SupportsMaximize = true;
+			bool HasOSWindowBorder = true;
+			bool AppearsInTaskbar = true;
+			bool IsTopmostWindow = true;
+			bool AcceptsInput = true;
+			bool ActivateWhenFirstShown = true;
 
-	bool IsModalWindow = false;
-	bool SizeWillChangeOften = true;
-	int32 ExpectedMaxWidth = 1920;
-	int32 ExpectedMaxHeight = 1080;
+			bool HasCloseButton = true;
+			bool SupportsMinimize = true;
+			bool SupportsMaximize = true;
 
-	CHAR8* Title = "NoTitle";
-};
+			bool IsModalWindow = false;
+			bool SizeWillChangeOften = true;
+			int32 ExpectedMaxWidth = 1920;
+			int32 ExpectedMaxHeight = 1080;
 
-// Base define for behaviour of MirgaeEngine's window 
-class BaseWindow
-{
-public:
-    BaseWindow();
-    virtual ~BaseWindow();
+			CHAR8* Title = "NoTitle";
+		};
 
-    virtual void Destory();
-    virtual void Minimize();
-    virtual void Maximize();
-    virtual void Show();
-    virtual void Hide();
-    virtual void Resize(int32 width, int32 height);
-    virtual void MoveTo(int32 x, int y);
-    virtual void GotoFront(bool bForce = false);
+		// Base define for behaviour of MirgaeEngine's window 
+		class BaseWindow
+		{
+		public:
+			BaseWindow();
+			virtual ~BaseWindow();
 
-    virtual bool GetFullScreenInfo(int32& x, int32 y, int32& width, int32 height) const;
-    eWindowMode GetWindowMode() const;
-    virtual bool IsMaximized() const;
-    virtual bool IsMinimized() const;
-    virtual bool IsVisible() const;
-    virtual bool IsPointInWindow(int32 x, int32 y) const;
+			virtual void Destory();
+			virtual void Minimize();
+			virtual void Maximize();
+			virtual void Show();
+			virtual void Hide();
+			virtual void Resize(int32 width, int32 height);
+			virtual void MoveTo(int32 x, int32 y);
+			virtual void GotoFront(bool bForce = false);
 
-    virtual void SetWindowMode(eWindowMode mode);
-    virtual void SetFocus();
+			virtual bool GetFullScreenInfo(int32& x, int32 y, int32& width, int32 height) const;
+			eWindowMode GetWindowMode() const;
+			virtual bool IsMaximized() const;
+			virtual bool IsMinimized() const;
+			virtual bool IsVisible() const;
+			virtual bool IsPointInWindow(int32 x, int32 y) const;
 
-protected:
-    eWindowMode mWindowMode = eWindowMode::Windowed;
-};
+			virtual void SetWindowMode(eWindowMode mode);
+			virtual void SetFocus();
+			MEINLINE virtual bool GetIsQuit() { 
+				return mIsQuit; 
+			}
+			virtual void Tick();
+		protected:
+			bool mIsQuit = false;
+			eWindowMode mWindowMode = eWindowMode::Windowed;
+		};
+	}
+}

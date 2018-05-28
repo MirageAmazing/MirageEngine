@@ -11,7 +11,7 @@
 
 namespace Mirage {
 	namespace Render {
-		class RenderDX11 :public BaseRender{
+		class RenderDX11 :public Render{
 		public:
 			RenderDX11(int iScreenWidth, int iScreenHeight, void* pWindowHandle);
 			~RenderDX11();

@@ -122,6 +122,7 @@ typedef double f64;
 
 // Custom type
 typedef unsigned long long MEUID;
+typedef const char* CStyleStr;
 
 #if defined(MIRAGE_COMPILER_MSVC)
 	#define MEINLINE __forceinline

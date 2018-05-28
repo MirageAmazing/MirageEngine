@@ -1,5 +1,7 @@
 #pragma once
+#include <memory>
 #include "../Math/MEMath.h"
+using namespace std;
 
 namespace Mirage
 {
@@ -7,11 +9,11 @@ namespace Mirage
 	class ISystem
 	{
 	public:		
-		static T* GetInstance()
+		static shared_ptr<T> GetInstance()
 		{
 			if (mSystem == nullptr)
 			{
-				mSystem = new T();
+				mSystem = make_shared<T>();
 				mSystem->Initialize();
 			}
 			return mSystem;
@@ -44,9 +46,9 @@ namespace Mirage
 		MEUID mUID;
 
 	private:
-		static T* mSystem;
+		static shared_ptr<T> mSystem;
 	};
 
 	template<class T>
-	T* ISystem<T>::mSystem = nullptr;
+	shared_ptr<T> ISystem<T>::mSystem = nullptr;
 }
