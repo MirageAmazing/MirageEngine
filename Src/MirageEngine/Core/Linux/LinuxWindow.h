@@ -5,21 +5,26 @@
 
 #include "SDL2/SDL.h"
 
-typedef SDL_Window* SDL_HWindow;
+namespace Mirage {
+	namespace Application {
 
-class LinuxWindow:public BaseWindow
-{
-public:
-    static LinuxWindow* Get();
-    
-public:
-	~LinuxWindow() {};
+		typedef SDL_Window* SDL_HWindow;
 
-private:
-	LinuxWindow() {};
+		class LinuxWindow :public BaseWindow
+		{
+		public:
+			static LinuxWindow* Get();
 
-private:
-    SDL_HWindow mHWND;
-    
-    LinuxApplication* mOwnerApp;
-};
+		public:
+			~LinuxWindow() {};
+
+		private:
+			LinuxWindow() {};
+
+		private:
+			SDL_HWindow mHWND;
+
+			LinuxApplication* mOwnerApp;
+		};
+	}
+}

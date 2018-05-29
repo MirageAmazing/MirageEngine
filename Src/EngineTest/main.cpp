@@ -14,24 +14,13 @@
 #include "../MirageEngine/Core/Math/VersionNumber.h"
 #include "../MirageEngine/Resource/ResourceSystem.h"
 #include "../MirageEngine/Core/HAL/MMalloc.h"
+#include "../MirageEngine/Core/HAL/IOBase.h"
+
+#include "../MirageEngine/Core/Windows/WindowsApplication.h"
 
 using namespace std;
 using namespace MirageMath;
-using namespace Mirage::Render;
-
-template<template<class...> class Target, class T>
-struct is_template_of
-{
-	static const bool value = false;
-};
-template<template<class...> class Target, class...Args>
-struct is_template_of<Target, Target<Args...>>
-{
-	static const bool value = true;
-};
-
-class Drived {};
-class Child :public Drived {};
+using namespace Mirage::Application;
 
 void TestMain();
 
@@ -40,44 +29,19 @@ int main(int argc, char* argv[])
 	TestMain();
 
 #if defined(MIRAGE_PLATFORM_WINDOWS)
+	Mirage::Application::Application* pApp = new WindowsApplication();
 #else
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 #endif
 
-	bool isRun = true;
-	SDL_Window *window = 0;
-	SDL_Init(SDL_INIT_VIDEO);
-	window = SDL_CreateWindow("Mirage", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_RESIZABLE | SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
-
-#if defined(MIRAGE_PLATFORM_WINDOWS)
-	auto render = BaseRender::GetRender(RenderType::DirectX11, 800, 600, window);
-#else
-	auto render = BaseRender::GetRender(RenderType::OpenGL40, 800, 600, window);
-#endif
-
-	float colorVar = 0;
-
-	while (isRun)
-	{
-		SDL_Event event;
-		while (SDL_PollEvent(&event)) {
-			switch (event.type) {
-			case SDL_EventType::SDL_QUIT:
-				isRun = false;
-				break;
-			}
-		}
-		render->SetClearColor(0, colorVar, 0);
-		render->Frame();
-
-		if (colorVar > 1) colorVar = 0;
-		else colorVar += 0.001f;
+	while (!pApp->IsQuit()){
+		pApp->Tick();
 	}
+	delete pApp;
 
-	SDL_DestroyWindow(window);
-	SDL_Quit();
+
 	return 0;
 }
 
@@ -148,6 +112,16 @@ void TestMain()
 	pint = (int*)mm.Malloc(sizeof(int));
 	auto pq = mm.New<Quaternionf>(12, 12, 12, 12);
 	mm.Free(pq);
+
+	char buff[1000];
+	size_t datasize;
+	if (FileIOSystem::Get().LoadFile("../../MirageEngine/Resource/Shader/basic.HLSL", buff, 1000, datasize)) {
+		cout << "Succeed" << endl;
+	}
+	else {
+		cout << "Failed"<<endl;
+	}
+
 	int x = 0;
 	x++;
 }

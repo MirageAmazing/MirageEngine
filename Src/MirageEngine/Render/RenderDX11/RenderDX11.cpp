@@ -1,8 +1,7 @@
 #include "RenderDX11.h"
+#include <d3dcompiler.h>
 
 #if defined(MIRAGE_PLATFORM_WINDOWS)
-#include "SDL2\SDL.h"
-#include "SDL2\SDL_syswm.h"
 
 namespace Mirage {
 	namespace Render {
@@ -14,14 +13,11 @@ namespace Mirage {
 				// TODO: Exception
 				return;
 			}
-
-			SDL_SysWMinfo wmInfo;
-			SDL_VERSION(&wmInfo.version);
-			SDL_GetWindowWMInfo((SDL_Window*)pWindowHandle, &wmInfo);
-
-			mHwnd = wmInfo.info.win.window;
+			
+			mHwnd = (HWND)pWindowHandle;
 
 			EnvirmentCheck();
+			LoadShader();
 		}
 
 		RenderDX11::~RenderDX11()
@@ -294,6 +290,82 @@ namespace Mirage {
 		void RenderDX11::OnSetClearColor()
 		{
 
+		}
+		
+		HRESULT RenderDX11::CompileShader(_In_ LPCWSTR srcFile, _In_ LPCSTR entryPoint, _In_ LPCSTR profile, _Outptr_ ID3DBlob** blob)
+		{
+			if (!srcFile || !entryPoint || !profile || !blob)
+				return E_INVALIDARG;
+
+			*blob = nullptr;
+
+			UINT flags = D3DCOMPILE_ENABLE_STRICTNESS;
+#if defined( DEBUG ) || defined( _DEBUG )
+			flags |= D3DCOMPILE_DEBUG;
+#endif
+
+			const D3D_SHADER_MACRO defines[] =
+			{
+				"EXAMPLE_DEFINE", "1",
+				NULL, NULL
+			};
+
+			ID3DBlob* shaderBlob = nullptr;
+			ID3DBlob* errorBlob = nullptr;
+			HRESULT hr = D3DCompileFromFile(srcFile, defines, D3D_COMPILE_STANDARD_FILE_INCLUDE,
+				entryPoint, profile,
+				flags, 0, &shaderBlob, &errorBlob);
+			if (FAILED(hr))
+			{
+				if (errorBlob)
+				{
+					OutputDebugStringA((char*)errorBlob->GetBufferPointer());
+					errorBlob->Release();
+				}
+
+				if (shaderBlob)
+					shaderBlob->Release();
+
+				return hr;
+			}
+
+			*blob = shaderBlob;
+
+			return hr;
+		}
+	
+		void RenderDX11::LoadShader() {
+			ID3DBlob *vsBuff = nullptr;
+			ID3DBlob *psBuff = nullptr;
+			CompileShader(L"../../MirageEngine/Resource/Shader/basic.HLSL", "VS", "vs_5_0", &vsBuff);
+			CompileShader(L"../../MirageEngine/Resource/Shader/basic.HLSL", "PS", "ps_5_0", &psBuff);
+
+			mDevice->CreateVertexShader(vsBuff->GetBufferPointer(), vsBuff->GetBufferSize(), nullptr, &mVexterShader);
+			mDevice->CreatePixelShader(psBuff->GetBufferPointer(), psBuff->GetBufferSize(), nullptr, &mPixelShader);
+
+			D3D11_INPUT_ELEMENT_DESC polygonLayout[2];
+			polygonLayout[0].SemanticName = "POSITION";
+			polygonLayout[0].SemanticIndex = 0;
+			polygonLayout[0].Format = DXGI_FORMAT_R32G32B32_FLOAT;
+			polygonLayout[0].InputSlot = 0;
+			polygonLayout[0].AlignedByteOffset = 0;
+			polygonLayout[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+			polygonLayout[0].InstanceDataStepRate = 0;
+
+			polygonLayout[1].SemanticName = "COLOR";
+			polygonLayout[1].SemanticIndex = 0;
+			polygonLayout[1].Format = DXGI_FORMAT_R32G32B32_FLOAT;
+			polygonLayout[1].InputSlot = 0;
+			polygonLayout[1].AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
+			polygonLayout[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+			polygonLayout[1].InstanceDataStepRate = 0;
+
+			auto numElements = sizeof(polygonLayout) / sizeof(polygonLayout[0]);
+
+			mDevice->CreateInputLayout(polygonLayout, numElements, vsBuff->GetBufferPointer(), vsBuff->GetBufferSize(), &mLayout);
+
+			vsBuff->Release();
+			psBuff->Release();
 		}
 
 		void RenderDX11::Frame()

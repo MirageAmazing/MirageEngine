@@ -21,8 +21,17 @@ namespace Mirage {
 		protected:
 			bool EnvirmentCheck() override;
 			void OnSetClearColor() override;
+			void LoadShader();
+			HRESULT CompileShader(_In_ LPCWSTR srcFile, _In_ LPCSTR entryPoint, _In_ LPCSTR profile, _Outptr_ ID3DBlob** blob);
 
 		private:
+			//<-temp
+			ID3D11VertexShader* mVexterShader;
+			ID3D11PixelShader* mPixelShader;
+			ID3D11InputLayout* mLayout;
+			//temp->
+
+
 			HWND mHwnd;
 
 			IDXGISwapChain* mSwapChain;

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../MirageEngine.h"
-#include "../Core/Math/MEMath.h"
+#include "../../MirageEngine.h"
+#include "../../Core/Math/MEMath.h"
 
 namespace Mirage{
 	namespace Resource {
@@ -14,6 +14,7 @@ namespace Mirage{
 			Mesh,
 			Texture,
 			Audio,
+			Shader,
 
 			Count,
 			None
@@ -37,8 +38,10 @@ namespace Mirage{
 			virtual ~IResElement() {}
 
 			eResElementType mElementType{ eResElementType::None };
-		private:
+
+		protected:
 			MEUID mGuid;
+			bool mIsValid = true;
 		};
 	}
 }

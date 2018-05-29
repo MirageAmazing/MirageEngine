@@ -2,20 +2,27 @@
 
 #include "../BasePlatform/BaseApplication.h"
 
-/**
- *Linux application
- */
-class LinuxApplication:public BaseApplication
-{
-public:
-    static LinuxApplication* CreateApplication();
+namespace Mirage {
+	namespace Application {
+		/**
+		 *Linux application
+		 */
+		class LinuxApplication :public Application
+		{
+		public:
+			static LinuxApplication* CreateApplication() {
+				return nullptr;
+			}
 
-public:
-    ~LinuxApplication();
+		public:
+			~LinuxApplication() {
+			}
 
-	virtual void Tick(float deltaTime) override {
-	
+			virtual void Tick() override {
+
+			}
+		private:
+			LinuxApplication();
+		};
 	}
-private:
-    LinuxApplication();
-};
+}

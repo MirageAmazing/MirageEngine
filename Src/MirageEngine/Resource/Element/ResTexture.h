@@ -4,9 +4,12 @@
 
 namespace Mirage {
 	namespace Resource {
-		class ResTexture
+		class ResTexture :public IResElement
 		{
-
+		public:
+			ResTexture() {
+				mElementType = eResElementType::Texture;
+			}
 		};
 	}
 }

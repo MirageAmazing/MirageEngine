@@ -10,11 +10,11 @@ namespace Mirage {
 		class ResMesh :IResElement
 		{
 		public:
-			ResMesh()
-			{
+			ResMesh(){
 				mElementType = eResElementType::Mesh;
 			}
-			~ResMesh() {}
+			~ResMesh() {
+			}
 
 		public:
 			void SetVertexs(list<VertexFormat> vertexs) {

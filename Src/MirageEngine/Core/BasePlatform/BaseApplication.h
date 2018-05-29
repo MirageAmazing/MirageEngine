@@ -8,17 +8,28 @@ namespace Mirage {
 		/**
 		 *Platform application interface
 		 */
-		class BaseApplication
+		class Application
 		{
 		public:
-			BaseApplication() {}
-			virtual ~BaseApplication() {}
+			Application() {}
+			virtual ~Application() {}
 
-			virtual void Tick(float deltaTime) {}
+			virtual void Tick() {}
 
-			BaseWindow* CreateWindow(WindowDescription WindowDes) const;
-			bool DestoryWindow(BaseWindow& window) const;
+			BaseWindow* CreateWindow(WindowDescription WindowDes) const {
+				return nullptr;
+			}
+			bool DestoryWindow(BaseWindow& window) const {
+				return true;
+			}
 
+			bool IsQuit() const {
+				return mIsQuit;
+			}
+
+		protected:
+
+			bool mIsQuit = false;
 		};
 
 	}

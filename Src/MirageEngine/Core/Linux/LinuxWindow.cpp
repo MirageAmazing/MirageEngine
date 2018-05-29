@@ -1,3 +1,6 @@
 #include "LinuxWindow.h"
-
-LinuxWindow* LinuxWindow::Get() { return nullptr; }
+namespace Mirage {
+	namespace Application {
+		LinuxWindow* LinuxWindow::Get() { return nullptr; }
+	}
+}

@@ -44,29 +44,23 @@ namespace Mirage {
 
 		}
 
-		bool BaseWindow::GetFullScreenInfo(int32& x, int32 y, int32& width, int32 height) const
-		{
+		bool BaseWindow::GetFullScreenInfo(int32& x, int32 y, int32& width, int32 height) const{
 			// some platform don't need fullscreeninfo, such as consles, etc.
 			return false;
 		}
-		eWindowMode BaseWindow::GetWindowMode() const
-		{
+		eWindowMode BaseWindow::GetWindowMode() const{
 			return mWindowMode;
 		}
-		bool BaseWindow::IsMaximized() const
-		{
+		bool BaseWindow::IsMaximized() const{
 			return false;
 		}
-		bool BaseWindow::IsMinimized() const
-		{
+		bool BaseWindow::IsMinimized() const{
 			return false;
 		}
-		bool BaseWindow::IsVisible() const
-		{
+		bool BaseWindow::IsVisible() const{
 			return false;
 		}
-		bool BaseWindow::IsPointInWindow(int32 x, int32 y) const
-		{
+		bool BaseWindow::IsPointInWindow(int32 x, int32 y) const{
 			return false;
 		}
 
@@ -76,6 +70,12 @@ namespace Mirage {
 		void BaseWindow::SetFocus(){
 		}
 		void BaseWindow::Tick() {
+		}
+		Vector2<uint32> BaseWindow::Size() const {
+			return Vector2<uint32>(mWidth, mHeight);
+		}
+		Vector2<uint32> BaseWindow::Location() const {
+			return Vector2<uint32>(mLocationX, mLocationY);
 		}
 	}
 }

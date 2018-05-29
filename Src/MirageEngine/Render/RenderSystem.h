@@ -15,7 +15,7 @@ using namespace std;
 namespace Mirage {
 	namespace Render {
 		
-		class RenderSystem :ISystem<RenderSystem> {
+		class RenderSystem : public ISystem<RenderSystem> {
 		public:
 			virtual void Initialize() override
 			{
@@ -23,28 +23,42 @@ namespace Mirage {
 			virtual void UnInitialize() override
 			{
 			}
-			
-			shared_ptr<Render> CreateRender(RenderType type, int iScreenWidth, int iScreenHeight, void* pWindowHandle) {
+			RenderPtr CreateRender(RenderType type, int iScreenWidth, int iScreenHeight, void* pWindowHandle) {
 				switch (type)
 				{
-				#if defined(MIRAGE_PLATFORM_WINDOWS)
+#if defined(MIRAGE_PLATFORM_WINDOWS)
 				case RenderType::DirectX11:
 					auto render = shared_ptr<Render>(new RenderDX11(iScreenWidth, iScreenHeight, pWindowHandle));
 					mRenderHeap.push_back(render);
 					return render;
-				#endif
-				#if defined(MIRAGE_PLATFORM_LINUX)
+#endif
+#if defined(MIRAGE_PLATFORM_LINUX)
 				case RenderType::OpenGL40:
 					if (mBaseRender == nullptr)
 						mBaseRender = unique_ptr<BaseRender>(new RenderOGL4(iScreenWidth, iScreenHeight, pWindowHandle));
 					return move(mBaseRender);
-				#endif
+#endif
 				}
 
 				return nullptr;
 			}
+			void DestoryRender(RenderPtr render) {
+				mRenderHeap.remove(render);
+			}
 
+			void Tick() {
+				for (auto render : mRenderHeap) {
+					render->SetClearColor(0, mColor, mColor);
+					render->Frame();
+
+					if (mColor > 1) mColor = 0;
+					else mColor += 0.001f;
+					render->Frame();
+				}
+			}
+			
 		private:
+			float mColor = 0;
 			list<shared_ptr<Render>> mRenderHeap;
 
 			friend ISystem<RenderSystem>;

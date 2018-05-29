@@ -1,9 +1,12 @@
 #pragma once
 
 #include "../HAL/Platform.h"
+#include "../Math/Vector2.h"
 
 namespace Mirage {
 	namespace Application {
+
+		using namespace MirageMath;
 
 		// Show mode of Window 
 		enum class eWindowMode
@@ -71,13 +74,22 @@ namespace Mirage {
 
 			virtual void SetWindowMode(eWindowMode mode);
 			virtual void SetFocus();
-			MEINLINE virtual bool GetIsQuit() { 
+			MEINLINE virtual bool IsQuit() { 
 				return mIsQuit; 
 			}
 			virtual void Tick();
+
+			Vector2<uint32> Size() const;
+			Vector2<uint32> Location() const;
+
 		protected:
 			bool mIsQuit = false;
 			eWindowMode mWindowMode = eWindowMode::Windowed;
+
+			uint32 mWidth;
+			uint32 mHeight;
+			uint32 mLocationX;
+			uint32 mLocationY;
 		};
 	}
 }

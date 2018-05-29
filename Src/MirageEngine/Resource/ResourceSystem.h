@@ -39,7 +39,7 @@ namespace Mirage {
 					return false;
 			}
 
-		protected:
+		public:
 			ResouceSystem()
 			{
 				mVersion = VersionNumber(0, 0, 1);
