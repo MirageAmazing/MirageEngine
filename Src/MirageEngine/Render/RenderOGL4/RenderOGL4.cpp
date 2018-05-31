@@ -1,3 +1,6 @@
+#include "MirageEngine.h"
+#if defined(MIRAGE_PLATFORM_LINUX)
+
 #include "RenderOGL4.h"
 #include <iostream>
 #include "SDL2/SDL.h"
@@ -6,12 +9,10 @@
 
 using namespace std;
 
-#if defined(MIRAGE_PLATFORM_LINUX)
-
 namespace Mirage {
 	namespace Render {
 		RenderOGL4::RenderOGL4(int iScreenWidth, int iScreenHeight, void* pWindowHandle)
-			:BaseRender(iScreenWidth, iScreenHeight, pWindowHandle){
+			:Render(iScreenWidth, iScreenHeight, pWindowHandle){
 			mWindow = (SDL_Window*)pWindowHandle;
 
 			SDL_SysWMinfo wmInfo;

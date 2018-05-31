@@ -3,6 +3,7 @@
 #include <memory>
 #include <vector>
 #include <string>
+#include <string.h>
 
 namespace MirageMath
 {
@@ -44,7 +45,7 @@ namespace MirageMath
 
 		sprintf(mVersionStr, "%d.%d.%d", mVN.mVersionNumber[2], mVN.mVersionNumber[1], mVN.mVersionNumber[0]);
 	}
-	VersionNumber::VersionNumber(VersionNumber& In)
+	VersionNumber::VersionNumber(const VersionNumber& In)
 	{
 		mVN.mWholeNumber = In.mVN.mWholeNumber;
 		strcpy(mVersionStr, In.mVersionStr);

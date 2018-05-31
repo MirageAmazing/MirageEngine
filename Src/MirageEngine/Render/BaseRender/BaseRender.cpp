@@ -19,7 +19,7 @@ namespace Mirage {
 #if defined(MIRAGE_PLATFORM_LINUX)
 			case RenderType::OpenGL40:
 				if (mBaseRender == nullptr)
-					mBaseRender = unique_ptr<BaseRender>(new RenderOGL4(iScreenWidth, iScreenHeight, pWindowHandle));
+					mBaseRender = unique_ptr<Render>(new RenderOGL4(iScreenWidth, iScreenHeight, pWindowHandle));
 				return move(mBaseRender);
 #endif
 			}

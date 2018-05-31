@@ -1,7 +1,8 @@
-#include "RenderDX11.h"
-#include <d3dcompiler.h>
-
+#include "MirageEngine.h"
 #if defined(MIRAGE_PLATFORM_WINDOWS)
+
+#include "RenderDX11.h"
+#include "d3dcompiler.h"
 
 namespace Mirage {
 	namespace Render {

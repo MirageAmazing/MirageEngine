@@ -1,7 +1,10 @@
+#include "MirageEngine.h"
+#if defined(MIRAGE_PLATFORM_WINDOWS)
+
 #include <memory>
 #include "../BasePlatform/BaseWindow.h"
 #include "SDL2/SDL.h"
-#include "SDL2\SDL_syswm.h"
+#include "SDL2/SDL_syswm.h"
 
 namespace Mirage {
 	namespace Application {
@@ -69,3 +72,5 @@ namespace Mirage {
 
 	}
 }
+
+#endif

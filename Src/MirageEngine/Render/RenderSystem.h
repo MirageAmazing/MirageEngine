@@ -5,10 +5,9 @@ The system of render for Mirage.
 #include <memory>
 #include <list>
 #include "../Core/Framework/ISystem.h"
-#include "../Core/Math/VersionNumber.h"
-#include "BaseRender\BaseRender.h"
-#include "RenderDX11\RenderDX11.h"
-#include "RenderOGL4\RenderOGL4.h"
+#include "BaseRender/BaseRender.h"
+#include "RenderDX11/RenderDX11.h"
+#include "RenderOGL4/RenderOGL4.h"
 
 using namespace std;
 
@@ -34,9 +33,9 @@ namespace Mirage {
 #endif
 #if defined(MIRAGE_PLATFORM_LINUX)
 				case RenderType::OpenGL40:
-					if (mBaseRender == nullptr)
-						mBaseRender = unique_ptr<BaseRender>(new RenderOGL4(iScreenWidth, iScreenHeight, pWindowHandle));
-					return move(mBaseRender);
+					auto render = shared_ptr<Render>(new RenderOGL4(iScreenWidth, iScreenHeight, pWindowHandle));
+					mRenderHeap.push_back(render);
+					return render;
 #endif
 				}
 

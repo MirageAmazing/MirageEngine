@@ -30,10 +30,10 @@ namespace Mirage{
 
 			IResElement(ResMesh&) {}
 
-		protected:
+		public:
 			IResElement()
 			{
-				mGuid = MirageMath::GenerateUID();
+				//mGuid = MirageMath::GenerateUID();
 			}
 			virtual ~IResElement() {}
 

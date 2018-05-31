@@ -39,6 +39,9 @@ set(CMAKE_INCLUDE_CURRENT_DIR)
 SET(CMAKE_CXX_FLAGS "-std=c++0x")
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
+include_directories(.)
+include_directories(./Core)
+
 if(MSVC)
     add_definitions(-DUNICODE -D_UNICODE)
     
@@ -63,7 +66,13 @@ IF (CMAKE_SYSTEM_NAME MATCHES "Linux")
     include_directories(${OPENGL_INCLUDE_DIRS})
     include_directories(${SDL2_INCLUDE_DIRS})
     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../Plugin/Linux/glew-2.1.0/include)  
-    link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../Plugin/Linux/glew-2.1.0/lib)  
+    include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../Plugin/Linux/jemalloc/include)  
+    if(CMAKE_CL_64)
+        link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../Plugin/Linux/jemalloc/lib/64) 
+        link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../Plugin/Linux/glew-2.1.0/lib/64)          
+    else()
+
+    endif()
 ENDIF (CMAKE_SYSTEM_NAME MATCHES "Linux")  
 
 #include_sub_directories_recursively(${CMAKE_CURRENT_SOURCE_DIR}/../../Src/MirageEngine)
@@ -77,10 +86,10 @@ add_library(me ${all_files})
 source_group_by_dir(all_files)
 
 IF (CMAKE_SYSTEM_NAME MATCHES "Linux")  
-    target_link_libraries(me ${OPENGL_LIBRARIES} ${SDL2_LIBRARIES} libGLEW.a)   
+    target_link_libraries(me ${OPENGL_LIBRARIES} ${SDL2_LIBRARIES} libGLEW.a libjemalloc.a)
 ENDIF (CMAKE_SYSTEM_NAME MATCHES "Linux") 
 IF(CMAKE_SYSTEM_NAME MATCHES "Windows")
-    target_link_libraries(me SDL2.lib SDL2main.lib SDL2test.lib SDL2.dll d3d11.lib dxgi.lib jemallocso.lib)   
+    target_link_libraries(me SDL2.lib SDL2main.lib SDL2test.lib SDL2.dll d3d11.lib dxgi.lib d3dcompiler.lib jemallocso.lib)   
 
     if(CMAKE_CL_64)
         add_custom_command(TARGET me POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/../../Plugin/Window/SDL2/lib/x64/SDL2.dll" "${CMAKE_CURRENT_BINARY_DIR}")

@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include "../Math/MEMath.h"
+#include "../Math/VersionNumber.h"
 using namespace std;
 
 namespace Mirage
@@ -34,7 +35,7 @@ namespace Mirage
 	protected:
 		ISystem() 
 		{
-			mUID = MirageMath::GenerateUID();
+			//mUID = MirageMath::GenerateUID();
 		}
 		virtual ~ISystem()
 		{

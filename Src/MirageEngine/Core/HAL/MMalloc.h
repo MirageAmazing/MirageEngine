@@ -13,10 +13,10 @@ namespace Mirage {
 			~MMalloc() {}
 
 			MEINLINE void* Malloc(size_t size) {
-				return je_malloc(size);
+				return malloc(size);
 			}
 			MEINLINE void Free(void* ptr) {
-				je_free(ptr);
+				free(ptr);
 			}
 			template<class T, class... _Types>
 			MEINLINE T* New(_Types&&... _Args) {

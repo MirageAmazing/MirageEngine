@@ -1,4 +1,6 @@
 #pragma once
+#include "MirageEngine.h"
+#if defined(MIRAGE_PLATFORM_WINDOWS)
 
 #include "../BasePlatform/BaseApplication.h"
 #include "../Windows/WindowsWindow.h"
@@ -37,3 +39,5 @@ namespace Mirage{
 		};
 	}
 }
+
+#endif

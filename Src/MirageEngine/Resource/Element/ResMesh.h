@@ -7,7 +7,7 @@ using namespace std;
 
 namespace Mirage {
 	namespace Resource {
-		class ResMesh :IResElement
+		class ResMesh :public IResElement
 		{
 		public:
 			ResMesh(){

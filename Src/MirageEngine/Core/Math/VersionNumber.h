@@ -10,7 +10,7 @@ namespace MirageMath
 	public:
 		VersionNumber(uint8 major = 0, uint8 minor = 0, uint8 revision = 0);
 		VersionNumber(const char* version);
-		VersionNumber(VersionNumber& In);
+		VersionNumber(const VersionNumber& In);
 
 		MEINLINE uint8 MajorNumber() const 
 		{ 

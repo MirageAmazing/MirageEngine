@@ -3,7 +3,6 @@
 
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_main.h"
-#include "jemalloc/jemalloc.h"
 
 #include "../MirageEngine/MirageEngine.h"
 #include "../MirageEngine/Render/BaseRender/BaseRender.h"
@@ -17,6 +16,7 @@
 #include "../MirageEngine/Core/HAL/IOBase.h"
 
 #include "../MirageEngine/Core/Windows/WindowsApplication.h"
+#include "../MirageEngine/Core/Linux/LinuxApplication.h"
 
 using namespace std;
 using namespace MirageMath;
@@ -30,17 +30,15 @@ int main(int argc, char* argv[])
 
 #if defined(MIRAGE_PLATFORM_WINDOWS)
 	Mirage::Application::Application* pApp = new WindowsApplication();
-#else
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+#else defined(MIRAGE_PLATFORM_LINUX)
+	Mirage::Application::Application* pApp = new LinuxApplication();
 #endif
 
 	while (!pApp->IsQuit()){
 		pApp->Tick();
 	}
-	delete pApp;
 
+	delete pApp;
 
 	return 0;
 }
@@ -103,15 +101,6 @@ void TestMain()
 
 	Quaternionf quat(3.14, 0.6, 0.9);
 	auto eular = quat.Eular();
-
-	int* pint = (int*)je_malloc(sizeof(int));
-	
-	je_free(pint);
-
-	Mirage::Core::MMalloc mm;
-	pint = (int*)mm.Malloc(sizeof(int));
-	auto pq = mm.New<Quaternionf>(12, 12, 12, 12);
-	mm.Free(pq);
 
 	char buff[1000];
 	size_t datasize;

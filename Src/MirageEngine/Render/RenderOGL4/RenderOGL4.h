@@ -1,16 +1,15 @@
 #pragma once
-
-#include "../BaseRender/BaseRender.h"
-
+#include "MirageEngine.h"
 #if defined(MIRAGE_PLATFORM_LINUX)
 
+#include "../BaseRender/BaseRender.h"
 #include <GL/glew.h>
 #include <SDL2/SDL.h>
 #pragma comment(lib, "libGLEW.a")
 
 namespace Mirage {
 	namespace Render {
-		class RenderOGL4 :public BaseRender{
+		class RenderOGL4 :public Render{
 		public:
 			RenderOGL4(int iScreenWidth, int iScreenHeight, void* pWindowHandle);
 			~RenderOGL4();

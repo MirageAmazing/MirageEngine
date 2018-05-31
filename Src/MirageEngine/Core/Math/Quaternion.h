@@ -38,7 +38,7 @@ namespace MirageMath
 
 		Quaternion operator * (const Quaternion& InValue) const {
 			/*
-			// Meth 1: ×îÖ±½ÓµÄËÄÔªÊý³Ë·¨
+			// Meth 1: ï¿½ï¿½Ö±ï¿½Óµï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½Ë·ï¿½
 			T tempx = w*InValue.x + x*InValue.w + y*InValue.z - z*InValue.y;
 			T tempy = w*InValue.y + y*InValue.w + z*InValue.x - x*InValue.z;
 			T tempz = w*InValue.z + z*InValue.w + x*InValue.y - y*InValue.x;
@@ -46,7 +46,7 @@ namespace MirageMath
 			*/
 
 			/*
-			Meth 2: ½«ËÄÔªÊý¿´³É£¨v£¬s£©Ò»¸öÏòÁ¿ºÍÒ»¸ö±êÁ¿
+			Meth 2: ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½ï¿½É£ï¿½vï¿½ï¿½sï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			Q1(v1, s1) * Q2(v2, s2) = s1*s2-Dot(v1, v2)+ s1*v2 + s2*v1 + Cross(v1, v2)
 			*/
 
@@ -115,7 +115,7 @@ namespace MirageMath
 			const double Threshold = 0.5f - Epsilon;
 			double test = x*y + w*z;
 
-			if (test < -Threshold || test > Threshold) // ÆæÒì×ËÌ¬,¸©Ñö½ÇÎª¡À90¡ã
+			if (test < -Threshold || test > Threshold) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¬,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½90ï¿½ï¿½
 			{
 				double sign = copysign(1.0, test);
 
@@ -192,7 +192,7 @@ namespace MirageMath
 			w *= t;
 		}
 
-		static Quaternion ConvertRotator(Rotater<T>& rotator) {
+		static Quaternion ConvertRotator(const Rotater<T>& rotator) {
 			return Quaternion(rotator.pitch, rotator.yaw, rotator.roll);
 		}
 	public:

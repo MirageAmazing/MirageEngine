@@ -1,6 +1,5 @@
 #pragma once
 #include "../Core/Framework/ISystem.h"
-#include "../Core/Math/VersionNumber.h"
 #include "../Core/HAL/MMalloc.h"
 #include "Entity.h"
 #include <list>

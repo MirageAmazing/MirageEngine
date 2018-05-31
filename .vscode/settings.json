@@ -21,6 +21,7 @@
         "ostream": "cpp",
         "ratio": "cpp",
         "tuple": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "typeinfo": "cpp"
     }
 }
