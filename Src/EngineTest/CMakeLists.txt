@@ -97,7 +97,7 @@ IF (CMAKE_SYSTEM_NAME MATCHES "Linux")
     target_link_libraries(enginetest ${OPENGL_LIBRARIES} ${SDL2_LIBRARIES} libGLEW.a)
 ENDIF (CMAKE_SYSTEM_NAME MATCHES "Linux") 
 IF(CMAKE_SYSTEM_NAME MATCHES "Windows")
-    target_link_libraries(enginetest  SDL2.lib SDL2main.lib SDL2test.lib SDL2.dll jemallocso.lib)   
+    target_link_libraries(enginetest  d3dcompiler.lib SDL2.lib SDL2main.lib SDL2test.lib SDL2.dll jemallocso.lib)   
 
     SET_TARGET_PROPERTIES(enginetest  PROPERTIES LINK_FLAGS_DEBUG "/SUBSYSTEM:WINDOWS")
     SET_TARGET_PROPERTIES(enginetest  PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS")

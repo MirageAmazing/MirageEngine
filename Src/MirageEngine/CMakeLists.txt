@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 2.8)
+﻿cmake_minimum_required (VERSION 2.8)
 
 # Create filter by directory in MSVC
 macro(source_group_by_dir source_files)
@@ -89,7 +89,7 @@ IF (CMAKE_SYSTEM_NAME MATCHES "Linux")
     target_link_libraries(me ${OPENGL_LIBRARIES} ${SDL2_LIBRARIES} libGLEW.a libjemalloc.a)
 ENDIF (CMAKE_SYSTEM_NAME MATCHES "Linux") 
 IF(CMAKE_SYSTEM_NAME MATCHES "Windows")
-    target_link_libraries(me SDL2.lib SDL2main.lib SDL2test.lib SDL2.dll d3d11.lib dxgi.lib d3dcompiler.lib jemallocso.lib)   
+    target_link_libraries(me d3dcompiler.lib SDL2.lib SDL2main.lib SDL2test.lib SDL2.dll d3d11.lib dxgi.lib jemallocso.lib)   
 
     if(CMAKE_CL_64)
         add_custom_command(TARGET me POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/../../Plugin/Window/SDL2/lib/x64/SDL2.dll" "${CMAKE_CURRENT_BINARY_DIR}")

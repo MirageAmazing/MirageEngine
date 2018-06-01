@@ -4,6 +4,9 @@
 #include "RenderDX11.h"
 #include "d3dcompiler.h"
 
+#pragma comment(lib, "dxgi.lib")
+#pragma comment(lib, "d3dcompiler.lib")
+
 namespace Mirage {
 	namespace Render {
 		RenderDX11::RenderDX11(int iScreenWidth, int iScreenHeight, void* pWindowHandle) :

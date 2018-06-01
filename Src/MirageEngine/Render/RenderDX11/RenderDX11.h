@@ -6,8 +6,6 @@
 #include <dxgi.h>
 #include <d3d11.h>
 
-#pragma comment(lib, "dxgi.lib")
-
 namespace Mirage {
 	namespace Render {
 		class RenderDX11 :public Render{
