@@ -317,8 +317,8 @@ namespace Mirage {
 			ID3DBlob* shaderBlob = nullptr;
 			ID3DBlob* errorBlob = nullptr;
 			HRESULT hr = D3DCompileFromFile(srcFile, defines, D3D_COMPILE_STANDARD_FILE_INCLUDE,
-				entryPoint, profile,
-				flags, 0, &shaderBlob, &errorBlob);
+				entryPoint, profile, flags, 0, &shaderBlob, &errorBlob);
+			
 			if (FAILED(hr))
 			{
 				if (errorBlob)
