@@ -19,7 +19,7 @@
 #include "../MirageEngine/Core/Linux/LinuxApplication.h"
 
 using namespace std;
-using namespace MirageMath;
+using namespace Mirage::Math;
 using namespace Mirage::Application;
 
 void TestMain();

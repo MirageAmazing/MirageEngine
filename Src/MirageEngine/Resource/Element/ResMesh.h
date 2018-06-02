@@ -1,5 +1,6 @@
 #pragma once
 #include <list>
+#include <vector>
 #include "IResElement.h"
 #include "../Format/VertexFormat.h"
 
@@ -25,6 +26,12 @@ namespace Mirage {
 			}
 			list<VertexFormat> GetVertexs() {
 				return mVertexList;
+			}
+			void SetIndices(list<uint32> indices) {
+				mIndices = indices;
+			}
+			list<uint32> GetIndices() {
+				return mIndices;
 			}
 			void Clear() {
 				mVertexList.clear();

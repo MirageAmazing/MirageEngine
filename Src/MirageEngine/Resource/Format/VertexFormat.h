@@ -3,7 +3,7 @@
 #include "../../Core/Math/Vector2.h"
 #include "../../Core/Math/Color.h"
 
-using namespace MirageMath;
+using namespace Mirage::Math;
 
 namespace Mirage {
 	namespace Resource {

@@ -6,7 +6,7 @@
 namespace Mirage {
 	namespace Application {
 
-		using namespace MirageMath;
+		using namespace Mirage::Math;
 
 		// Show mode of Window 
 		enum class eWindowMode

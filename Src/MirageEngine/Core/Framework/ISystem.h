@@ -43,7 +43,7 @@ namespace Mirage
 				mSystem->UnInitialize();
 		}
 
-		MirageMath::VersionNumber mVersion;
+		Mirage::Math::VersionNumber mVersion;
 		MEUID mUID;
 
 	private:

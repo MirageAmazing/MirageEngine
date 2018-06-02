@@ -18,7 +18,14 @@ namespace Mirage {
 			virtual void UnInitialize() override
 			{
 			}
+			shared_ptr<ResMesh> CreateMeshRes_Temp()
+			{
+				shared_ptr<ResMesh> mesh(new ResMesh());
 
+				shared_ptr<IResElement> resElement = dynamic_pointer_cast<IResElement>(mesh);
+				mResElementHeap.insert(resElement);
+				return mesh;
+			};
 			shared_ptr<ResMesh> CreateMeshRes()
 			{
 				shared_ptr<ResMesh> mesh(new ResMesh());

@@ -3,17 +3,35 @@
 
 #include "RenderDX11.h"
 #include "d3dcompiler.h"
+#include "HAL/IOBase.h"
+#include "Math/Vector3.h"
+#include "Math/Color.h"
+#include "Math/Matrix.h"
 
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "d3dcompiler.lib")
 
 namespace Mirage {
 	namespace Render {
+
+		using namespace Mirage::Math;
+
+		struct Vertex {
+		public:
+			Vector3f position;
+			Colorf color;
+		};
+
+		Vertex gVertexList[8];
+		unsigned long gIndices[36];
+
+		struct Matrix {
+			Matrix4x4f mat;
+		};
+
 		RenderDX11::RenderDX11(int iScreenWidth, int iScreenHeight, void* pWindowHandle) :
-			Render(iScreenWidth, iScreenHeight, pWindowHandle)
-		{
-			if (pWindowHandle == nullptr)
-			{
+			Render(iScreenWidth, iScreenHeight, pWindowHandle){
+			if (pWindowHandle == nullptr){
 				// TODO: Exception
 				return;
 			}
@@ -22,10 +40,14 @@ namespace Mirage {
 
 			EnvirmentCheck();
 			LoadShader();
+
+			mCamera = make_unique<Camera>(Vector3f(20, 20, 20), Vector3f(0, 0, 0), Vector3f(0, 1, 0), iScreenWidth, iScreenHeight);
 		}
 
 		RenderDX11::~RenderDX11()
 		{
+			mCamera.release();
+
 			if (mSwapChain)
 			{
 				mSwapChain->SetFullscreenState(false, NULL);
@@ -344,6 +366,8 @@ namespace Mirage {
 			CompileShader(L"../../MirageEngine/Resource/Shader/basic.HLSL", "VS", "vs_5_0", &vsBuff);
 			CompileShader(L"../../MirageEngine/Resource/Shader/basic.HLSL", "PS", "ps_5_0", &psBuff);
 
+			FileIOSystem::Get().SaveFile("../../MirageEngine/Resource/Shader/vsbuff.HLSL.assamble", vsBuff->GetBufferPointer(), vsBuff->GetBufferSize());
+
 			mDevice->CreateVertexShader(vsBuff->GetBufferPointer(), vsBuff->GetBufferSize(), nullptr, &mVexterShader);
 			mDevice->CreatePixelShader(psBuff->GetBufferPointer(), psBuff->GetBufferSize(), nullptr, &mPixelShader);
 
@@ -370,6 +394,117 @@ namespace Mirage {
 
 			vsBuff->Release();
 			psBuff->Release();
+
+			gVertexList[0].position = Vector3f(5, 5, -5);
+			gVertexList[1].position = Vector3f(5, -5, -5);
+			gVertexList[2].position = Vector3f(-5, -5, -5);
+			gVertexList[3].position = Vector3f(-5, 5, -5);
+			gVertexList[4].position = Vector3f(-5, 5, 5);
+			gVertexList[5].position = Vector3f(-5, -5, 5);
+			gVertexList[6].position = Vector3f(5, -5, 5);
+			gVertexList[7].position = Vector3f(5, 5, 5);
+
+			gVertexList[0].color = Colorf(0, 1, 0);
+			gVertexList[1].color = Colorf(1, 0, 0);
+			gVertexList[2].color = Colorf(0, 0, 1);
+			gVertexList[3].color = Colorf(1, 1, 0);
+			gVertexList[4].color = Colorf(1, 0, 1);
+			gVertexList[5].color = Colorf(0, 1, 1);
+			gVertexList[6].color = Colorf(1, 0, 0);
+			gVertexList[7].color = Colorf(0, 0, 1);
+
+			gIndices[0] = 0; gIndices[1] = 1; gIndices[2] = 2;
+			gIndices[3] = 0; gIndices[4] = 2; gIndices[5] = 3;
+
+			gIndices[6] = 0; gIndices[7] = 3; gIndices[8] = 7;
+			gIndices[9] = 3; gIndices[10] = 4; gIndices[11] = 7;
+
+			gIndices[12] = 7; gIndices[13] = 5; gIndices[14] = 4;
+			gIndices[15] = 7; gIndices[16] = 6; gIndices[17] = 5;
+
+			gIndices[18] = 6; gIndices[19] = 1; gIndices[20] = 2;
+			gIndices[21] = 6; gIndices[22] = 2; gIndices[23] = 5;
+
+			gIndices[24] = 3; gIndices[25] = 2; gIndices[26] = 5;
+			gIndices[27] = 4; gIndices[28] = 3; gIndices[29] = 5;
+
+			gIndices[30] = 0; gIndices[31] = 7; gIndices[32] = 6;
+			gIndices[33] = 0; gIndices[34] = 6; gIndices[35] = 1;
+
+			D3D11_BUFFER_DESC vertexBufferDesc, indexBufferDesc, matrixBufferDesc;
+			D3D11_SUBRESOURCE_DATA vertexData, indexData;
+			D3D11_MAPPED_SUBRESOURCE mappedResource;
+
+			// Set up the description of the static vertex buffer.
+			vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+			vertexBufferDesc.ByteWidth = sizeof(Vertex) * 8;
+			vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+			vertexBufferDesc.CPUAccessFlags = 0;
+			vertexBufferDesc.MiscFlags = 0;
+			vertexBufferDesc.StructureByteStride = 0;
+
+			// Give the subresource structure a pointer to the vertex data.
+			vertexData.pSysMem = gVertexList;
+			vertexData.SysMemPitch = 0;
+			vertexData.SysMemSlicePitch = 0;
+
+			// Now create the vertex buffer.
+			auto result = mDevice->CreateBuffer(&vertexBufferDesc, &vertexData, &mVertexBuffer);
+			if (FAILED(result))
+			{
+				return;
+			}
+
+			// Set up the description of the static index buffer.
+			indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+			indexBufferDesc.ByteWidth = sizeof(unsigned long) * 36;
+			indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+			indexBufferDesc.CPUAccessFlags = 0;
+			indexBufferDesc.MiscFlags = 0;
+			indexBufferDesc.StructureByteStride = 0;
+
+			// Give the subresource structure a pointer to the index data.
+			indexData.pSysMem = gIndices;
+			indexData.SysMemPitch = 0;
+			indexData.SysMemSlicePitch = 0;
+
+			// Create the index buffer.
+			result = mDevice->CreateBuffer(&indexBufferDesc, &indexData, &mIndexBuffer);
+			if (FAILED(result))
+			{
+				return;
+			}
+
+			unsigned int stride = sizeof(Vertex);
+			unsigned int offset = 0;
+			mDeviceContext->IASetVertexBuffers(0, 1, &mVertexBuffer, &stride, &offset);
+			mDeviceContext->IASetIndexBuffer(mIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+			mDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+			matrixBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+			matrixBufferDesc.ByteWidth = sizeof(Matrix);
+			matrixBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+			matrixBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+			matrixBufferDesc.MiscFlags = 0;
+			matrixBufferDesc.StructureByteStride = 0;
+
+			result = mDevice->CreateBuffer(&matrixBufferDesc, NULL, &mMatrixBuffer);
+			if (FAILED(result))
+			{
+				return;
+			}
+
+			result = mDeviceContext->Map(mMatrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+			if (FAILED(result))
+			{
+				return;
+			}
+
+			auto dataPtr = (Matrix*)mappedResource.pData;
+			dataPtr->mat = mCamera->GetViewMatrix()*mCamera->GetProjectionMatrix();
+			mDeviceContext->Unmap(mMatrixBuffer, 0);
+
+			mDeviceContext->VSSetConstantBuffers(0, 1, &mMatrixBuffer);
 		}
 
 		void RenderDX11::Frame()
@@ -382,6 +517,12 @@ namespace Mirage {
 			mDeviceContext->ClearRenderTargetView(mRTView, clearColor);
 			mDeviceContext->ClearDepthStencilView(mDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 
+			
+			mDeviceContext->IASetInputLayout(mLayout);
+			mDeviceContext->VSSetShader(mVexterShader, NULL, 0);
+			mDeviceContext->PSSetShader(mPixelShader, NULL, 0);
+
+			mDeviceContext->DrawIndexed(36, 0, 0);
 
 			mSwapChain->Present(mVsyncEnabled ? 1 : 0, 0);
 		}

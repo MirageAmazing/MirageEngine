@@ -46,7 +46,7 @@ namespace Mirage {
 
 		protected:
 			EntitySystem(){
-				mVersion = MirageMath::VersionNumber(0, 0, 1);
+				mVersion = Mirage::Math::VersionNumber(0, 0, 1);
 			}
 			~EntitySystem(){
 

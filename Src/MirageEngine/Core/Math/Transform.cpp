@@ -1,6 +1,7 @@
 #include "Transform.h"
 
-namespace MirageMath
-{
-
+namespace Mirage{
+	namespace Math {
+	
+	}
 }

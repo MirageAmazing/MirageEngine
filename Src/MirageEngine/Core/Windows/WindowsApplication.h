@@ -5,10 +5,13 @@
 #include "../BasePlatform/BaseApplication.h"
 #include "../Windows/WindowsWindow.h"
 #include "../../Render/RenderSystem.h"
+#include "../Math/Vector3.h"
+#include "../Math/Camera.h"
 
 namespace Mirage{
 	namespace Application {
 
+		using namespace Mirage::Math;
 		using namespace Mirage::Render;
 
 		/**
@@ -21,7 +24,7 @@ namespace Mirage{
 				mWindowPtr = WindowsWindow::Make(this, "Mirage", 80, 80, 800, 600);
 				auto size = mWindowPtr->Size();
 				mRenderSystem = RenderSystem::GetInstance();
-				mRenderSystem->CreateRender(RenderType::DirectX11, size.x, size.y, mWindowPtr->GetHWND());
+				mRenderSystem->CreateRender(RenderType::DirectX11, size.x, size.y, mWindowPtr->GetHWND());			
 			}
 			~WindowsApplication() {
 				mWindowPtr.release();
@@ -34,8 +37,8 @@ namespace Mirage{
 			}
 
 		private:
-			unique_ptr<WindowsWindow> mWindowPtr;
 			shared_ptr<RenderSystem> mRenderSystem;
+			unique_ptr<WindowsWindow> mWindowPtr;
 		};
 	}
 }
