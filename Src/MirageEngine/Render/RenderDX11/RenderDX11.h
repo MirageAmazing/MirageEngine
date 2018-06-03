@@ -29,10 +29,10 @@ namespace Mirage {
 
 		private:
 			//<-temp
-			ID3D11VertexShader* mVexterShader;
-			ID3D11PixelShader* mPixelShader;
-			ID3D11InputLayout* mLayout;
-			ID3D11Buffer *mVertexBuffer, *mIndexBuffer, *mMatrixBuffer;
+			ID3D11VertexShader* mVexterShader{nullptr};
+			ID3D11PixelShader* mPixelShader{ nullptr };
+			ID3D11InputLayout* mLayout{ nullptr };
+			ID3D11Buffer *mVertexBuffer{ nullptr }, *mIndexBuffer{ nullptr }, *mMatrixBuffer{ nullptr };
 			std::unique_ptr<Camera> mCamera;
 			Transform mTransform;
 			//temp->

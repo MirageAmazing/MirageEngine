@@ -23,7 +23,33 @@ using namespace Mirage::Math;
 using namespace Mirage::Application;
 
 void TestMain();
+Matrix4x4f LookAt(const Vector3f& eye, const Vector3f& target, const Vector3f& up)
+{
+	Vector3f z((eye - target).Normalize());
+	Vector3f x((Vector3f::Cross(z, up).Normalize()));
+	Vector3f y(Vector3f::Cross(x, z));
 
+	Matrix4x4f result;
+
+	result[0] [0]= x.x;
+	result[1][0] = x.y;
+	result[2][0] = x.z;
+	result[3][0] = -Vector3f::Dot(x, eye);
+
+	result[0][1] = y.x;
+	result[1][1] = y.y;
+	result[2][1] = y.z;
+	result[3][1] = -Vector3f::Dot(y, eye);
+
+	result[0][2] = z.x;
+	result[1][2] = z.y;
+	result[2][2] = z.z;
+	result[3][2] = -Vector3f::Dot(z, eye);
+
+	result[0][3] = result[1][3] = result[2][3] = 0.0f;
+	result[3][3] = 1.0f;
+	return result;
+}
 int main(int argc, char* argv[])
 {
 	TestMain();
@@ -45,6 +71,7 @@ int main(int argc, char* argv[])
 
 void TestMain()
 {
+	auto mat = LookAt(Vector3f(200, 0, 0), Vector3f(10,10,0), Vector3f(0,1,0));
 	Vector2f vecA(12, 90);
 	Vector2f vecB(65, 45);
 
