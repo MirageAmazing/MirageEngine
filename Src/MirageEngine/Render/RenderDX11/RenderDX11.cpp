@@ -393,7 +393,7 @@ namespace Mirage {
 			vsBuff->Release();
 			psBuff->Release();
 
-			int tem = 10;
+			int tem = 3;
 			gVertexList[0].position = Vector3f(tem, tem, -tem);
 			gVertexList[1].position = Vector3f(tem, -tem, -tem);
 			gVertexList[2].position = Vector3f(-tem, -tem, -tem);
@@ -534,16 +534,17 @@ namespace Mirage {
 
 			D3D11_MAPPED_SUBRESOURCE mappedResource;
 			mDeviceContext->Map(mMatrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-			mCamera->SetViewLocation(Vector3f(100.0*cos(DegreeToRadians(angle)), 0, 100.0*sin(DegreeToRadians(angle))));
+			mCamera->SetViewLocation(Vector3f(10.0*cos(DegreeToRadians(angle)), 0, 10.0*sin(DegreeToRadians(angle))));
 			angle+=0.04;
 			auto dataPtr = (Matrix*)mappedResource.pData;
-			auto worldMat = mTransform.GetTransformMatrix();
-			auto viewMat = mCamera->GetViewMatrix();
-			auto projMat = mCamera->GetProjectionMatrix();
+			auto worldMat = mTransform.GetTransformMatrix().Transpose();
+			auto viewMat = mCamera->GetViewMatrix().Transpose();
+			auto projMat = mCamera->GetProjectionMatrix().Transpose();
 			auto mvp = projMat*viewMat*worldMat;
 			//auto invered = mvp.Inverse();
 			//auto r = invered*Vector4f(5,5,5);
-			dataPtr->mat = mvp.Transpose();
+			auto r = mvp * Vector4f(gVertexList[0].position);
+			dataPtr->mat = mvp;
 			mDeviceContext->Unmap(mMatrixBuffer, 0);
 
 			mDeviceContext->VSSetConstantBuffers(0, 1, &mMatrixBuffer);

@@ -237,7 +237,7 @@ namespace Mirage {
 			static Matrix4x4<T> Perspertive(const T fovy, const T aspect, const T near, const T far)
 			{
 				float q = 1.0f / tan(DegreeToRadians(fovy*0.5f));
-				float A = aspect*q;
+				float A = q/aspect;
 				float B = (far) / (far - near);
 				float C = (near*far) / (near - far);
 
@@ -268,29 +268,29 @@ namespace Mirage {
 			static Matrix4x4<T> LookAt(const Vector3<T>& eye, const Vector3<T>& center, const Vector3<T>& up)
 			{
 				Vector3<T> forward((center - eye).GetNormal());
-				Vector3<T> right((Vector3<T>::Cross(forward, up).GetNormal()));
-				Vector3<T> u(Vector3<T>::Cross(right, forward));
+				Vector3<T> right((Vector3<T>::Cross(up, forward).GetNormal()));
+				Vector3<T> u(Vector3<T>::Cross(forward, right));
 
 				Matrix4x4<T> result;
 
 				result[0][0] = right.x;
 				result[1][0] = right.y;
 				result[2][0] = right.z;
-				result[3][0] = 0;
+				result[3][0] = -Vector3<T>::Dot(right, eye);
 
 				result[0][1] = u.x;
 				result[1][1] = u.y;
 				result[2][1] = u.z;
-				result[3][1] = 0;
+				result[3][1] = -Vector3<T>::Dot(u, eye);
 
-				result[0][2] = -forward.x;
-				result[1][2] = -forward.y;
-				result[2][2] = -forward.z;
-				result[3][2] = 0;
+				result[0][2] = forward.x;
+				result[1][2] = forward.y;
+				result[2][2] = forward.z;
+				result[3][2] = -Vector3<T>::Dot(forward, eye);
 
-				result[0][3] = -Vector3<T>::Dot(right, eye);
-				result[1][3] = -Vector3<T>::Dot(u, eye);
-				result[2][3] = -Vector3<T>::Dot(forward, eye);
+				result[0][3] = 0;
+				result[1][3] = 0;
+				result[2][3] = 0;
 				result[3][3] = 1.0f;
 
 				return result;

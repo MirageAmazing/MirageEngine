@@ -60,8 +60,8 @@ namespace Mirage {
 			// Default project type is perspertive.
 			eCameraProjectionType mProjectionType = eCameraProjectionType::Perspertive;
 
-			f32 mFOV = 60;
-			f32 mNear = 0, mFar = 1000;
+			f32 mFOV = 45;
+			f32 mNear = 0.1f, mFar = 1000;
 			f32 mLeft = -1, mRight = 1, mTop = 1, mBottom = -1;
 			f32 mWidth = 800, mSurfaceHeight = 600;
 			f32 mAspect = 1;
