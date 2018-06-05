@@ -14,7 +14,7 @@ namespace Mirage {
 				x = InX;
 				y = InY;
 			}
-			Vector2(T In)
+			explicit Vector2(T In)
 			{
 				x = In;
 				y = In;

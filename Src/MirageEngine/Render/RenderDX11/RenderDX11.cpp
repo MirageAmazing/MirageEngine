@@ -19,11 +19,12 @@ namespace Mirage {
 		struct Vertex {
 		public:
 			Vector3f position;
-			Colorf color;
+			Vector3f color;
 		};
 
+		const int COUNT = 36;
 		Vertex gVertexList[8];
-		unsigned int gIndices[36];
+		unsigned int gIndices[COUNT];
 
 		struct Matrix {
 			Matrix4x4f mat;
@@ -37,7 +38,7 @@ namespace Mirage {
 			}
 			
 			mHwnd = (HWND)pWindowHandle;
-			mCamera = std::unique_ptr<Camera>(new Camera(Vector3f(100, 0, 0), Vector3f(0, 0, 0), Vector3f(0, 1, 0), iScreenWidth, iScreenHeight));
+			mCamera = std::unique_ptr<Camera>(new Camera(Vector3f(260, 0, 0), Vector3f(0, 12, 0), Vector3f(0, 1, 0), iScreenWidth, iScreenHeight));
 
 			EnvirmentCheck();
 			LoadShader();
@@ -392,7 +393,7 @@ namespace Mirage {
 			vsBuff->Release();
 			psBuff->Release();
 
-			int tem = 50;
+			int tem = 10;
 			gVertexList[0].position = Vector3f(tem, tem, -tem);
 			gVertexList[1].position = Vector3f(tem, -tem, -tem);
 			gVertexList[2].position = Vector3f(-tem, -tem, -tem);
@@ -402,14 +403,14 @@ namespace Mirage {
 			gVertexList[6].position = Vector3f(tem, -tem, tem);
 			gVertexList[7].position = Vector3f(tem, tem, tem);
 
-			gVertexList[0].color = Colorf(0, 1, 0);
-			gVertexList[1].color = Colorf(1, 0, 0);
-			gVertexList[2].color = Colorf(0, 0, 1);
-			gVertexList[3].color = Colorf(1, 1, 0);
-			gVertexList[4].color = Colorf(1, 0, 1);
-			gVertexList[5].color = Colorf(0, 1, 1);
-			gVertexList[6].color = Colorf(1, 0, 0);
-			gVertexList[7].color = Colorf(0, 0, 1);
+			gVertexList[0].color = Vector3f(1, 0, 0);
+			gVertexList[1].color = Vector3f(1, 1, 0);
+			gVertexList[2].color = Vector3f(1, 0, 1);
+			gVertexList[3].color = Vector3f(1, 1, 0);
+			gVertexList[4].color = Vector3f(1, 0, 1);
+			gVertexList[5].color = Vector3f(1, 1, 0);
+			gVertexList[6].color = Vector3f(1, 0, 1);
+			gVertexList[7].color = Vector3f(0, 1, 1);
 
 			gIndices[0] = 0; gIndices[1] = 1; gIndices[2] = 2;
 			gIndices[3] = 0; gIndices[4] = 2; gIndices[5] = 3;
@@ -455,7 +456,7 @@ namespace Mirage {
 
 			// Set up the description of the static index buffer.
 			indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-			indexBufferDesc.ByteWidth = sizeof(unsigned int) * 36;
+			indexBufferDesc.ByteWidth = sizeof(unsigned int) * COUNT;
 			indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 			indexBufferDesc.CPUAccessFlags = 0;
 			indexBufferDesc.MiscFlags = 0;
@@ -505,9 +506,12 @@ namespace Mirage {
 			dataPtr->mat = worldMat*viewMat*projMat;
 			mDeviceContext->Unmap(mMatrixBuffer, 0);
 
+			//auto testVexter = gVertexList[0].position*dataPtr->mat;
+
 			mDeviceContext->VSSetConstantBuffers(0, 1, &mMatrixBuffer); 
 		}
 
+		f32 angle = 0;
 		void RenderDX11::Frame()
 		{
 			float clearColor[4];
@@ -528,9 +532,23 @@ namespace Mirage {
 			mDeviceContext->VSSetShader(mVexterShader, NULL, 0);
 			mDeviceContext->PSSetShader(mPixelShader, NULL, 0);
 
+			D3D11_MAPPED_SUBRESOURCE mappedResource;
+			mDeviceContext->Map(mMatrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+			mCamera->SetViewLocation(Vector3f(100.0*cos(DegreeToRadians(angle)), 0, 100.0*sin(DegreeToRadians(angle))));
+			angle+=0.04;
+			auto dataPtr = (Matrix*)mappedResource.pData;
+			auto worldMat = mTransform.GetTransformMatrix();
+			auto viewMat = mCamera->GetViewMatrix();
+			auto projMat = mCamera->GetProjectionMatrix();
+			auto mvp = projMat*viewMat*worldMat;
+			//auto invered = mvp.Inverse();
+			//auto r = invered*Vector4f(5,5,5);
+			dataPtr->mat = mvp.Transpose();
+			mDeviceContext->Unmap(mMatrixBuffer, 0);
+
 			mDeviceContext->VSSetConstantBuffers(0, 1, &mMatrixBuffer);
 
-			mDeviceContext->DrawIndexed(36, 0, 0);
+			mDeviceContext->DrawIndexed(COUNT, 0, 0);
 
 			mSwapChain->Present(mVsyncEnabled ? 1 : 0, 0);
 		}

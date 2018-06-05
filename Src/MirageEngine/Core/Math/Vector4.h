@@ -1,5 +1,6 @@
 #pragma once
 #include "../Core.h"
+#include "Vector3.h"
 
 namespace Mirage {
 	namespace Math {
@@ -22,12 +23,18 @@ namespace Mirage {
 				z = InZ;
 				w = InW;
 			}
-			Vector4(T In)
+			explicit Vector4(T In)
 			{
 				x = In;
 				y = In;
 				z = In;
 				w = In;
+			}
+			Vector4(Vector3<T> In) {
+				x = In.x;
+				y = In.y;
+				z = In.z;
+				w = 1;
 			}
 
 			void operator = (Vector4& InV)

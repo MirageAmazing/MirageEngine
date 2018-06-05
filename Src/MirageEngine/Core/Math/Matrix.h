@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector3.h"
+#include "Vector4.h"
 #include "MEMath.h"
 #include <string.h>
 
@@ -7,7 +8,8 @@ namespace Mirage {
 	namespace Math {
 
 		//----------------------------------------------------------
-		//Matrix for 4x4
+		// Matrix for 4x4
+		// Column major
 		//----------------------------------------------------------
 
 		template<class T>
@@ -46,10 +48,8 @@ namespace Mirage {
 			Matrix4x4 operator + (const Matrix4x4& InM) const
 			{
 				Matrix4x4 matrix;
-				for (int i = 0; i < 4; i++)
-				{
-					for (int j = 0; j < 4; j++)
-					{
+				for (int i = 0; i < 4; i++){
+					for (int j = 0; j < 4; j++){
 						matrix.data[i][j] = data[i][j] + InM.data[i][j];
 					}
 				}
@@ -58,10 +58,8 @@ namespace Mirage {
 			Matrix4x4 operator - (const Matrix4x4& InM) const
 			{
 				Matrix4x4 matrix;
-				for (int i = 0; i < 4; i++)
-				{
-					for (int j = 0; j < 4; j++)
-					{
+				for (int i = 0; i < 4; i++){
+					for (int j = 0; j < 4; j++){
 						matrix.data[i][j] = data[i][j] - InM.data[i][j];
 					}
 				}
@@ -70,12 +68,9 @@ namespace Mirage {
 			Matrix4x4 operator * (const Matrix4x4& InM) const
 			{
 				Matrix4x4 matrix;
-				for (int i = 0; i < 4; i++)
-				{
-					for (int k = 0; k < 4; k++)
-					{
-						for (int j = 0; j < 4; j++)
-						{
+				for (int i = 0; i < 4; i++){
+					for (int j = 0; j < 4; j++) {
+						for (int k = 0; k < 4; k++) {
 							matrix.data[i][k] += data[i][j] * InM.data[j][k];
 						}
 					}
@@ -85,21 +80,27 @@ namespace Mirage {
 			Matrix4x4 operator * (double In) const
 			{
 				Matrix4x4 matrix;
-				for (int i = 0; i < 4; i++)
-				{
-					for (int j = 0; j < 4; j++)
-					{
+				for (int i = 0; i < 4; i++){
+					for (int j = 0; j < 4; j++){
 						matrix.data[i][j] = data[i][j] * In;
 					}
 				}
 				return matrix;
 			}
+			Vector4<T> operator * (const Vector4<T> In) {
+				Vector4<T> result;
+
+				result.x = data[0][0] * In.x + data[0][1] * In.y + data[0][2] * In.z + data[0][3] * In.w;
+				result.y = data[1][0] * In.x + data[1][1] * In.y + data[1][2] * In.z + data[1][3] * In.w;
+				result.z = data[2][0] * In.x + data[2][1] * In.y + data[2][2] * In.z + data[2][3] * In.w;
+				result.w = data[3][0] * In.x + data[0][1] * In.y + data[3][2] * In.z + data[3][3] * In.w;
+
+				return result;
+			}
 			void operator = (const Matrix4x4& In)
 			{
-				for (int i = 0; i < 4; i++)
-				{
-					for (int j = 0; j < 4; j++)
-					{
+				for (int i = 0; i < 4; i++){
+					for (int j = 0; j < 4; j++){
 						data[i][j] = In.data[i][j];
 					}
 				}
@@ -140,6 +141,17 @@ namespace Mirage {
 
 				return matrix*det;
 			}
+			Matrix4x4 Transpose() {
+				Matrix4x4 matrix;
+
+				for (int i = 0; i < 4; i++) {
+					for (int j = 0; j < 4; j++) {
+						matrix[i][j] = data[j][i];
+					}
+				}
+
+				return matrix;
+			}
 
 			void SetElement(const int row, const int column, const T InData)
 			{
@@ -164,9 +176,9 @@ namespace Mirage {
 			{
 				Matrix4x4<T> matrix = IndentityMatrix();
 
-				matrix[3][0] = x;
-				matrix[3][1] = y;
-				matrix[3][2] = z;
+				matrix[0][3] = x;
+				matrix[1][3] = y;
+				matrix[2][3] = z;
 
 				return matrix;
 			}
@@ -174,9 +186,9 @@ namespace Mirage {
 			{
 				Matrix4x4<T> matrix = IndentityMatrix();
 
-				matrix[3][0] = In.x;
-				matrix[3][1] = In.y;
-				matrix[3][2] = In.z;
+				matrix[0][3] = In.x;
+				matrix[1][3] = In.y;
+				matrix[2][3] = In.z;
 
 				return matrix;
 			}
@@ -225,9 +237,9 @@ namespace Mirage {
 			static Matrix4x4<T> Perspertive(const T fovy, const T aspect, const T near, const T far)
 			{
 				float q = 1.0f / tan(DegreeToRadians(fovy*0.5f));
-				float A = q / aspect;
-				float B = (near + far) / (near - far);
-				float C = (2.0f*near*far) / (near - far);
+				float A = aspect*q;
+				float B = (far) / (far - near);
+				float C = (near*far) / (near - far);
 
 				Matrix4x4<T> matrix;
 
@@ -235,7 +247,7 @@ namespace Mirage {
 				matrix.data[1][1] = q;
 				matrix.data[2][2] = B;
 				matrix.data[3][2] = C;
-				matrix.data[2][3] = -1.0f;
+				matrix.data[2][3] = 1.0f;
 
 				return matrix;
 			}
@@ -255,18 +267,33 @@ namespace Mirage {
 			}
 			static Matrix4x4<T> LookAt(const Vector3<T>& eye, const Vector3<T>& center, const Vector3<T>& up)
 			{
-				auto f = (center - eye).GetNormal();
-				auto upN = up.GetNormal();
-				auto s = Vector3<T>::Cross(f, upN);
-				auto u = Vector3<T>::Cross(s, f);
+				Vector3<T> forward((center - eye).GetNormal());
+				Vector3<T> right((Vector3<T>::Cross(forward, up).GetNormal()));
+				Vector3<T> u(Vector3<T>::Cross(right, forward));
 
-				Matrix4x4<T> m(Vector3<T>(s.x, u.x, -f.x),
-					Vector3<T>(s.y, u.y, -f.y),
-					Vector3<T>(s.z, u.z, -f.z),
-					Vector3<T>(0, 0, 0));
-				m[3][3] = 1;
+				Matrix4x4<T> result;
 
-				return m*Translate(-eye);
+				result[0][0] = right.x;
+				result[1][0] = right.y;
+				result[2][0] = right.z;
+				result[3][0] = 0;
+
+				result[0][1] = u.x;
+				result[1][1] = u.y;
+				result[2][1] = u.z;
+				result[3][1] = 0;
+
+				result[0][2] = -forward.x;
+				result[1][2] = -forward.y;
+				result[2][2] = -forward.z;
+				result[3][2] = 0;
+
+				result[0][3] = -Vector3<T>::Dot(right, eye);
+				result[1][3] = -Vector3<T>::Dot(u, eye);
+				result[2][3] = -Vector3<T>::Dot(forward, eye);
+				result[3][3] = 1.0f;
+
+				return result;
 			}
 
 		private:
@@ -347,9 +374,9 @@ namespace Mirage {
 				Matrix3x3 matrix;
 				for (int i = 0; i < 3; i++)
 				{
-					for (int k = 0; k < 3; k++)
+					for (int j = 0; j < 3; j++)
 					{
-						for (int j = 0; j < 3; j++)
+						for (int k = 0; k < 3; k++)
 						{
 							matrix.data[i][k] += data[i][j] * InM.data[j][k];
 						}
@@ -407,6 +434,17 @@ namespace Mirage {
 				}
 
 				return matrix*det;
+			}
+			Matrix3x3 Transpose() {
+				Matrix3x3 matrix;
+
+				for (int i = 0; i < 3; i++) {
+					for (int j = 0; j < 3; j++) {
+						matrix[i][j] = data[j][i];
+					}
+				}
+
+				return matrix;
 			}
 
 			void SetElement(const int row, const int column, const T InData)

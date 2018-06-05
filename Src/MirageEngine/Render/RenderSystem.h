@@ -51,7 +51,7 @@ namespace Mirage {
 					render->Frame();
 
 					if (mColor > 1) mColor = 0;
-					else mColor += 0.001f;
+					else mColor += 0.00001f;
 				}
 			}
 			
