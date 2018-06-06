@@ -27,7 +27,7 @@ namespace Mirage {
 		unsigned int gIndices[COUNT];
 
 		struct Matrix {
-			Matrix4x4f mat;
+			Matrix4x4<f32> mat;
 		};
 
 		RenderDX11::RenderDX11(int iScreenWidth, int iScreenHeight, void* pWindowHandle) :
@@ -393,7 +393,7 @@ namespace Mirage {
 			vsBuff->Release();
 			psBuff->Release();
 
-			int tem = 3;
+			f32 tem = 0.5;
 			gVertexList[0].position = Vector3f(tem, tem, -tem);
 			gVertexList[1].position = Vector3f(tem, -tem, -tem);
 			gVertexList[2].position = Vector3f(-tem, -tem, -tem);
