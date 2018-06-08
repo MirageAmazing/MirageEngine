@@ -298,7 +298,15 @@ namespace Mirage {
 
 		private:
 
-			T data[4][4];
+			union{
+				struct {
+					T _00, _01, _02, _03;
+					T _10, _11, _12, _13;
+					T _20, _21, _22, _23;
+					T _30, _31, _32, _33;
+				};
+				T data[4][4];
+			};	
 		};
 
 		template<class T, class F>
