@@ -38,7 +38,7 @@ namespace Mirage {
 			}
 			
 			mHwnd = (HWND)pWindowHandle;
-			mCamera = std::unique_ptr<Camera>(new Camera(Vector3f(260, 0, 0), Vector3f(0, 12, 0), Vector3f(0, 1, 0), iScreenWidth, iScreenHeight));
+			mCamera = std::unique_ptr<Camera>(new Camera(Vector3f(260, 0, 0), Vector3f(0, 0, 0), Vector3f(0, 1, 0), iScreenWidth, iScreenHeight));
 
 			EnvirmentCheck();
 			LoadShader();
@@ -364,7 +364,17 @@ namespace Mirage {
 			CompileShader(L"../../MirageEngine/Resource/Shader/vs.HLSL", "VS", "vs_5_0", &vsBuff);
 			CompileShader(L"../../MirageEngine/Resource/Shader/ps.HLSL", "PS", "ps_5_0", &psBuff);
 
-			//FileIOSystem::Get().SaveFile("../../MirageEngine/Resource/Shader/vsbuff.HLSL.assamble", vsBuff->GetBufferPointer(), vsBuff->GetBufferSize());
+			/*FileIOSystem::Get().SaveFile("../../MirageEngine/Resource/Shader/vsbuff.HLSL.assamble", vsBuff->GetBufferPointer(), vsBuff->GetBufferSize());
+			FileIOSystem::Get().SaveFile("../../MirageEngine/Resource/Shader/psbuff.HLSL.assamble", psBuff->GetBufferPointer(), psBuff->GetBufferSize());
+			
+			char buff[20000];
+			size_t buffsize{0};
+			ZeroMemory(buff, 20000);
+			if (FileIOSystem::Get().LoadFile("../../MirageEngine/Resource/Shader/vsbuff.HLSL.assamble", buff, 20000, buffsize))
+				mDevice->CreateVertexShader(buff, buffsize, nullptr, &mVexterShader);
+			ZeroMemory(buff, 20000);
+			if(FileIOSystem::Get().LoadFile("../../MirageEngine/Resource/Shader/psbuff.HLSL.assamble", buff, 20000, buffsize))
+				mDevice->CreatePixelShader(buff, buffsize, nullptr, &mPixelShader);*/
 
 			mDevice->CreateVertexShader(vsBuff->GetBufferPointer(), vsBuff->GetBufferSize(), nullptr, &mVexterShader);
 			mDevice->CreatePixelShader(psBuff->GetBufferPointer(), psBuff->GetBufferSize(), nullptr, &mPixelShader);
@@ -535,17 +545,13 @@ namespace Mirage {
 			D3D11_MAPPED_SUBRESOURCE mappedResource;
 			mDeviceContext->Map(mMatrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 			mCamera->SetViewLocation(Vector3f(10.0*cos(DegreeToRadians(angle)), 0, 10.0*sin(DegreeToRadians(angle))));
-			mCamera->SetViewTarget(Vector3f(0,0,0));
+			//mCamera->SetViewTarget(Vector3f(0,0,0));
 			angle+=0.04;
 			auto dataPtr = (Matrix*)mappedResource.pData;
 			auto worldMat = mTransform.GetTransformMatrix().Transpose();
 			auto viewMat = mCamera->GetViewMatrix().Transpose();
 			auto projMat = mCamera->GetProjectionMatrix().Transpose();
-			auto pv = projMat*viewMat;
 			auto mvp = projMat*viewMat*worldMat;
-			//auto invered = mvp.Inverse();
-			//auto r = invered*Vector4f(5,5,5);
-			auto r = mvp * Vector4f(gVertexList[0].position);
 			dataPtr->mat = mvp;
 			mDeviceContext->Unmap(mMatrixBuffer, 0);
 

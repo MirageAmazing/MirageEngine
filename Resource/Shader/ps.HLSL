@@ -6,6 +6,7 @@ struct VertexOut
 
 #define cMult 0.0001002707309736288
 #define aSubtract 0.2727272727272727
+
 float4 randGrieu(float4 t)
 {
     float a = t.x + t.z * cMult + aSubtract - floor(t.x);
