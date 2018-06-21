@@ -10,10 +10,10 @@ namespace Mirage {
 		class EntityComponent{
 		public:
 			EntityComponent() {
-				mUID = MirageMath::GenerateUID();
+				mUID = Mirage::Math::GenerateUID();
 			}
 			EntityComponent(EntityComponent& component) {
-				mUID = MirageMath::GenerateUID();
+				mUID = Mirage::Math::GenerateUID();
 			}
 			virtual ~EntityComponent() {}
 

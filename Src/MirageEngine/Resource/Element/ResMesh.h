@@ -8,6 +8,7 @@ using namespace std;
 
 namespace Mirage {
 	namespace Resource {
+
 		class ResMesh :public IResElement
 		{
 		public:
@@ -41,5 +42,7 @@ namespace Mirage {
 			list<VertexFormat> mVertexList;
 			list<uint32> mIndices;
 		};
+
+		using ResMeshPtr = std::shared_ptr<ResMesh>;
 	}
 }
