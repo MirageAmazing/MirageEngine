@@ -361,20 +361,15 @@ namespace Mirage {
 		void RenderDX11::LoadShader() {
 			ID3DBlob *vsBuff = nullptr;
 			ID3DBlob *psBuff = nullptr;
-			CompileShader(L"../../MirageEngine/Resource/Shader/vs.HLSL", "VS", "vs_5_0", &vsBuff);
+
+			/*CompileShader(L"../../MirageEngine/Resource/Shader/vs.HLSL", "VS", "vs_5_0", &vsBuff);
 			CompileShader(L"../../MirageEngine/Resource/Shader/ps.HLSL", "PS", "ps_5_0", &psBuff);
 
-			/*FileIOSystem::Get().SaveFile("../../MirageEngine/Resource/Shader/vsbuff.HLSL.assamble", vsBuff->GetBufferPointer(), vsBuff->GetBufferSize());
-			FileIOSystem::Get().SaveFile("../../MirageEngine/Resource/Shader/psbuff.HLSL.assamble", psBuff->GetBufferPointer(), psBuff->GetBufferSize());
-			
-			char buff[20000];
-			size_t buffsize{0};
-			ZeroMemory(buff, 20000);
-			if (FileIOSystem::Get().LoadFile("../../MirageEngine/Resource/Shader/vsbuff.HLSL.assamble", buff, 20000, buffsize))
-				mDevice->CreateVertexShader(buff, buffsize, nullptr, &mVexterShader);
-			ZeroMemory(buff, 20000);
-			if(FileIOSystem::Get().LoadFile("../../MirageEngine/Resource/Shader/psbuff.HLSL.assamble", buff, 20000, buffsize))
-				mDevice->CreatePixelShader(buff, buffsize, nullptr, &mPixelShader);*/
+			D3DWriteBlobToFile(vsBuff, L"../../MirageEngine/Resource/Shader/vsbuff.HLSL.assamble", true);
+			D3DWriteBlobToFile(psBuff, L"../../MirageEngine/Resource/Shader/psbuff.HLSL.assamble", true);*/
+		
+			D3DReadFileToBlob(L"../../MirageEngine/Resource/Shader/vsbuff.HLSL.assamble", &vsBuff);
+			D3DReadFileToBlob(L"../../MirageEngine/Resource/Shader/psbuff.HLSL.assamble", &psBuff);
 
 			mDevice->CreateVertexShader(vsBuff->GetBufferPointer(), vsBuff->GetBufferSize(), nullptr, &mVexterShader);
 			mDevice->CreatePixelShader(psBuff->GetBufferPointer(), psBuff->GetBufferSize(), nullptr, &mPixelShader);

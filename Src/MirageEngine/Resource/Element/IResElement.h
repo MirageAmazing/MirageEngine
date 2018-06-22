@@ -15,6 +15,8 @@ namespace Mirage{
 			Texture,
 			Audio,
 			Shader,
+			Material,
+			Scene,
 
 			Count,
 			None
