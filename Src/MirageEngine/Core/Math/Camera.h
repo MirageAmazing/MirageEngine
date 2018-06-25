@@ -1,6 +1,6 @@
 #pragma once
-#include "Core\Math\Vector3.h"
-#include "Core\Math\Matrix.h"
+#include "Vector3.h"
+#include "Matrix.h"
 #include <tuple>
 
 namespace Mirage {

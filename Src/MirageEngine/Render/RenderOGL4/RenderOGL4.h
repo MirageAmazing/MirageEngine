@@ -13,7 +13,7 @@ namespace Mirage {
 		public:
 			RenderOGL4(int iScreenWidth, int iScreenHeight, void* pWindowHandle);
 			~RenderOGL4();
-
+			void PrepareResource();
 			void Frame() override;
 
 		protected:

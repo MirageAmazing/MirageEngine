@@ -36,7 +36,7 @@ endfunction()
 #------------------------------------------------------------------------------------------------------------
 
 set(CMAKE_INCLUDE_CURRENT_DIR)
-SET(CMAKE_CXX_FLAGS "-std=c++0x")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -lpthread")
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 include_directories(.)
@@ -86,7 +86,7 @@ add_library(me ${all_files})
 source_group_by_dir(all_files)
 
 IF (CMAKE_SYSTEM_NAME MATCHES "Linux")  
-    target_link_libraries(me ${OPENGL_LIBRARIES} ${SDL2_LIBRARIES} libGLEW.a libjemalloc.a)
+    target_link_libraries(me ${OPENGL_LIBRARIES} ${SDL2_LIBRARIES} libGLEW.a libjemalloc.a pthread)
 ENDIF (CMAKE_SYSTEM_NAME MATCHES "Linux") 
 IF(CMAKE_SYSTEM_NAME MATCHES "Windows")
     target_link_libraries(me d3dcompiler.lib SDL2.lib SDL2main.lib SDL2test.lib SDL2.dll d3d11.lib dxgi.lib jemallocso.lib)   

@@ -23,11 +23,7 @@ namespace Mirage {
 			}
 
 		public:
-			LinuxApplication(){
-				SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-				SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
-				SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-
+			LinuxApplication(){						
 				mWindow = LinuxWindow::Make(this, "Mirage", 80, 80, 800, 600);
 				auto size = mWindow->Size();
 				mRenderSystem = RenderSystem::GetInstance();

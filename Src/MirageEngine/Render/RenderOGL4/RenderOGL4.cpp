@@ -11,8 +11,9 @@ using namespace std;
 
 namespace Mirage {
 	namespace Render {
+
 		RenderOGL4::RenderOGL4(int iScreenWidth, int iScreenHeight, void* pWindowHandle)
-			:Render(iScreenWidth, iScreenHeight, pWindowHandle){
+			:Render(iScreenWidth, iScreenHeight, pWindowHandle){				
 			mWindow = (SDL_Window*)pWindowHandle;
 
 			SDL_SysWMinfo wmInfo;
@@ -32,6 +33,8 @@ namespace Mirage {
 				glewInit();
 				glViewport(0, 0, iScreenWidth, iScreenHeight);
 			}
+
+			PrepareResource();
 		}
 
 		RenderOGL4::~RenderOGL4()
@@ -43,7 +46,57 @@ namespace Mirage {
 		{
 
 		}
+		void RenderOGL4::PrepareResource()
+		{
+			const float tem = 2.5;
+			const GLfloat positions[] = 
+			{
+				tem, tem, -tem,
+				tem, -tem, -tem,
+				-tem, -tem, -tem,
+				-tem, tem, -tem,
+				-tem, tem, tem,
+				-tem, -tem, tem,
+				tem, -tem, tem,
+				tem, tem, tem
+			};
+			const GLfloat colors[] = 
+			{
+				1,0,0,
+				1,1,0,
+				1,0,1,
+				1,1,0,
+				1,0,1,
+				1,1,0,
+				1,0,1,
+				0,1,1
+			};
+			const GLushort indices[] =
+			{
+				0,1,2,
+				0,2,3,
+				0,3,7,
+				3,4,7,
+				7,5,4,
+				7,6,5,
+				6,1,2,
+				6,2,5,
+				3,2,5,
+				4,3,5,
+				0,7,6,
+				0,6,1
+			};
 
+			GLuint buffer;
+			glGenBuffers(1, &buffer);
+			glBindBuffer(GL_ARRAY_BUFFER, buffer);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(positions)+sizeof(colors)+sizeof(indices), nullptr, GL_STATIC_DRAW);
+			glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(positions), positions);
+			glBufferSubData(GL_ARRAY_BUFFER, sizeof(positions), sizeof(colors), colors);
+			glBufferSubData(GL_ARRAY_BUFFER, sizeof(positions)+sizeof(colors), sizeof(indices), indices);
+
+			glVertexPointer(3, GL_FLOAT, 0, 0);
+		}
 		void RenderOGL4::Frame()
 		{
 			glClearColor(mClearColor[0], mClearColor[1], mClearColor[2], 1.0);

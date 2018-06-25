@@ -23,6 +23,10 @@ namespace Mirage {
 
 		public:	
 			LinuxWindow(LinuxApplication* owner, CStyleStr name, uint32 locationX, uint32 locationY, uint32 w, uint32 h) {
+				SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+				SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+				SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+				
 				SDL_Init(SDL_INIT_VIDEO);
 				mWindow = SDL_CreateWindow(name, locationX, locationY, w, h, SDL_WINDOW_RESIZABLE | SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 
@@ -41,6 +45,19 @@ namespace Mirage {
 
 			};
 
+			virtual void Tick() override{
+				SDL_Event event;
+				while (SDL_PollEvent(&event)) {
+					switch (event.type) {
+					case SDL_EventType::SDL_QUIT:
+						mIsQuit = true;
+						break;
+					default:
+						break;
+					}
+				}
+			}
+			
 			SDL_Window* GetWindowHandle(){
 				return mWindow;
 			}

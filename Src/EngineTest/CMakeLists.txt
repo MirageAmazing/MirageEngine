@@ -34,14 +34,12 @@ function(include_sub_directories_recursively root_dir)
 endfunction()
 
 #------------------------------------------------------------------------------------------------------------
-
 SET(CMAKE_CXX_FLAGS "-std=c++0x")
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 if(MSVC)
     set(ML me)
 else()
-    add_compile_options(-lpthread)
     set(ML ${CMAKE_CURRENT_BINARY_DIR}/../MirageEngine/libme.a)
 endif()
 
@@ -85,7 +83,6 @@ add_executable(enginetest ${all_files})
 
 if(MSVC)
 else()
-    target_link_libraries(enginetest pthread)
     target_link_libraries(enginetest libGLEW.a)
 endif()
 
@@ -94,7 +91,7 @@ target_link_libraries(enginetest ${ML})
 source_group_by_dir(all_files)
 
 IF (CMAKE_SYSTEM_NAME MATCHES "Linux")    
-    target_link_libraries(enginetest ${OPENGL_LIBRARIES} ${SDL2_LIBRARIES} libGLEW.a)
+    target_link_libraries(enginetest ${OPENGL_LIBRARIES} ${SDL2_LIBRARIES} libGLEW.a pthread)
 ENDIF (CMAKE_SYSTEM_NAME MATCHES "Linux") 
 IF(CMAKE_SYSTEM_NAME MATCHES "Windows")
     target_link_libraries(enginetest  d3dcompiler.lib SDL2.lib SDL2main.lib SDL2test.lib SDL2.dll jemallocso.lib)   
