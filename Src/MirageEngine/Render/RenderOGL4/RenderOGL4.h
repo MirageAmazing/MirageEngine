@@ -1,11 +1,17 @@
 #pragma once
 #include "MirageEngine.h"
-#if defined(MIRAGE_PLATFORM_LINUX)
+
+#if defined(MIRAGE_PLATFORM_WINDOWS)
+#define GLEW_STATIC
+#endif
 
 #include "../BaseRender/BaseRender.h"
 #include <GL/glew.h>
 #include <SDL2/SDL.h>
+
+#if defined(MIRAGE_PLATFORM_LINUX)
 #pragma comment(lib, "libGLEW.a")
+#endif
 
 namespace Mirage {
 	namespace Render {
@@ -25,4 +31,3 @@ namespace Mirage {
 		};
 	}
 }
-#endif

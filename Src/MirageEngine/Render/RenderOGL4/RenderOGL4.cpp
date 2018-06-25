@@ -1,6 +1,4 @@
 #include "MirageEngine.h"
-#if defined(MIRAGE_PLATFORM_LINUX)
-
 #include "RenderOGL4.h"
 #include <iostream>
 #include "SDL2/SDL.h"
@@ -16,10 +14,6 @@ namespace Mirage {
 			:Render(iScreenWidth, iScreenHeight, pWindowHandle){				
 			mWindow = (SDL_Window*)pWindowHandle;
 
-			SDL_SysWMinfo wmInfo;
-			SDL_VERSION(&wmInfo.version);
-			SDL_GetWindowWMInfo(mWindow, &wmInfo);
-			auto window = wmInfo.info.x11.window;
 			auto context = SDL_GL_CreateContext(mWindow);
 
 			if (context == nullptr)
@@ -123,5 +117,3 @@ namespace Mirage {
 		}
 	}
 }
-
-#endif

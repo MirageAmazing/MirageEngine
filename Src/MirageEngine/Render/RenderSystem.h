@@ -4,6 +4,7 @@ The system of render for Mirage.
  */
 #include <memory>
 #include <list>
+#include "SDL2/SDL_syswm.h"
 #include "../Core/Framework/ISystem.h"
 #include "BaseRender/BaseRender.h"
 #include "RenderDX11/RenderDX11.h"
@@ -23,23 +24,26 @@ namespace Mirage {
 			{
 			}
 			RenderPtr CreateRender(RenderType type, int iScreenWidth, int iScreenHeight, void* pWindowHandle) {
+				RenderPtr render = nullptr;
 				switch (type)
 				{
 #if defined(MIRAGE_PLATFORM_WINDOWS)
 				case RenderType::DirectX11:
-					auto render = shared_ptr<Render>(new RenderDX11(iScreenWidth, iScreenHeight, pWindowHandle));
+					SDL_SysWMinfo wmInfo;
+					SDL_VERSION(&wmInfo.version);
+					SDL_GetWindowWMInfo((SDL_Window*)pWindowHandle, &wmInfo);
+					render = shared_ptr<Render>(new RenderDX11(iScreenWidth, iScreenHeight, wmInfo.info.win.window));
 					mRenderHeap.push_back(render);
-					return render;
+					break;
 #endif
-#if defined(MIRAGE_PLATFORM_LINUX)
 				case RenderType::OpenGL40:
-					auto render = shared_ptr<Render>(new RenderOGL4(iScreenWidth, iScreenHeight, pWindowHandle));
+					render = shared_ptr<Render>(new RenderOGL4(iScreenWidth, iScreenHeight, pWindowHandle));
 					mRenderHeap.push_back(render);
-					return render;
-#endif
+					break;
+				default:
+					break;;
 				}
-
-				return nullptr;
+				return render;
 			}
 			void DestoryRender(RenderPtr render) {
 				mRenderHeap.remove(render);
