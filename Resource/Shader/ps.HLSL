@@ -27,5 +27,6 @@ float4 randGrieu(float4 t)
 
 float4 PS(VertexOut pin) : SV_Target
 {
-    return (float4(pin.Color.r, (pin.Color.g), pin.Color.b, 1.0f));
+	return (float4(pin.Color.r, (pin.Color.g), pin.Color.b, 1.0f));
+return (float4(1, 1, 1, 1.0f));
 }

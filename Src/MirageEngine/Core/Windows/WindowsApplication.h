@@ -21,7 +21,7 @@ namespace Mirage{
 		{
 		public:
 			WindowsApplication() {
-				RenderType renderType = RenderType::OpenGL40;
+				RenderType renderType = RenderType::DirectX11;
 
 				mWindowPtr = WindowsWindow::Make(this, "Mirage", 80, 80, 800, 600, renderType);
 				auto size = mWindowPtr->Size();

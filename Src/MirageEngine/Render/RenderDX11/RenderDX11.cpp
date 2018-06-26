@@ -285,7 +285,7 @@ namespace Mirage {
 			rasterDesc.DepthBias = 0;
 			rasterDesc.DepthBiasClamp = 0;
 			rasterDesc.DepthClipEnable = true;
-			rasterDesc.FillMode = D3D11_FILL_SOLID;
+			rasterDesc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
 			rasterDesc.FrontCounterClockwise = false;
 			rasterDesc.MultisampleEnable = true;
 			rasterDesc.ScissorEnable = true;
@@ -362,14 +362,14 @@ namespace Mirage {
 			ID3DBlob *vsBuff = nullptr;
 			ID3DBlob *psBuff = nullptr;
 
-			/*CompileShader(L"../../MirageEngine/Resource/Shader/vs.HLSL", "VS", "vs_5_0", &vsBuff);
+			CompileShader(L"../../MirageEngine/Resource/Shader/vs.HLSL", "VS", "vs_5_0", &vsBuff);
 			CompileShader(L"../../MirageEngine/Resource/Shader/ps.HLSL", "PS", "ps_5_0", &psBuff);
 
 			D3DWriteBlobToFile(vsBuff, L"../../MirageEngine/Resource/Shader/vsbuff.HLSL.assamble", true);
-			D3DWriteBlobToFile(psBuff, L"../../MirageEngine/Resource/Shader/psbuff.HLSL.assamble", true);*/
+			D3DWriteBlobToFile(psBuff, L"../../MirageEngine/Resource/Shader/psbuff.HLSL.assamble", true);
 		
-			D3DReadFileToBlob(L"../../MirageEngine/Resource/Shader/vsbuff.HLSL.assamble", &vsBuff);
-			D3DReadFileToBlob(L"../../MirageEngine/Resource/Shader/psbuff.HLSL.assamble", &psBuff);
+			/*D3DReadFileToBlob(L"../../MirageEngine/Resource/Shader/vsbuff.HLSL.assamble", &vsBuff);
+			D3DReadFileToBlob(L"../../MirageEngine/Resource/Shader/psbuff.HLSL.assamble", &psBuff);*/
 
 			mDevice->CreateVertexShader(vsBuff->GetBufferPointer(), vsBuff->GetBufferSize(), nullptr, &mVexterShader);
 			mDevice->CreatePixelShader(psBuff->GetBufferPointer(), psBuff->GetBufferSize(), nullptr, &mPixelShader);
@@ -520,9 +520,9 @@ namespace Mirage {
 		void RenderDX11::Frame()
 		{
 			float clearColor[4];
-			clearColor[0] = mClearColor[0];
-			clearColor[1] = mClearColor[1];
-			clearColor[2] = mClearColor[2];
+			clearColor[0] =0;
+			clearColor[1] = 1;
+			clearColor[2] = 0;
 			clearColor[3] = 1.0f;
 			mDeviceContext->ClearRenderTargetView(mRTView, clearColor);
 			mDeviceContext->ClearDepthStencilView(mDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);

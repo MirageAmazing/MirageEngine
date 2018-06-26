@@ -131,7 +131,7 @@ namespace Mirage {
 			return programID;
 		}
 		
-		const float tem = 2.5;
+		const float tem = 2.5f;
 		const GLfloat positions[] =
 		{
 			tem, tem, -tem,
@@ -226,8 +226,8 @@ namespace Mirage {
 			glVertex2f(0.75, 0.25);
 			glVertex2f(0.75, 0.75);
 			glVertex2f(0.25, 0.75);
-			glEnd();
-*/
+			glEnd();*/
+
 			SDL_GL_SwapWindow(mWindow);
 		}
 	}
