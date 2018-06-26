@@ -12,6 +12,14 @@ namespace Mirage {
 			Ortho,
 		};
 
+		enum class eCameraProjPerspertiveType
+		{
+			// z [0,1]
+			PerspertiveV1,
+			// z [-1.1]
+			PerspertiveV2
+		};
+
 		class Camera
 		{
 		public:
@@ -30,7 +38,9 @@ namespace Mirage {
 			MEINLINE void SetProjectionType(eCameraProjectionType projectionType) {
 				mProjectionType = projectionType;
 			}
-
+			MEINLINE void SetProjPerspertiveType(eCameraProjPerspertiveType projPerspertiveType) {
+				mProjPerspertiveType = projPerspertiveType;
+			}
 			MEINLINE Matrix4x4f& GetViewMatrix() { return mViewMatrix; }
 			MEINLINE Matrix4x4f& GetProjectionMatrix() { return mProjectionMatrix; }
 			MEINLINE Vector3f GetViewLocation() { return mViewLocation; }
@@ -59,6 +69,8 @@ namespace Mirage {
 
 			// Default project type is perspertive.
 			eCameraProjectionType mProjectionType = eCameraProjectionType::Perspertive;
+			// Only if mProjectionType == eCameraProjectionType::Perspertive, this variable is vaild.
+			eCameraProjPerspertiveType mProjPerspertiveType = eCameraProjPerspertiveType::PerspertiveV1;
 
 			f32 mFOV = 45;
 			f32 mNear = 0.1f, mFar = 1000;

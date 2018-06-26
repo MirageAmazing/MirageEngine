@@ -55,7 +55,9 @@ namespace Mirage{
 		}
 		void Camera::CalculateProjectionMatrix(eCameraProjectionType type){
 			if (mProjectionType == eCameraProjectionType::Perspertive && mProjectionType == type)
-				mProjectionMatrix = Matrix4x4f::Perspertive(mFOV, mAspect, mNear, mFar);
+				mProjectionMatrix = mProjPerspertiveType == eCameraProjPerspertiveType::PerspertiveV1 ? 
+					Matrix4x4f::PerspertiveLHv1(mFOV, mAspect, mNear, mFar) : 
+					Matrix4x4f::PerspertiveLHv2(mFOV, mAspect, mNear, mFar);
 			else if (mProjectionType == eCameraProjectionType::Ortho  && mProjectionType == type)
 				mProjectionMatrix = Matrix4x4f::Ortho(mLeft, mRight, mBottom, mTop, mNear, mFar);
 		}

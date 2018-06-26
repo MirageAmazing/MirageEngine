@@ -53,6 +53,8 @@ if(MSVC)
     include_directories(../../Plugin/Window/SDL2/include)
     include_directories(../../Plugin/Window/jemalloc/include)
     include_directories(../../Plugin/Window/jemalloc/include/msvc_compat)
+    include_directories(../../Plugin/Window/glew-2.1.0/include)
+
     if(CMAKE_CL_64)
         link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../Plugin/Window/Direct3D/lib/x64)
         link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../Plugin/Window/SDL2/lib/x64)

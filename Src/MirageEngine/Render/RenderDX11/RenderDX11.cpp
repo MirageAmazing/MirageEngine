@@ -539,15 +539,15 @@ namespace Mirage {
 
 			D3D11_MAPPED_SUBRESOURCE mappedResource;
 			mDeviceContext->Map(mMatrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-			mCamera->SetViewLocation(Vector3f(10.0*cos(DegreeToRadians(angle)), 0, 10.0*sin(DegreeToRadians(angle))));
-			mCamera->SetViewTarget(Vector3f(0,0,0));
-			angle+=0.04;
-			auto dataPtr = (Matrix*)mappedResource.pData;
-			auto worldMat = mTransform.GetTransformMatrix().Transpose();
-			auto viewMat = mCamera->GetViewMatrix().Transpose();
-			auto projMat = mCamera->GetProjectionMatrix().Transpose();
-			auto mvp = projMat*viewMat*worldMat;
-			dataPtr->mat = mvp;
+				mCamera->SetViewLocation(Vector3f(10.0*cos(DegreeToRadians(angle)), 0, 10.0*sin(DegreeToRadians(angle))));
+				mCamera->SetViewTarget(Vector3f(0,0,0));
+				angle+=0.04;
+				auto dataPtr = (Matrix*)mappedResource.pData;
+				auto worldMat = mTransform.GetTransformMatrix().Transpose();
+				auto viewMat = mCamera->GetViewMatrix().Transpose();
+				auto projMat = mCamera->GetProjectionMatrix().Transpose();
+				auto mvp = projMat*viewMat*worldMat;
+				dataPtr->mat = mvp;
 			mDeviceContext->Unmap(mMatrixBuffer, 0);
 
 			mDeviceContext->VSSetConstantBuffers(0, 1, &mMatrixBuffer);

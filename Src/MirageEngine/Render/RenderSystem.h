@@ -4,7 +4,6 @@ The system of render for Mirage.
  */
 #include <memory>
 #include <list>
-#include "SDL2/SDL_syswm.h"
 #include "../Core/Framework/ISystem.h"
 #include "BaseRender/BaseRender.h"
 #include "RenderDX11/RenderDX11.h"
@@ -28,11 +27,8 @@ namespace Mirage {
 				switch (type)
 				{
 #if defined(MIRAGE_PLATFORM_WINDOWS)
-				case RenderType::DirectX11:
-					SDL_SysWMinfo wmInfo;
-					SDL_VERSION(&wmInfo.version);
-					SDL_GetWindowWMInfo((SDL_Window*)pWindowHandle, &wmInfo);
-					render = shared_ptr<Render>(new RenderDX11(iScreenWidth, iScreenHeight, wmInfo.info.win.window));
+				case RenderType::DirectX11:			
+					render = shared_ptr<Render>(new RenderDX11(iScreenWidth, iScreenHeight, pWindowHandle));
 					mRenderHeap.push_back(render);
 					break;
 #endif

@@ -26,7 +26,8 @@ namespace Mirage{
 				mWindowPtr = WindowsWindow::Make(this, "Mirage", 80, 80, 800, 600, renderType);
 				auto size = mWindowPtr->Size();
 				mRenderSystem = RenderSystem::GetInstance();
-				mRenderSystem->CreateRender(renderType, size.x, size.y, mWindowPtr->GetWindowHandle());
+				mRenderSystem->CreateRender(renderType, size.x, size.y, 
+					renderType == RenderType::DirectX11 ? (void*)(mWindowPtr->GetHWND()) : mWindowPtr->GetWindowHandle());
 			}
 			~WindowsApplication() {
 				mWindowPtr.release();

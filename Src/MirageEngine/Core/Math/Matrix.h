@@ -234,12 +234,31 @@ namespace Mirage {
 
 				return matrix;
 			}
-			static Matrix4x4<T> Perspertive(const T fovy, const T aspect, const T near, const T far)
+			// z [0,1]
+			static Matrix4x4<T> PerspertiveLHv1(const T fovy, const T aspect, const T near, const T far)
 			{
 				float q = 1.0f / tan(DegreeToRadians(fovy*0.5f));
-				float A = q/aspect;
+				float A = q / aspect;
 				float B = (far) / (far - near);
 				float C = (near*far) / (near - far);
+
+				Matrix4x4<T> matrix;
+
+				matrix.data[0][0] = A;
+				matrix.data[1][1] = q;
+				matrix.data[2][2] = B;
+				matrix.data[3][2] = C;
+				matrix.data[2][3] = 1.0f;
+
+				return matrix;
+			}
+			// z [-1,1]
+			static Matrix4x4<T> PerspertiveLHv2(const T fovy, const T aspect, const T near, const T far)
+			{
+				float q = 1.0f / tan(DegreeToRadians(fovy*0.5f));
+				float A = q / aspect;
+				float B = (far + near) / (far - near);
+				float C = (2.0f*near*far) / (near - far);
 
 				Matrix4x4<T> matrix;
 
