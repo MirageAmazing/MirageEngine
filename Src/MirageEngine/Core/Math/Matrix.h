@@ -186,9 +186,9 @@ namespace Mirage {
 			{
 				Matrix4x4<T> matrix = IndentityMatrix();
 
-				matrix[0][3] = In.x;
-				matrix[1][3] = In.y;
-				matrix[2][3] = In.z;
+				matrix[3][0] = In.x;
+				matrix[3][1] = In.y;
+				matrix[3][2] = In.z;
 
 				return matrix;
 			}

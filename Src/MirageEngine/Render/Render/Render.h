@@ -43,7 +43,7 @@ namespace Mirage {
 			static unique_ptr<Render> GetRender(RenderType type, int iScreenWidth, int iScreenHeight, void* pWindowHandle);
 
 		private:
-			static unique_ptr<Render> mBaseRender;
+			static unique_ptr<Render> mRender;
 		};
 
 		using RenderPtr = shared_ptr<Render>;

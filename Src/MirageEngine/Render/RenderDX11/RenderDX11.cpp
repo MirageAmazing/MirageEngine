@@ -38,7 +38,7 @@ namespace Mirage {
 			}
 			
 			mHwnd = (HWND)pWindowHandle;
-			mCamera = std::unique_ptr<Camera>(new Camera(Vector3f(260, 0, 0), Vector3f(0, 0, 0), Vector3f(0, 1, 0), iScreenWidth, iScreenHeight));
+			mCamera = std::unique_ptr<Camera>(new Camera(Vector3f(0, 0, 20), Vector3f(0, 0, 0), Vector3f(0, 1, 0), iScreenWidth, iScreenHeight));
 
 			EnvirmentCheck();
 			LoadShader();
@@ -370,7 +370,7 @@ namespace Mirage {
 		
 			/*D3DReadFileToBlob(L"../../MirageEngine/Resource/Shader/vsbuff.HLSL.assamble", &vsBuff);
 			D3DReadFileToBlob(L"../../MirageEngine/Resource/Shader/psbuff.HLSL.assamble", &psBuff);*/
-
+			
 			mDevice->CreateVertexShader(vsBuff->GetBufferPointer(), vsBuff->GetBufferSize(), nullptr, &mVexterShader);
 			mDevice->CreatePixelShader(psBuff->GetBufferPointer(), psBuff->GetBufferSize(), nullptr, &mPixelShader);
 
@@ -520,9 +520,9 @@ namespace Mirage {
 		void RenderDX11::Frame()
 		{
 			float clearColor[4];
-			clearColor[0] =0;
-			clearColor[1] = 1;
-			clearColor[2] = 0;
+			clearColor[0] = mClearColor[0];
+			clearColor[1] = mClearColor[1];
+			clearColor[2] = mClearColor[2];
 			clearColor[3] = 1.0f;
 			mDeviceContext->ClearRenderTargetView(mRTView, clearColor);
 			mDeviceContext->ClearDepthStencilView(mDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
@@ -539,9 +539,12 @@ namespace Mirage {
 
 			D3D11_MAPPED_SUBRESOURCE mappedResource;
 			mDeviceContext->Map(mMatrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-				mCamera->SetViewLocation(Vector3f(10.0*cos(DegreeToRadians(angle)), 0, 10.0*sin(DegreeToRadians(angle))));
-				mCamera->SetViewTarget(Vector3f(0,0,0));
-				angle+=0.04;
+				/*mCamera->SetViewLocation(Vector3f(10.0*cos(DegreeToRadians(angle)), 0, 10.0*sin(DegreeToRadians(angle))));
+				mCamera->SetViewTarget(Vector3f(0,0,0));*/
+				angle+=0.0004;
+				mTransform.AddTranslation(0.0005, 0, 0);
+				mTransform.AddRotate(0.001, 0, 0);
+				mTransform.AddScale(0.001, 0, 0);
 				auto dataPtr = (Matrix*)mappedResource.pData;
 				auto worldMat = mTransform.GetTransformMatrix().Transpose();
 				auto viewMat = mCamera->GetViewMatrix().Transpose();

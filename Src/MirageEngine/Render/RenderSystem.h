@@ -5,7 +5,7 @@ The system of render for Mirage.
 #include <memory>
 #include <list>
 #include "../Core/Framework/ISystem.h"
-#include "BaseRender/BaseRender.h"
+#include "Render/Render.h"
 #include "RenderDX11/RenderDX11.h"
 #include "RenderOGL4/RenderOGL4.h"
 

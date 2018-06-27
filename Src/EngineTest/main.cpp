@@ -5,7 +5,7 @@
 #include "SDL2/SDL_main.h"
 
 #include "../MirageEngine/MirageEngine.h"
-#include "../MirageEngine/Render/BaseRender/BaseRender.h"
+#include "../MirageEngine/Render/Render/Render.h"
 #include "../MirageEngine/Core/Math/Vector2.h"
 #include "../MirageEngine/Core/Math/Vector3.h"
 #include "../MirageEngine/Core/Math/Matrix.h"

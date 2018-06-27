@@ -2,7 +2,7 @@
 #include "MirageEngine.h"
 #if defined(MIRAGE_PLATFORM_WINDOWS)
 
-#include "../BaseRender/BaseRender.h"
+#include "../Render/Render.h"
 #include <memory>
 #include <dxgi.h>
 #include <d3d11.h>
@@ -12,6 +12,7 @@
 namespace Mirage {
 	namespace Render {
 
+		using namespace std;
 		using namespace Mirage::Math;
 
 		class RenderDX11 :public Render{
@@ -37,12 +38,11 @@ namespace Mirage {
 			Transform mTransform;
 			//temp->
 
-
 			HWND mHwnd;
 
-			IDXGISwapChain* mSwapChain;
 			ID3D11Device* mDevice;
 			ID3D11DeviceContext* mDeviceContext;
+			IDXGISwapChain* mSwapChain;
 			ID3D11RenderTargetView* mRTView;
 			ID3D11Texture2D* mDepthStencilBuffer;
 			ID3D11DepthStencilState* mDepthStencilState;

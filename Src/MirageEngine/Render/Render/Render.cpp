@@ -1,10 +1,10 @@
-#include "BaseRender.h"
+#include "Render.h"
 #include "../RenderDX11/RenderDX11.h"
 #include "../RenderOGL4/RenderOGL4.h"
 
 namespace Mirage {
 	namespace Render {
-		unique_ptr<Render> Render::mBaseRender = nullptr;
+		unique_ptr<Render> Render::mRender = nullptr;
 
 		unique_ptr<Render> Render::GetRender(RenderType type, int iScreenWidth, int iScreenHeight, void* pWindowHandle)
 		{
@@ -12,15 +12,15 @@ namespace Mirage {
 			{
 #if defined(MIRAGE_PLATFORM_WINDOWS)
 			case RenderType::DirectX11:
-				if (mBaseRender == nullptr)
-					mBaseRender = unique_ptr<Render>(new RenderDX11(iScreenWidth, iScreenHeight, pWindowHandle));
-				return move(mBaseRender);
+				if (mRender == nullptr)
+					mRender = unique_ptr<Render>(new RenderDX11(iScreenWidth, iScreenHeight, pWindowHandle));
+				return move(mRender);
 #endif
 #if defined(MIRAGE_PLATFORM_LINUX)
 			case RenderType::OpenGL40:
-				if (mBaseRender == nullptr)
-					mBaseRender = unique_ptr<Render>(new RenderOGL4(iScreenWidth, iScreenHeight, pWindowHandle));
-				return move(mBaseRender);
+				if (mRender == nullptr)
+					mRender = unique_ptr<Render>(new RenderOGL4(iScreenWidth, iScreenHeight, pWindowHandle));
+				return move(mRender);
 #endif
 			}
 

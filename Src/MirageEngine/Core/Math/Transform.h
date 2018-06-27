@@ -27,51 +27,61 @@ namespace Mirage{
 				return s*r*t;
 			}
 
-			void SetTranslation(Vector3f t){
+			MEINLINE void SetTranslation(Vector3f t){
 				translation = t;
 			}
-			void SetTranslation(f32 x, f32 y, f32 z) {
+			MEINLINE void SetTranslation(f32 x, f32 y, f32 z) {
 				translation.x = x;
 				translation.y = y;
 				translation.z = z;
 			}
-			void AddTranslation(Vector3f t) {
+			MEINLINE void AddTranslation(Vector3f t) {
 				translation += t;
 			}
-			void AddTranslation(f32 x, f32 y, f32 z) {
+			MEINLINE void AddTranslation(f32 x, f32 y, f32 z) {
 				translation.x += x;
 				translation.y += y;
 				translation.z += z;
 			}
-			Vector3f GetTranslation(){
+			MEINLINE Vector3f GetTranslation(){
 				return translation;
 			}
-			void SetScale(Vector3f s) {
+			MEINLINE void SetScale(Vector3f s) {
 				scale = s;
 			}
-			void SetScale(f32 x, f32 y, f32 z) {
+			MEINLINE void SetScale(f32 x, f32 y, f32 z) {
 				scale.x = x;
 				scale.y = y;
 				scale.z = z;
 			}
-			void AddScale(Vector3f s) {
+			MEINLINE void SetScale(f32 v) {
+				scale.x = v;
+				scale.y = v;
+				scale.z = v;
+			}
+			MEINLINE void AddScale(Vector3f s) {
 				scale += s;
 			}
-			void AddScale(f32 x, f32 y, f32 z) {
+			MEINLINE void AddScale(f32 v) {
+				scale.x += v;
+				scale.y += v;
+				scale.z += v;
+			}
+			MEINLINE void AddScale(f32 x, f32 y, f32 z) {
 				scale.x += x;
 				scale.y += y;
 				scale.z += z;
 			}
-			Vector3f GetScale() {
+			MEINLINE Vector3f GetScale() {
 				return scale;
 			}
-			void SetRotate(f32 x, f32 y, f32 z) {
+			MEINLINE void SetRotate(f32 x, f32 y, f32 z) {
 				rotation.SetEular(x, y, z);
 			}
-			void AddRotate(f32 x, f32 y, f32 z) {
+			MEINLINE void AddRotate(f32 x, f32 y, f32 z) {
 				rotation *= Quaternionf::ConvertRotator(Rotaterf(x, y, z));
 			}
-			Quaternionf GetRotate() {
+			MEINLINE Quaternionf GetRotate() {
 				return rotation;
 			}
 

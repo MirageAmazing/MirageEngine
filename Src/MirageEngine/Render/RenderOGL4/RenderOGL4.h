@@ -7,7 +7,7 @@
 
 #include <GL/glew.h>
 #include <SDL2/SDL.h>
-#include "../BaseRender/BaseRender.h"
+#include "../Render/Render.h"
 #include "../Core/Math/Camera.h"
 #include "../Core/Math/Transform.h"
 

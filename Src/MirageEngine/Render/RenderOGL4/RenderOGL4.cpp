@@ -31,7 +31,7 @@ namespace Mirage {
 				glViewport(0, 0, iScreenWidth, iScreenHeight);
 			}
 
-			mCamera = std::unique_ptr<Camera>(new Camera(Vector3f(260, 0, 0), Vector3f(0, 0, 0), Vector3f(0, 1, 0), iScreenWidth, iScreenHeight));
+			mCamera = std::unique_ptr<Camera>(new Camera(Vector3f(0, 0, 20), Vector3f(0, 0, 0), Vector3f(0, 1, 0), iScreenWidth, iScreenHeight));
 			mCamera->SetProjPerspertiveType(eCameraProjPerspertiveType::PerspertiveV2);
 			PrepareResource();
 		}
@@ -184,7 +184,6 @@ namespace Mirage {
 			mProgramID = LoadShaders("../../MirageEngine/Resource/Shader/vs.glsl", "../../MirageEngine/Resource/Shader/ps.glsl");
 			mMatrixID = glGetUniformLocation(mProgramID, "MVP");
 			glUseProgram(mProgramID);
-
 		}
 
 		float anglea = 0;
@@ -193,10 +192,12 @@ namespace Mirage {
 			glClearColor(mClearColor[0], mClearColor[1], mClearColor[2], 1.0);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			
-			mCamera->SetViewLocation(Vector3f(10.0*cos(DegreeToRadians(anglea)), 0, 10.0*sin(DegreeToRadians(anglea))));
+			/*mCamera->SetViewLocation(Vector3f(10.0*cos(DegreeToRadians(anglea)), 0, 10.0*sin(DegreeToRadians(anglea))));
 			mCamera->SetViewTarget(Vector3f(0, 0, 0));
-			anglea += 0.04;
-			//mTransform.AddTranslation(5,0,0);
+			anglea += 0.04;*/
+			mTransform.AddTranslation(0.0005, 0, 0);
+			mTransform.AddRotate(0.001, 0, 0);
+			//mTransform.AddScale(0.001, 0, 0);
 			auto worldMat = mTransform.GetTransformMatrix().Transpose();
 			auto viewMat = mCamera->GetViewMatrix().Transpose();
 			auto projMat = mCamera->GetProjectionMatrix().Transpose();
