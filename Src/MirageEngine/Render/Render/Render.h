@@ -24,6 +24,8 @@ namespace Mirage {
 			void SetFullScreen(bool value);
 			void SetVsyncEnable(bool value);
 
+			void SetShader() {}
+
 			virtual void Frame();
 
 		protected:

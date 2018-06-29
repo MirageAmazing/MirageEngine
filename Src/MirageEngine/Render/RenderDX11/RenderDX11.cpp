@@ -30,6 +30,8 @@ namespace Mirage {
 			Matrix4x4<f32> mat;
 		};
 
+		RenderDX11* RenderDX11::mCurrentRedner = nullptr;
+
 		RenderDX11::RenderDX11(int iScreenWidth, int iScreenHeight, void* pWindowHandle) :
 			Render(iScreenWidth, iScreenHeight, pWindowHandle){
 			if (pWindowHandle == nullptr){
@@ -42,6 +44,8 @@ namespace Mirage {
 
 			EnvirmentCheck();
 			LoadShader();
+
+			mCurrentRedner = this;
 		}
 
 		RenderDX11::~RenderDX11()

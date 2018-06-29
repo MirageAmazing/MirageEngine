@@ -16,6 +16,11 @@ namespace Mirage {
 		using namespace Mirage::Math;
 
 		class RenderDX11 :public Render{
+		public :
+			static ID3D11Device* GetCurrentDevice() {
+				return mCurrentRedner == nullptr ? nullptr : mCurrentRedner->mDevice;
+			}
+
 		public:
 			RenderDX11(int iScreenWidth, int iScreenHeight, void* pWindowHandle);
 			~RenderDX11();
@@ -48,6 +53,8 @@ namespace Mirage {
 			ID3D11DepthStencilState* mDepthStencilState;
 			ID3D11DepthStencilView* mDepthStencilView;
 			ID3D11RasterizerState* mRasterizerState;
+
+			static RenderDX11* mCurrentRedner;
 		};
 	}
 }
