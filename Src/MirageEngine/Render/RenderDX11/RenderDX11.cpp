@@ -33,7 +33,7 @@ namespace Mirage {
 		RenderDX11* RenderDX11::mCurrentRedner = nullptr;
 
 		RenderDX11::RenderDX11(int iScreenWidth, int iScreenHeight, void* pWindowHandle) :
-			Render(iScreenWidth, iScreenHeight, pWindowHandle){
+			Render(iScreenWidth, iScreenHeight, pWindowHandle, RenderType::DirectX11){
 			if (pWindowHandle == nullptr){
 				// TODO: Exception
 				return;

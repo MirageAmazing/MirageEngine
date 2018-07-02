@@ -13,7 +13,7 @@ namespace Mirage {
 	namespace Render {
 
 		RenderOGL4::RenderOGL4(int iScreenWidth, int iScreenHeight, void* pWindowHandle)
-			:Render(iScreenWidth, iScreenHeight, pWindowHandle){				
+			:Render(iScreenWidth, iScreenHeight, pWindowHandle, RenderType::OpenGL40){
 			mWindow = (SDL_Window*)pWindowHandle;
 
 			auto context = SDL_GL_CreateContext(mWindow);

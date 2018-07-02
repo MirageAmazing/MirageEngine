@@ -1,4 +1,5 @@
 #pragma once
+#include "MirageEngine.h"
 #include <string>
 #include <tuple>
 
@@ -30,14 +31,48 @@ namespace Mirage {
 		*/
 		class Shader {
 		public:
-			Shader(tuple<VertexShader, PixelShader> shaders) {
-			}
-			Shader(tuple<VertexShader, HullShader, DomainShader, GeometryShader, PixelShader> shaders) {
-			}
+			Shader() {
+			}			
 			~Shader() {
 			}
 
 		private:
+		};
+
+		template<class VS, class HS, class DS class GS, class PS>
+		class ShaderContainer :Shader {
+		public:
+			ShaderContainer(shared_ptr<VS> vs, shared_ptr<HS> hs, shared_ptr<DS> ds, shared_ptr<GS> gs, shared_ptr<PS> ps) :
+				Shader() {
+				mVs = vs;
+				mHs = hs;
+				mDs = ds;
+				mGs = gs;
+				mPs = ps;
+			}
+
+			MEINLINE shared_ptr<VS> GetVertexShader() {
+				return mVs;
+			}
+			MEINLINE shared_ptr<HS> GetHullShader() {
+				return mHs;
+			}
+			MEINLINE shared_ptr<DS> GetDomainShader() {
+				return mDs;
+			}
+			MEINLINE shared_ptr<GS> GetGeometryShader() {
+				return mGs;
+			}
+			MEINLINE shared_ptr<PS> GetPixelShader() {
+				return mPs;
+			}
+
+		private:
+			shared_ptr<VS> mVs;
+			shared_ptr<HS> mHs;
+			shared_ptr<DS> mDs;
+			shared_ptr<GS> mGs;
+			shared_ptr<PS> mPs;
 		};
 
 		/*

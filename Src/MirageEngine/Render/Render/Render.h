@@ -15,11 +15,12 @@ namespace Mirage {
 		class Render
 		{
 		public:
-			Render(int iScreenWidth, int iScreenHeight, void* pWindowHandle);
+			Render(int iScreenWidth, int iScreenHeight, void* pWindowHandle, RenderType renderType);
 			Render(Render&& render);
 			virtual ~Render();
 			Render(Render&) = delete;
 
+			RenderType GetRenderType();
 			void SetClearColor(float r, float g, float b);
 			void SetFullScreen(bool value);
 			void SetVsyncEnable(bool value);
@@ -40,10 +41,8 @@ namespace Mirage {
 			bool mFullScreen = false;
 			bool mVsyncEnabled = false;
 			int mVideoCardMemory = 0;
-
-		public:
-			static unique_ptr<Render> GetRender(RenderType type, int iScreenWidth, int iScreenHeight, void* pWindowHandle);
-
+			RenderType mRenderType;
+		
 		private:
 			static unique_ptr<Render> mRender;
 		};

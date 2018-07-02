@@ -6,32 +6,12 @@ namespace Mirage {
 	namespace Render {
 		unique_ptr<Render> Render::mRender = nullptr;
 
-		unique_ptr<Render> Render::GetRender(RenderType type, int iScreenWidth, int iScreenHeight, void* pWindowHandle)
-		{
-			switch (type)
-			{
-#if defined(MIRAGE_PLATFORM_WINDOWS)
-			case RenderType::DirectX11:
-				if (mRender == nullptr)
-					mRender = unique_ptr<Render>(new RenderDX11(iScreenWidth, iScreenHeight, pWindowHandle));
-				return move(mRender);
-#endif
-#if defined(MIRAGE_PLATFORM_LINUX)
-			case RenderType::OpenGL40:
-				if (mRender == nullptr)
-					mRender = unique_ptr<Render>(new RenderOGL4(iScreenWidth, iScreenHeight, pWindowHandle));
-				return move(mRender);
-#endif
-			}
-
-			return nullptr;
-		}
-
-		Render::Render(int iScreenWidth, int iScreenHeight, void* pWindowHandle)
+		Render::Render(int iScreenWidth, int iScreenHeight, void* pWindowHandle, RenderType renderType)
 		{
 			mRenderWidth = iScreenWidth;
 			mRenderHeight = iScreenHeight;
 			mWindowHandle = pWindowHandle;
+			mRenderType = renderType;
 		}
 
 		Render::Render(Render&& render)
@@ -44,6 +24,10 @@ namespace Mirage {
 
 		Render::~Render()
 		{
+		}
+
+		RenderType Render::GetRenderType() {
+			return mRenderType;
 		}
 
 		bool Render::EnvirmentCheck()
