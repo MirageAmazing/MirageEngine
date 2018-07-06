@@ -7,8 +7,7 @@ namespace Mirage {
 		class ResTexture :public IResElement
 		{
 		public:
-			ResTexture() {
-				mElementType = eResElementType::Texture;
+			ResTexture():IResElement(eResElementType::Texture) {
 			}
 		};
 	}

@@ -2,11 +2,14 @@
 #if defined(MIRAGE_PLATFORM_WINDOWS)
 
 #include "RenderDX11.h"
+#include "ShaderDX11.h"
 #include "d3dcompiler.h"
 #include "HAL/IOBase.h"
 #include "Math/Vector3.h"
 #include "Math/Color.h"
 #include "Math/Matrix.h"
+
+#include <memory>
 
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "d3dcompiler.lib")
@@ -14,6 +17,7 @@
 namespace Mirage {
 	namespace Render {
 
+		using namespace std;
 		using namespace Mirage::Math;
 
 		struct Vertex {
@@ -562,6 +566,40 @@ namespace Mirage {
 			mDeviceContext->DrawIndexed(COUNT, 0, 0);
 
 			mSwapChain->Present(mVsyncEnabled ? 1 : 0, 0);
+		}
+
+		ShaderComplieResult_Ptr RenderDX11::LoadOrComplieShader(string source, ShaderType type) {
+			LPCSTR entrypoint = "main";
+			LPCSTR profile = "";
+			switch (type) {
+			case ShaderType::VertexShader:
+				profile = "vs_5_0";
+				break;
+			case ShaderType::HullShader:
+				profile = "hs_5_0";
+				break;
+			case ShaderType::DomainShader:
+				profile = "ds_5_0";
+				break;
+			case ShaderType::GeometryShader:
+				profile = "gs_5_0";
+				break;
+			case ShaderType::PixelShader:
+				profile = "ps_5_0";
+				break;
+			}
+
+			UINT flags = D3DCOMPILE_ENABLE_STRICTNESS;
+#if defined( DEBUG ) || defined( _DEBUG )
+			flags |= D3DCOMPILE_DEBUG;
+#endif
+			ID3DBlob* shaderBlob = nullptr;
+			ID3DBlob* errorBlob = nullptr;
+
+			HRESULT hr = D3DCompile(source.data(), source.size(), nullptr, nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, 
+				entrypoint, profile, flags, 0, &shaderBlob, &errorBlob);
+
+			return make_shared<ShaderComplieResultDX11>(type, !FAILED(hr), shaderBlob, errorBlob);
 		}
 	}
 }

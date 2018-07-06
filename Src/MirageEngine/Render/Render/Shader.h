@@ -18,6 +18,8 @@ namespace Mirage {
 			GeometryShader,
 			PixelShader,
 			ComputeShader,
+
+			ErrorType
 		};
 		class VertexShader;
 		class HullShader;
@@ -39,7 +41,7 @@ namespace Mirage {
 		private:
 		};
 
-		template<class VS, class HS, class DS class GS, class PS>
+		template<class VS, class HS, class DS, class GS, class PS>
 		class ShaderContainer :Shader {
 		public:
 			ShaderContainer(shared_ptr<VS> vs, shared_ptr<HS> hs, shared_ptr<DS> ds, shared_ptr<GS> gs, shared_ptr<PS> ps) :
@@ -118,5 +120,31 @@ namespace Mirage {
 		public:
 			ComputeShader() :BaseShader(ShaderType::ComputeShader) {}
 		};
+
+		/*
+		The result of complie shader
+		*/
+		class ShaderComplieResult {
+		public:
+			ShaderComplieResult() {
+				mType = ShaderType::ErrorType;
+			}
+			ShaderComplieResult(ShaderType type) {
+				mType = type;
+			}
+			ShaderComplieResult(ShaderComplieResult& in) {
+				mType = in.mType;
+			}
+			virtual ~ShaderComplieResult() {
+			}
+
+			ShaderType GetType() {
+				return mType;
+			}
+		protected:
+			ShaderType mType;
+		};
+
+		using ShaderComplieResult_Ptr = shared_ptr<ShaderComplieResult>;
 	}
 }

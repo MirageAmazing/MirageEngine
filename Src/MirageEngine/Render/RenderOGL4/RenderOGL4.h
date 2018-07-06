@@ -8,6 +8,7 @@
 #include <GL/glew.h>
 #include <SDL2/SDL.h>
 #include "../Render/Render.h"
+#include "../RenderOGL4/ShaderOGL4.h"
 #include "../Core/Math/Camera.h"
 #include "../Core/Math/Transform.h"
 
@@ -24,10 +25,13 @@ namespace Mirage {
 		public:
 			RenderOGL4(int iScreenWidth, int iScreenHeight, void* pWindowHandle);
 			~RenderOGL4();
+						
+			void Frame() override;
+			ShaderComplieResult_Ptr LoadOrComplieShader(string source, ShaderType type) override;
+
 			GLuint LoadShaders(const char* vs, const char* ps);
 			void PrepareResource();
-			void Frame() override;
-
+			
 		protected:
 			void OnSetClearColor() override;
 

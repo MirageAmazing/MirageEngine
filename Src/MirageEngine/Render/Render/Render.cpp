@@ -57,5 +57,9 @@ namespace Mirage {
 		void Render::Frame(){
 
 		}
+
+		ShaderComplieResult_Ptr Render::LoadOrComplieShader(string source, ShaderType type) {
+
+		}
 	}
 }

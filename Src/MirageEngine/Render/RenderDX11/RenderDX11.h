@@ -26,6 +26,7 @@ namespace Mirage {
 			~RenderDX11();
 
 			void Frame() override;
+			ShaderComplieResult_Ptr LoadOrComplieShader(string source, ShaderType type) override;
 
 		protected:
 			bool EnvirmentCheck() override;

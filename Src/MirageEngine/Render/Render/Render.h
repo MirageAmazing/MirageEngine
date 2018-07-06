@@ -1,7 +1,9 @@
 #pragma once
 
 #include <memory>
+#include <string>
 #include "../../Core/HAL/Platform.h"
+#include "Shader.h"
 using namespace std;
 
 namespace Mirage {
@@ -29,6 +31,7 @@ namespace Mirage {
 
 			virtual void Frame();
 
+			virtual ShaderComplieResult_Ptr LoadOrComplieShader(string source, ShaderType type);
 		protected:
 			virtual bool EnvirmentCheck();
 			virtual void OnSetClearColor();

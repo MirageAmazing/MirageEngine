@@ -124,5 +124,37 @@ namespace Mirage {
 		private:
 			shared_ptr<ID3D11ComputeShader> mComputeShader;
 		};
+
+		class ShaderComplieResultDX11 :public ShaderComplieResult {
+		public:
+			ShaderComplieResultDX11(ShaderType type, bool isNormal, shared_ptr<ID3DBlob> shader, shared_ptr<ID3DBlob> errorInfo):
+				ShaderComplieResult(type) {
+			}
+			ShaderComplieResultDX11(ShaderComplieResultDX11& in):ShaderComplieResult(in){
+				mIsNormal = in.mIsNormal;
+				mShader = in.mShader;
+				mErrorInfo = in.mErrorInfo;
+			}
+			~ShaderComplieResultDX11() {
+				mShader->Release();
+				mErrorInfo->Release();
+			}
+
+			bool IsNormal() {
+				return mIsNormal;
+			}
+			shared_ptr<ID3DBlob> Shader() {
+				return mShader;
+			}
+			shared_ptr<ID3DBlob> ErrorInfo() {
+				return mErrorInfo;
+			}
+		private:
+			bool mIsNormal;
+			shared_ptr<ID3DBlob> mShader;
+			shared_ptr<ID3DBlob> mErrorInfo;
+		};
+
+		using ShaderComplieResultDX11_Ptr = shared_ptr<ShaderComplieResultDX11>;
 	}
 }

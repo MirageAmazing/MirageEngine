@@ -12,8 +12,7 @@ namespace Mirage {
 		class ResMesh :public IResElement
 		{
 		public:
-			ResMesh(){
-				mElementType = eResElementType::Mesh;
+			ResMesh():IResElement(eResElementType::Mesh) {
 			}
 			~ResMesh() {
 			}
@@ -21,9 +20,6 @@ namespace Mirage {
 		public:
 			void SetVertexs(list<VertexFormat> vertexs) {
 				mVertexList = vertexs;
-			}
-			void AddVertex(Vertex vertex) {
-				mVertexList.push_back(vertex);
 			}
 			list<VertexFormat> GetVertexs() {
 				return mVertexList;

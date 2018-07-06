@@ -33,9 +33,10 @@ namespace Mirage{
 			IResElement(ResMesh&) {}
 
 		public:
-			IResElement()
+			IResElement(eResElementType type)
 			{
 				//mGuid = MirageMath::GenerateUID();
+				mElementType = type;
 			}
 			virtual ~IResElement() {}
 

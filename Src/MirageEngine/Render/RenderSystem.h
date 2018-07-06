@@ -8,6 +8,7 @@ The system of render for Mirage.
 #include "Render/Render.h"
 #include "RenderDX11/RenderDX11.h"
 #include "RenderOGL4/RenderOGL4.h"
+#include "Render/Shader.h"
 
 using namespace std;
 
@@ -29,12 +30,12 @@ namespace Mirage {
 #if defined(MIRAGE_PLATFORM_WINDOWS)
 				case RenderType::DirectX11:			
 					render = shared_ptr<Render>(new RenderDX11(iScreenWidth, iScreenHeight, pWindowHandle));
-					mRenderHeap.push_back(render);
+					mRender = render;
 					break;
 #endif
 				case RenderType::OpenGL40:
 					render = shared_ptr<Render>(new RenderOGL4(iScreenWidth, iScreenHeight, pWindowHandle));
-					mRenderHeap.push_back(render);
+					mRender = render;
 					break;
 				default:
 					break;;
@@ -46,18 +47,25 @@ namespace Mirage {
 			}
 
 			void Tick() {
-				for (auto render : mRenderHeap) {
-					render->SetClearColor(0, mColor, mColor);
-					render->Frame();
+				if (mRender != nullptr) {
+					mRender->SetClearColor(0, mColor, mColor);
+					mRender->Frame();
 
 					if (mColor > 1) mColor = 0;
 					else mColor += 0.00001f;
 				}
 			}
 			
+			ShaderComplieResult_Ptr ComplieShader(string source, ShaderType type) {
+				if (source.length() == 0)
+					return nullptr;
+
+				return mRender->LoadOrComplieShader(source, type);
+			}
+
 		private:
 			float mColor = 0;
-			list<shared_ptr<Render>> mRenderHeap;
+			shared_ptr<Render> mRender;
 
 			friend ISystem<RenderSystem>;
 		};

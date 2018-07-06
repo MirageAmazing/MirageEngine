@@ -45,6 +45,7 @@ namespace Mirage {
 		{
 
 		}
+
 		GLuint RenderOGL4::LoadShaders(const char* vs, const char* ps)
 		{
 			GLuint vsID = glCreateShader(GL_VERTEX_SHADER);
@@ -231,5 +232,44 @@ namespace Mirage {
 
 			SDL_GL_SwapWindow(mWindow);
 		}
+
+		ShaderComplieResult_Ptr RenderOGL4::LoadOrComplieShader(string source, ShaderType type) {
+			GLuint shaderID = 0;
+			string vsErrorMsg{ "" };
+
+			switch (type) {
+			case ShaderType::VertexShader:
+				shaderID = glCreateShader(GL_VERTEX_SHADER);
+				break;
+			case ShaderType::HullShader:
+				shaderID = glCreateShader(GL_TESS_CONTROL_SHADER);
+				break;
+			case ShaderType::DomainShader:
+				shaderID = glCreateShader(GL_TESS_EVALUATION_SHADER);
+				break;
+			case ShaderType::GeometryShader:
+				shaderID = glCreateShader(GL_GEOMETRY_SHADER);
+				break;
+			case ShaderType::PixelShader:
+				shaderID = glCreateShader(GL_FRAGMENT_SHADER);
+				break;
+			}
+
+			GLint r = GL_FALSE;
+			int infoLogLength;
+			const char* pointer = source.c_str();
+			glShaderSource(shaderID, 1, &pointer, nullptr);
+			glCompileShader(shaderID);
+
+			glGetShaderiv(shaderID, GL_COMPILE_STATUS, &r);
+			glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &infoLogLength);
+			if (infoLogLength > 0) {
+				vsErrorMsg.resize(infoLogLength + 1);
+				glGetShaderInfoLog(shaderID, infoLogLength, nullptr, &vsErrorMsg[0]);
+			}
+
+			return make_shared<ShaderComplieResultOGL4>(type, r == GL_TRUE, shaderID, vsErrorMsg);
+		}
+
 	}
 }
