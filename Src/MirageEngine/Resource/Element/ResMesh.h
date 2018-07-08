@@ -12,7 +12,9 @@ namespace Mirage {
 		class ResMesh :public IResElement
 		{
 		public:
-			ResMesh():IResElement(eResElementType::Mesh) {
+			ResMesh(list<VertexFormat>& vertexs, list<uint32>& indices):IResElement(eResElementType::Mesh) {
+				mVertexList = vertexs;
+				mIndices = indices;
 			}
 			~ResMesh() {
 			}
