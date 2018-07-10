@@ -59,7 +59,7 @@ namespace Mirage {
 		}
 
 		ShaderComplieResult_Ptr Render::LoadOrComplieShader(string source, ShaderType type) {
-
+			return nullptr;
 		}
 	}
 }

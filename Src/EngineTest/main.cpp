@@ -119,15 +119,7 @@ void TestMain()
 		vn = vn1;
 
 	auto rs = Mirage::Resource::ResouceSystem::GetInstance();
-	auto meshData = rs->CreateMeshRes();
-	Mirage::Resource::Vertex v1, v2, v3;
-	v1.position = Vector3f(0.0f, 0.0f, 0.0f);
-	v2.position = Vector3f(10, 10, 10);
-	v3.position = Vector3f(10, 10, 0);
-	meshData->AddVertex(v1);
-	meshData->AddVertex(v2);
-	meshData->AddVertex(v3);
-
+	
 	auto ispod = std::is_pod<Vector3f>::value;
 
 	auto r1 = DegreeToRadians(180);

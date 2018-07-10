@@ -43,7 +43,8 @@ namespace Mirage {
 				return render;
 			}
 			void DestoryRender(RenderPtr render) {
-				mRenderHeap.remove(render);
+				if (mRender != nullptr)
+					mRender.~shared_ptr();
 			}
 
 			void Tick() {

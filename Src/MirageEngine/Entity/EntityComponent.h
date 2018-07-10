@@ -26,6 +26,6 @@ namespace Mirage {
 			MEUID mUID;
 		};
 
-		using EntityComponentPtr = unique_ptr<EntityComponent>;
+		using EntityComponentPtr = shared_ptr<EntityComponent>;
 	}
 }

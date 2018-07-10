@@ -2,6 +2,7 @@
 #include "MirageEngine.h"
 #include <string>
 #include <tuple>
+#include <memory>
 
 namespace Mirage {
 	namespace Render {

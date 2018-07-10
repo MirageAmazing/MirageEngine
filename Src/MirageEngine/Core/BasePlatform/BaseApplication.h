@@ -16,7 +16,7 @@ namespace Mirage {
 
 			virtual void Tick() {}
 
-			BaseWindow* CreateWindow(WindowDescription WindowDes) const {
+			BaseWindow* CreateSingleWindow(WindowDescription WindowDes) const {
 				return nullptr;
 			}
 			bool DestoryWindow(BaseWindow& window) const {
