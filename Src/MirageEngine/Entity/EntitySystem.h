@@ -1,7 +1,7 @@
 #pragma once
 #include "../Core/Framework/ISystem.h"
 #include "../Core/HAL/MMalloc.h"
-#include "Entity.h"
+#include "./Entity/ActorEntity.h"
 #include <list>
 #include <algorithm>
 
@@ -17,14 +17,14 @@ namespace Mirage {
 			{
 			}
 			
-			EntityPtr CreateEntity(const char* name) {
+			EntityPtr CreateActorEntity(const char* name) {
 				if (name == nullptr)
 					return nullptr;
 				Core::MMalloc mm;
-				auto entity = mm.New<Entity>(name);
+				auto entity = mm.New<ActorEntity>(name);
 				mEntityHeap.push_back(entity);
 			}
-			void DestoryEntity(const char* name) {
+			void DestoryActorEntity(const char* name) {
 				auto r = find(mEntityHeap.begin(), mEntityHeap.end(), [](auto item) {
 					return item->Name() == name;
 				});

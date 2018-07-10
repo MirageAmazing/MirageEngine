@@ -17,13 +17,24 @@ namespace Mirage {
 		class Entity;
 		using EntityPtr = Entity*;
 
+		enum class EntityType {
+			Actor,
+
+			Error
+		};
+
 		class Entity{
 		protected:
+			Entity(EntityType type) {
+				mType = type;
+			}
 			Entity(const char* name) {
 				mUID = Mirage::Math::GenerateUID();
 				mName = name;
 			}
-			virtual ~Entity() {}
+			virtual ~Entity() {
+				
+			}
 		
 			virtual void Start() {}
 			virtual void End() {
@@ -43,8 +54,14 @@ namespace Mirage {
 					
 
 		public:
-			const char* Name() {
+			const char* GetName() {
 				return mName;
+			}
+			EntityType GetType() {
+				return mType;
+			}
+			void SetName(const char* name) {
+				mName = name;
 			}
 			EntityComponentPtr AddComponent(EntityComponentPtr component) {
 				if (component != nullptr)
@@ -64,6 +81,7 @@ namespace Mirage {
 			Transform mTransform;
 
 		private:
+			EntityType mType;
 			const char* mName;
 
 			vector<EntityComponentPtr> mEntityComList;
