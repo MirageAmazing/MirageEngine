@@ -2,6 +2,7 @@
 
 #include "../../MirageEngine.h"
 #include "../../Core/Math/MEMath.h"
+#include "../../Core/MObject/MObject.h"
 
 namespace Mirage{
 	namespace Resource {
@@ -25,7 +26,7 @@ namespace Mirage{
 		/*
 		 Basic type of resouce element.
 		*/
-		class IResElement
+		class IResElement: public MObject
 		{
 		public:
 			MEINLINE eResElementType GetType() { return mElementType; }

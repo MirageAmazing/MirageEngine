@@ -33,9 +33,8 @@ namespace Mirage{
 				mWindowPtr.release();
 			}
 			virtual void Tick() override {
+				Application::Tick();
 				mWindowPtr->Tick();
-				mRenderSystem->Tick();
-
 				mIsQuit = mWindowPtr->IsQuit();
 			}
 

@@ -11,9 +11,17 @@ namespace Mirage {
 		class ActorEntity : public Entity{
 		public:
 			ActorEntity() :Entity(EntityType::Actor) {
-				AddComponent(make_shared<TransformComponent>());
+				auto transform = make_shared<TransformComponent>();
+				AddComponent(transform);
+				mTransform = transform->GetTransform();
 			}
-		};
 
+			TransformPtr GetTransform() const {
+				return mTransform;
+			}
+
+		private:
+			TransformPtr mTransform;
+		};
 	}
 }

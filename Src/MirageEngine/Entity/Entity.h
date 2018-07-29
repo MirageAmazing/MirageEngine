@@ -3,6 +3,8 @@
 #include <memory>
 #include <algorithm>
 #include "..\Core\Core.h"
+#include "..\Core\HAL\MMalloc.h"
+#include "..\Core\MObject\MObject.h"
 #include "..\Core\Math\MEMath.h"
 #include "..\Core\Math\Transform.h"
 #include "EntityComponent.h"
@@ -23,7 +25,7 @@ namespace Mirage {
 			Error
 		};
 
-		class Entity{
+		class Entity : public MObject{
 		protected:
 			Entity(EntityType type) {
 				mType = type;
@@ -36,7 +38,8 @@ namespace Mirage {
 				
 			}
 		
-			virtual void Start() {}
+			virtual void Start() {
+			}
 			virtual void End() {
 				for (auto item : mEntityComList) {
 					item->End();
@@ -50,8 +53,13 @@ namespace Mirage {
 					child->Tick();
 				}
 			}
-			virtual void Activite(bool value) {}
-					
+			virtual void Activite(bool value) {
+				mActivite = value;
+			}
+			
+			MEINLINE bool IsActivite() {
+				return mActivite;
+			}
 
 		public:
 			const char* GetName() {
@@ -63,17 +71,26 @@ namespace Mirage {
 			void SetName(const char* name) {
 				mName = name;
 			}
-			EntityComponentPtr AddComponent(EntityComponentPtr component) {
+
+			template<class T>
+			shared_ptr<T> AddComponent() {
+				auto component = Core::mmalloc.MakeShared();
 				if (component != nullptr)
 				{
 					component->Start();
-					mEntityComList.push_back(component);
+					auto baseComponent = dynamic_pointer_cast<EntityComponent>(component);
+					mEntityComList.push_back(baseComponent);
+					return true;
 				}
+				return component;
 			}
-			void RemoveComponent(EntityComponentPtr component) {
-				auto pos = find(mEntityComList.begin(), mEntityComList.end(), component);
+
+			template<class T>
+			void RemoveComponent(shared_ptr<FromEntityComponentType(T)> component) {
+				auto baseComponent = dynamic_pointer_cast<EntityComponent>(component);
+				auto pos = find(mEntityComList.begin(), mEntityComList.end(), baseComponent);
 				if (pos == mEntityComList.end())
-					component->End();
+					baseComponent->End();
 				mEntityComList.erase(pos);
 			}
 			
@@ -83,6 +100,8 @@ namespace Mirage {
 		private:
 			EntityType mType;
 			const char* mName;
+
+			bool mActivite = true;
 
 			vector<EntityComponentPtr> mEntityComList;
 

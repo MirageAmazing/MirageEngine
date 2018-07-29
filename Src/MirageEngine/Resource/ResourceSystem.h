@@ -14,7 +14,7 @@ using namespace Mirage;
 namespace Mirage {
 	namespace Resource {
 
-		class ResouceSystem final :public ISystem<ResouceSystem>{
+		class ResouceSystem final :public System<ResouceSystem>{
 		public:
 			virtual void Initialize() override
 			{
@@ -65,7 +65,7 @@ namespace Mirage {
 		private:
 			unordered_set<shared_ptr<IResElement>> mResElementHeap;
 
-			friend ISystem<ResouceSystem>;
+			friend System<ResouceSystem>;
 		};
 
 	}

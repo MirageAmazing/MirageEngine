@@ -2,6 +2,7 @@
 #include "..\Core\Core.h"
 #include "..\Core\Math\MEMath.h"
 #include <memory>
+#include <type_traits>
 using namespace std;
 
 namespace Mirage {
@@ -27,5 +28,7 @@ namespace Mirage {
 		};
 
 		using EntityComponentPtr = shared_ptr<EntityComponent>;
+
+		#define FromEntityComponentType(T) enable_if<is_base_of<EntityComponent, T>::value, T>::type
 	}
 }

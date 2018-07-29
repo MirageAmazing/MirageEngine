@@ -8,21 +8,24 @@
 namespace Mirage {
 	namespace Entity {
 		
-		class EntitySystem :ISystem<EntitySystem>{
+		class EntitySystem : public System<EntitySystem>{
 		public:
 			virtual void Initialize() override
 			{
+				System::Initialize();
 			}
 			virtual void UnInitialize() override
 			{
+				System::UnInitialize();
 			}
 			
-			EntityPtr CreateActorEntity(const char* name) {
+			ActorEntity* CreateActorEntity(const char* name) {
 				if (name == nullptr)
 					return nullptr;
 				Core::MMalloc mm;
 				auto entity = mm.New<ActorEntity>(name);
 				mEntityHeap.push_back(entity);
+				return entity;
 			}
 			void DestoryActorEntity(const char* name) {
 				auto r = find(mEntityHeap.begin(), mEntityHeap.end(), [](auto item) {
@@ -37,7 +40,7 @@ namespace Mirage {
 				}
 			}
 
-			void Tick(){
+			virtual void Tick() override {
 				for (auto item:mEntityHeap){
 					if(item != nullptr)
 						item->Tick();
@@ -55,7 +58,8 @@ namespace Mirage {
 		private:
 			std::list<EntityPtr> mEntityHeap;
 
-			friend ISystem<EntitySystem>;
+			friend class System<EntitySystem>;
 		};
+
 	}
 }

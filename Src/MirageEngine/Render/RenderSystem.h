@@ -15,7 +15,7 @@ using namespace std;
 namespace Mirage {
 	namespace Render {
 		
-		class RenderSystem : public ISystem<RenderSystem> {
+		class RenderSystem : public System<RenderSystem> {
 		public:
 			virtual void Initialize() override
 			{
@@ -48,6 +48,7 @@ namespace Mirage {
 			}
 
 			void Tick() {
+				System<RenderSystem>::Tick();
 				if (mRender != nullptr) {
 					mRender->SetClearColor(0, mColor, mColor);
 					mRender->Frame();
@@ -68,7 +69,7 @@ namespace Mirage {
 			float mColor = 0;
 			shared_ptr<Render> mRender;
 
-			friend ISystem<RenderSystem>;
+			friend System<RenderSystem>;
 		};
 
 	}
