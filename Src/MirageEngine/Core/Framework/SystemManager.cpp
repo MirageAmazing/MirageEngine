@@ -26,7 +26,7 @@ namespace Mirage {
 			for (auto item : mInstance->mSystemMap) {
 				item.second->UnInitialize();
 			}
-			Core::mmalloc.Delete<SystemManager>(mInstance);
+			Core::mmalloc.Delete<SystemManager>(*mInstance);
 		}
 		mInstance = nullptr;
 	}

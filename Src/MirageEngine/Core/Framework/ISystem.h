@@ -96,6 +96,6 @@ namespace Mirage
 	template<class T>
 	bool System<T>::mBeShutdown = false;
 
-	#define FromISystemType(T) enable_if<is_base_of<ISystem, T>::value, T>::type
+	#define FromISystemType(T) typename enable_if<is_base_of<ISystem, T>::value, T>::type
 
 }

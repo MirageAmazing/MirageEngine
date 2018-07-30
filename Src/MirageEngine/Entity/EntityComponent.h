@@ -29,6 +29,6 @@ namespace Mirage {
 
 		using EntityComponentPtr = shared_ptr<EntityComponent>;
 
-		#define FromEntityComponentType(T) enable_if<is_base_of<EntityComponent, T>::value, T>::type
+		#define FromEntityComponentType(T) typename enable_if<is_base_of<EntityComponent, T>::value, T>::type
 	}
 }

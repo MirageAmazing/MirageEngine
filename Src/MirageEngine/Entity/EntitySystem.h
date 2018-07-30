@@ -2,6 +2,7 @@
 #include "../Core/Framework/ISystem.h"
 #include "../Core/HAL/MMalloc.h"
 #include "./Entity/ActorEntity.h"
+#include <string.h>
 #include <list>
 #include <algorithm>
 
@@ -28,14 +29,14 @@ namespace Mirage {
 				return entity;
 			}
 			void DestoryActorEntity(const char* name) {
-				auto r = find(mEntityHeap.begin(), mEntityHeap.end(), [](auto item) {
-					return item->Name() == name;
+				auto r = find(mEntityHeap.begin(), mEntityHeap.end(), [&](auto item) {
+					return strcmp(item->GetName(), name) == 0;
 				});
 				if (r != mEntityHeap.end())
 				{
 					Core::MMalloc mm;
 					auto entity = (*r);
-					mm.Delete<Entity>(entity);
+					mm.Delete<Entity>(*entity);
 					mEntityHeap.remove(entity);
 				}
 			}
@@ -47,7 +48,7 @@ namespace Mirage {
 				}
 			}
 
-		protected:
+		public:
 			EntitySystem(){
 				mVersion = Mirage::Math::VersionNumber(0, 0, 1);
 			}

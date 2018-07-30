@@ -26,7 +26,7 @@ namespace Mirage {
 		};
 
 		class Entity : public MObject{
-		protected:
+		public:
 			Entity(EntityType type) {
 				mType = type;
 			}
@@ -74,20 +74,19 @@ namespace Mirage {
 
 			template<class T>
 			shared_ptr<T> AddComponent() {
-				auto component = Core::mmalloc.MakeShared();
+				auto component = Core::mmalloc.MakeShared<T>();
 				if (component != nullptr)
 				{
 					component->Start();
-					auto baseComponent = dynamic_pointer_cast<EntityComponent>(component);
+					auto baseComponent = dynamic_pointer_cast<EntityComponent, T>(component);
 					mEntityComList.push_back(baseComponent);
-					return true;
 				}
 				return component;
 			}
 
 			template<class T>
 			void RemoveComponent(shared_ptr<FromEntityComponentType(T)> component) {
-				auto baseComponent = dynamic_pointer_cast<EntityComponent>(component);
+				auto baseComponent = dynamic_pointer_cast<EntityComponent, T>(component);
 				auto pos = find(mEntityComList.begin(), mEntityComList.end(), baseComponent);
 				if (pos == mEntityComList.end())
 					baseComponent->End();

@@ -49,6 +49,7 @@ namespace Mirage {
 		map<string, shared_ptr<ISystem>> mSystemMap;
 
 		static SystemManager* mInstance;
+		friend class Core::MMalloc;
 	};
 
 }
