@@ -19,9 +19,9 @@ namespace Mirage {
 		bool RegisterSystem(shared_ptr<FromISystemType(T)> system) {
 			if (system == nullptr) return false;
 			string name = system->GetSystemName();
-			if (mSystemMap.find(name) == mSystemMap.end()) return false;
+			//if (mSystemMap.find(name) == mSystemMap.end() && mSystemMap.size() > 0) return false;
 
-			shared_ptr<ISystem> systemInterface = dynamic_pointer_cast<ISystem>(system);
+			shared_ptr<ISystem> systemInterface = static_pointer_cast<ISystem>(system);
 			mSystemMap[name] = systemInterface;
 			return true;
 		}

@@ -29,15 +29,11 @@ namespace Mirage {
 				return entity;
 			}
 			void DestoryActorEntity(const char* name) {
-				auto r = find(mEntityHeap.begin(), mEntityHeap.end(), [&](auto item) {
-					return strcmp(item->GetName(), name) == 0;
-				});
-				if (r != mEntityHeap.end())
-				{
-					Core::MMalloc mm;
-					auto entity = (*r);
-					mm.Delete<Entity>(*entity);
-					mEntityHeap.remove(entity);
+				for (auto item : mEntityHeap){
+					if (strcmp(item->GetName(), name) == 0) {
+						Core::mmalloc.Delete<Entity>(item);
+						mEntityHeap.remove(item);
+					}
 				}
 			}
 

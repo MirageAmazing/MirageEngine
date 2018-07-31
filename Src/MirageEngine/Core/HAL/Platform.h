@@ -129,3 +129,6 @@ typedef const char* CStyleStr;
 #else
 	#define MEINLINE inline
 #endif
+
+// NoExcept(Only CPP version higher than C++0x)
+#define ME_NOEXCEPT noexcept

@@ -12,12 +12,12 @@ namespace Mirage
 	 */
 	class ISystem {
 	public:
-		virtual void Initialize() = 0;
-		virtual void UnInitialize() = 0;
-		virtual void Tick() = 0;
-		virtual bool IsInitialize() = 0;
-		virtual bool IsBeShutdown() = 0;
-		virtual string GetSystemName() = 0;
+		virtual void Initialize() {};
+		virtual void UnInitialize() {};
+		virtual void Tick() {};
+		virtual bool IsInitialize() { return false; };
+		virtual bool IsBeShutdown() { return false; };
+		virtual string GetSystemName() { return ""; };
 	};
 
 	/**

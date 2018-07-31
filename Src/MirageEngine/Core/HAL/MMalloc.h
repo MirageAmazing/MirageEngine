@@ -7,6 +7,7 @@ using namespace std;
 
 namespace Mirage {
 	namespace Core {
+
 		/**
 		* /brief The malloc for Mirage, I'll use jemalloc as the basic malloc.
 		*/
@@ -50,6 +51,11 @@ namespace Mirage {
 				ptr.~T();
 				Free(&ptr);
 			}
+			template<class T>
+			MEINLINE void Delete(T* ptr) {
+				if(ptr != nullptr);
+					Free(ptr);
+			}
 
 			template<class T, class... _Types>
 			MEINLINE shared_ptr<T> MakeShared(_Types&&... _Args) {
@@ -66,8 +72,14 @@ namespace Mirage {
 		};
 
 		/**
+		* /brief Get the global malloc for Mirage.
+		*/
+
+		MMalloc& GetGlobalMalloc();
+
+		/**
 		 * /brief The global malloc for Mirage.
 		 */
-		MMalloc mmalloc;
+		#define mmalloc GetGlobalMalloc()
 	}
 }
