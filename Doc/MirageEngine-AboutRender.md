@@ -5,5 +5,5 @@
 vertexbuff, indexbuff, Shader，Shader params，texture
 ## 渲染管线
 forward, deferred, SRP(scriptable render pipeline), HDR pipeline </br>
-lighting, shadowmap, global illumation, post-process(HDR, AA, AO) </br>
+lighting, shadowmap, global illumation, post-process(HDR, AA, AO, etc) </br>
 pysically based rendering, custom-material

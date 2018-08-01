@@ -12,19 +12,19 @@ namespace Mirage
 	 */
 	class ISystem {
 	public:
-		virtual void Initialize() {};
-		virtual void UnInitialize() {};
-		virtual void Tick() {};
-		virtual bool IsInitialize() { return false; };
-		virtual bool IsBeShutdown() { return false; };
-		virtual string GetSystemName() { return ""; };
+		virtual void Initialize() = 0;
+		virtual void UnInitialize() = 0;
+		virtual void Tick() = 0;
+		virtual bool IsInitialize() = 0;
+		virtual bool IsBeShutdown() = 0;
+		virtual string GetSystemName() = 0;
 	};
 
 	/**
 	 * /brief The base of all system
 	 */
 	template<class T>
-	class System : ISystem
+	class System : public ISystem
 	{
 	public:		
 		static shared_ptr<T> GetInstance()

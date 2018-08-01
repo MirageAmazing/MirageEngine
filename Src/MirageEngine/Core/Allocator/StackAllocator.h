@@ -4,23 +4,29 @@
 #include <memory>
 #include <list>
 
-class StackAllocator:public AllocatorBase<StackAllocator>
-{
-public:
-	explicit StackAllocator(size_t size);
-	StackAllocator(StackAllocator&& alloctor);
-	~StackAllocator();
+namespace Mirage {
+	namespace Core {
 
-	StackAllocator() = delete;
-	StackAllocator& operator = (const StackAllocator&) = delete;
+		class StackAllocator :public AllocatorBase<StackAllocator>
+		{
+		public:
+			explicit StackAllocator(size_t size);
+			StackAllocator(StackAllocator&& alloctor);
+			~StackAllocator();
 
-	void* Allocate(size_t size);
-	bool Free(void* objectPointer, size_t size);
-	void Clear();
+			StackAllocator() = delete;
+			StackAllocator& operator = (const StackAllocator&) = delete;
 
-private:
-	char* startPointer = nullptr;
-	char* endPointer = nullptr;
-	char* pointer = nullptr;
-	MemoryPool::Memory* memory = nullptr;
-};
+			void* Allocate(size_t size);
+			bool Free(void* objectPointer, size_t size);
+			void Clear();
+
+		private:
+			char* startPointer = nullptr;
+			char* endPointer = nullptr;
+			char* pointer = nullptr;
+			MemoryPool::Memory* memory = nullptr;
+		};
+
+	}
+}

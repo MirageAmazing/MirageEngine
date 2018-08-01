@@ -34,13 +34,20 @@ namespace Mirage {
 			MMalloc() {}
 			~MMalloc() {}
 
-
+			/*
+			 * /todo will use je_malloc replace malloc on all platform.
+			 */
 			MEINLINE void* Malloc(size_t size) {
 				return malloc(size);
 			}
+
+			/*
+			* /todo will use je_free replace free on all platform.
+			*/
 			MEINLINE void Free(void* ptr) {
 				free(ptr);
 			}
+
 			template<class T, class... _Types>
 			MEINLINE T* New(_Types&&... _Args) {
 				auto ptr = Malloc(sizeof(T));
@@ -72,9 +79,8 @@ namespace Mirage {
 		};
 
 		/**
-		* /brief Get the global malloc for Mirage.
-		*/
-
+		 * /brief Get the global malloc for Mirage.
+		 */
 		MMalloc& GetGlobalMalloc();
 
 		/**

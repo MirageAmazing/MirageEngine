@@ -25,6 +25,7 @@ namespace Mirage {
 			mSystemMap[name] = systemInterface;
 			return true;
 		}
+
 		template<class T>
 		bool UnregisterSystem(shared_ptr<FromISystemType(T)> system)
 		{
@@ -40,6 +41,7 @@ namespace Mirage {
 
 			return true;
 		}
+
 		void Tick();
 
 	private:

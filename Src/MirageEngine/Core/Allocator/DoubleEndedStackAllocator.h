@@ -3,24 +3,30 @@
 #include "AllocatorBase.h"
 #include <memory>
 
-class DoubleEndedStackAllocator:public AllocatorBase<DoubleEndedStackAllocator>
-{
-public:
-	explicit DoubleEndedStackAllocator(size_t size);
+namespace Mirage {
+	namespace Core {
 
-	DoubleEndedStackAllocator() = delete;
-	DoubleEndedStackAllocator& operator = (const DoubleEndedStackAllocator&) = delete;
+		class DoubleEndedStackAllocator :public AllocatorBase<DoubleEndedStackAllocator>
+		{
+		public:
+			explicit DoubleEndedStackAllocator(size_t size);
 
-	void* AllocFromStart(size_t size);
-	void* AllocFromEnd(size_t size);
-	bool FreeBaseStart(void* pointer, size_t size);
-	bool FreeBaseEnd(void* pointer, size_t size);
-	void Clear();
+			DoubleEndedStackAllocator() = delete;
+			DoubleEndedStackAllocator& operator = (const DoubleEndedStackAllocator&) = delete;
 
-private:
-	char* startPointer = nullptr;
-	char* endPointer = nullptr;
-	char* pointerFromStart = nullptr;
-	char* pointerFromEnd = nullptr;
-	MemoryPool::Memory* memory = nullptr;
-};
+			void* AllocFromStart(size_t size);
+			void* AllocFromEnd(size_t size);
+			bool FreeBaseStart(void* pointer, size_t size);
+			bool FreeBaseEnd(void* pointer, size_t size);
+			void Clear();
+
+		private:
+			char* startPointer = nullptr;
+			char* endPointer = nullptr;
+			char* pointerFromStart = nullptr;
+			char* pointerFromEnd = nullptr;
+			MemoryPool::Memory* memory = nullptr;
+		};
+
+	}
+}

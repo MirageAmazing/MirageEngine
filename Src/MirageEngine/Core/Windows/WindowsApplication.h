@@ -20,6 +20,7 @@ namespace Mirage{
 		class WindowsApplication :public Application
 		{
 		public:
+
 			WindowsApplication() {
 				RenderType renderType = RenderType::DirectX11;
 
@@ -29,9 +30,11 @@ namespace Mirage{
 				mRenderSystem->CreateRender(renderType, size.x, size.y, 
 					renderType == RenderType::DirectX11 ? (void*)(mWindowPtr->GetHWND()) : mWindowPtr->GetWindowHandle());
 			}
+
 			~WindowsApplication() {
 				mWindowPtr.release();
 			}
+
 			virtual void Tick() override {
 				Application::Tick();
 				mWindowPtr->Tick();
@@ -39,6 +42,7 @@ namespace Mirage{
 			}
 
 		private:
+
 			shared_ptr<RenderSystem> mRenderSystem;
 			unique_ptr<WindowsWindow> mWindowPtr;
 		};

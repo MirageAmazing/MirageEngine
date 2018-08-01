@@ -22,16 +22,21 @@ namespace Mirage {
 			virtual ~Render();
 			Render(Render&) = delete;
 
+			virtual void Frame();
+
 			RenderType GetRenderType();
 			void SetClearColor(float r, float g, float b);
 			void SetFullScreen(bool value);
 			void SetVsyncEnable(bool value);
 
-			void SetShader() {}
+			template<class T>
+			virtual void SetShader(FromShaderType(T) shader) {}
 
-			virtual void Frame();
+			virtual void DrawIndex() {};
+			virtual void DrawInstance() {};
 
 			virtual ShaderComplieResult_Ptr LoadOrComplieShader(string source, ShaderType type);
+
 		protected:
 			virtual bool EnvirmentCheck();
 			virtual void OnSetClearColor();

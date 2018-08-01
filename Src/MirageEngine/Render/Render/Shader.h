@@ -3,6 +3,7 @@
 #include <string>
 #include <tuple>
 #include <memory>
+#include <type_traits>
 
 namespace Mirage {
 	namespace Render {
@@ -43,7 +44,7 @@ namespace Mirage {
 		};
 
 		template<class VS, class HS, class DS, class GS, class PS>
-		class ShaderContainer :Shader {
+		class ShaderContainer :public Shader {
 		public:
 			ShaderContainer(shared_ptr<VS> vs, shared_ptr<HS> hs, shared_ptr<DS> ds, shared_ptr<GS> gs, shared_ptr<PS> ps) :
 				Shader() {
@@ -147,5 +148,7 @@ namespace Mirage {
 		};
 
 		using ShaderComplieResult_Ptr = shared_ptr<ShaderComplieResult>;
+
+		#define FromShaderType(T) FromBaseType(Shader, T)
 	}
 }
