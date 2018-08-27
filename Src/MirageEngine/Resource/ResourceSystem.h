@@ -41,6 +41,7 @@ namespace Mirage {
 			bool DeleteShaderRes(shared_ptr<ResShader> resShader) {
 				return DeleteRes(dynamic_pointer_cast<IResElement>(resShader));
 			}
+
 		public:
 			ResouceSystem()
 			{

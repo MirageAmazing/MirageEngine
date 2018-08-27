@@ -30,7 +30,7 @@ namespace Mirage {
 			void SetVsyncEnable(bool value);
 
 			template<class T>
-			virtual void SetShader(FromShaderType(T) shader) {}
+			void SetShader(FromShaderType(T) shader) {}
 
 			virtual void DrawIndex() {};
 			virtual void DrawInstance() {};

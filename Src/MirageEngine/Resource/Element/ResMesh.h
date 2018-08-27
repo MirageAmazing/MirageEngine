@@ -23,13 +23,13 @@ namespace Mirage {
 			void SetVertexs(list<VertexFormat> vertexs) {
 				mVertexList = vertexs;
 			}
-			list<VertexFormat> GetVertexs() {
+			list<VertexFormat>& GetVertexs() {
 				return mVertexList;
 			}
 			void SetIndices(list<uint32> indices) {
 				mIndices = indices;
 			}
-			list<uint32> GetIndices() {
+			list<uint32>& GetIndices() {
 				return mIndices;
 			}
 			void Clear() {

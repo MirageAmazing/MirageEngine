@@ -48,7 +48,8 @@ namespace Mirage
 		virtual void UnInitialize(){
 			mBeShutdown = true;
 		}
-		virtual void Tick() {}
+		virtual void Tick() {
+		}
 
 		void Shutdown()
 		{

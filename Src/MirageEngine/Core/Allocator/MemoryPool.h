@@ -5,7 +5,9 @@
 
 namespace Mirage{
 	namespace Core {
-
+		/// <summary>
+		/// The pool of memory contain all memory what allocated by various allocater.
+		/// </summary>
 		class MemoryPool
 		{
 		public:
@@ -49,6 +51,8 @@ namespace Mirage{
 			MemoryNode* freeListNode = nullptr;
 			size_t wholeSize = 0;
 			static MemoryPool* Instance;
+
+			friend class MMalloc;
 		};
 
 	}

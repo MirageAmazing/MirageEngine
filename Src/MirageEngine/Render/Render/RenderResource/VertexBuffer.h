@@ -8,6 +8,8 @@ namespace Mirage {
 		public:
 			VertexBuffer() {}
 			virtual ~VertexBuffer() {}
+
+
 		};
 
 	}
